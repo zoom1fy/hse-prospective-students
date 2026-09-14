@@ -1,0 +1,447 @@
+import type { Faculty, Program, ProgramWithContext, University } from "@/types";
+
+export const universities: University[] = [
+  {
+    id: "hse",
+    slug: "hse",
+    name: "Национальный исследовательский университет «Высшая школа экономики»",
+    shortName: "НИУ ВШЭ",
+    city: "Москва",
+    founded: 1992,
+    ranking: 1,
+    rating: 4.8,
+    students: 52000,
+    about:
+      "Ведущий исследовательский университет в области экономики, социальных и компьютерных наук. Кампусы в Москве, Санкт-Петербурге, Нижнем Новгороде и Перми.",
+    tags: ["Информатика", "Экономика", "Социальные науки", "Дизайн"],
+    website: "https://www.hse.ru",
+    facultyIds: ["hse-fcs", "hse-fes"],
+  },
+  {
+    id: "msu",
+    slug: "msu",
+    name: "Московский государственный университет имени М. В. Ломоносова",
+    shortName: "МГУ",
+    city: "Москва",
+    founded: 1755,
+    ranking: 2,
+    rating: 4.7,
+    students: 40000,
+    about:
+      "Старейший университет России, крупнейший научно-образовательный центр страны с широким спектром естественно-научных и гуманитарных направлений.",
+    tags: ["Математика", "Физика", "Естественные науки", "Экономика"],
+    website: "https://www.msu.ru",
+    facultyIds: ["msu-vmk", "msu-econ"],
+  },
+  {
+    id: "mipt",
+    slug: "mipt",
+    name: "Московский физико-технический институт",
+    shortName: "МФТИ",
+    city: "Долгопрудный",
+    founded: 1951,
+    ranking: 3,
+    rating: 4.9,
+    students: 7000,
+    about:
+      "Легендарный «Физтех» с уникальной системой обучения в связке с научными институтами. Сильнейшая подготовка по физике, математике и IT.",
+    tags: ["Физика", "Математика", "IT", "Искусственный интеллект"],
+    website: "https://mipt.ru",
+    facultyIds: ["mipt-fpmi"],
+  },
+  {
+    id: "itmo",
+    slug: "itmo",
+    name: "Национальный исследовательский университет ИТМО",
+    shortName: "ИТМО",
+    city: "Санкт-Петербург",
+    founded: 1900,
+    ranking: 4,
+    rating: 4.8,
+    students: 15000,
+    about:
+      "Семь раз признанный лучшим вузом России в сфере IT. Лидер в олимпиадном программировании и междисциплинарных исследованиях.",
+    tags: ["IT", "Программирование", "Робототехника", "Фотоника"],
+    website: "https://itmo.ru",
+    facultyIds: ["itmo-ait"],
+  },
+  {
+    id: "spbu",
+    slug: "spbu",
+    name: "Санкт-Петербургский государственный университет",
+    shortName: "СПбГУ",
+    city: "Санкт-Петербург",
+    founded: 1724,
+    ranking: 5,
+    rating: 4.5,
+    students: 30000,
+    about:
+      "Один из старейших и крупнейших университетов России, богатая история математической и естественно-научной школ.",
+    tags: ["Математика", "Естественные науки", "Гуманитарные науки"],
+    website: "https://spbu.ru",
+    facultyIds: ["spbu-mathmech"],
+  },
+  {
+    id: "bmstu",
+    slug: "bmstu",
+    name: "Московский государственный технический университет имени Н. Э. Баумана",
+    shortName: "МГТУ им. Баумана",
+    city: "Москва",
+    founded: 1830,
+    ranking: 6,
+    rating: 4.6,
+    students: 20000,
+    about:
+      "Ведущий инженерный университет страны. Готовит специалистов мирового уровня в области техники, информатики и систем управления.",
+    tags: ["Инженерия", "Информатика", "Робототехника", "Аэрокосмос"],
+    website: "https://bmstu.ru",
+    facultyIds: ["bmstu-iu"],
+  },
+];
+
+export const faculties: Faculty[] = [
+  {
+    id: "hse-fcs",
+    slug: "computer-science",
+    name: "Факультет компьютерных наук",
+    shortName: "ФКН",
+    about:
+      "Совместный факультет НИУ ВШЭ и Яндекса. Программы по современным направлениям computer science и software engineering.",
+  },
+  {
+    id: "hse-fes",
+    slug: "economics",
+    name: "Факультет экономических наук",
+    shortName: "ФЭН",
+    about: "Одна из сильнейших экономических школ России с международными программами.",
+  },
+  {
+    id: "msu-vmk",
+    slug: "computational-mathematics",
+    name: "Факультет вычислительной математики и кибернетики",
+    shortName: "ВМК",
+    about: "Классическая школа прикладной математики и кибернетики МГУ.",
+  },
+  {
+    id: "msu-econ",
+    slug: "economics",
+    name: "Экономический факультет",
+    shortName: "Экономический факультет",
+    about: "Фундаментальная экономическая подготовка с сильной математической базой.",
+  },
+  {
+    id: "mipt-fpmi",
+    slug: "applied-math-and-informatics",
+    name: "Физтех-школа прикладной математики и информатики",
+    shortName: "ФПМИ",
+    about: "Объединение сильнейших кафедр МФТИ в области математики, IT и ИИ.",
+  },
+  {
+    id: "itmo-ait",
+    slug: "information-technologies-and-programming",
+    name: "Факультет информационных технологий и программирования",
+    shortName: "ФИТиП",
+    about: "Кузница чемпионов мира по олимпиадному программированию.",
+  },
+  {
+    id: "spbu-mathmech",
+    slug: "mathematics-and-mechanics",
+    name: "Математико-механический факультет",
+    shortName: "Матмех",
+    about: "Легендарный матмех СПбГУ с трёхсотлетней научной традицией.",
+  },
+  {
+    id: "bmstu-iu",
+    slug: "informatics-and-control-systems",
+    name: "Факультет информатики и систем управления",
+    shortName: "ИУ",
+    about: "Инженерные программы по вычислительной технике, робототехнике и ПО.",
+  },
+];
+
+export const programs: Program[] = [
+  {
+    id: "hse-fcs-pi",
+    slug: "applied-informatics",
+    name: "Прикладная информатика",
+    about:
+      "Программа готовит инженеров данных и разработчиков, способных проектировать информационные системы полного цикла.",
+    degree: "bachelor",
+    form: "full-time",
+    durationYears: 4,
+    budgetPlaces: 180,
+    paidPlaces: 120,
+    tuitionPerYear: 480000,
+    deadline: "2027-07-25",
+    languages: ["Русский", "Английский"],
+    exams: ["Математика (профиль)", "Информатика", "Русский язык"],
+    career: ["Backend-разработчик", "Аналитик данных", "ML-инженер", "Продуктовый менеджер"],
+    universityId: "hse",
+    facultyId: "hse-fcs",
+  },
+  {
+    id: "hse-fcs-se",
+    slug: "software-engineering",
+    name: "Программная инженерия",
+    about:
+      "Проектирование и разработка сложных программных систем: архитектура, тестирование, DevOps и управление продуктом.",
+    degree: "bachelor",
+    form: "full-time",
+    durationYears: 4,
+    budgetPlaces: 120,
+    paidPlaces: 90,
+    tuitionPerYear: 520000,
+    deadline: "2027-07-25",
+    languages: ["Русский", "Английский"],
+    exams: ["Математика (профиль)", "Информатика", "Русский язык"],
+    career: ["Software Engineer", "Техлид", "DevOps-инженер", "Архитектор ПО"],
+    universityId: "hse",
+    facultyId: "hse-fcs",
+  },
+  {
+    id: "hse-fcs-ds",
+    slug: "data-science",
+    name: "Науки о данных",
+    about:
+      "Магистерская программа о машинном обучении, больших данных и построении интеллектуальных систем принятия решений.",
+    degree: "master",
+    form: "full-time",
+    durationYears: 2,
+    budgetPlaces: 60,
+    paidPlaces: 40,
+    tuitionPerYear: 560000,
+    deadline: "2027-08-10",
+    languages: ["Русский", "Английский"],
+    exams: ["Портфолио", "Собеседование"],
+    career: ["Data Scientist", "ML-инженер", "Исследователь", "Руководитель AI-направления"],
+    universityId: "hse",
+    facultyId: "hse-fcs",
+  },
+  {
+    id: "hse-fes-econ",
+    slug: "economics",
+    name: "Экономика",
+    about:
+      "Современная экономическая теория, эконометрика и анализ данных с акцентом на практические исследования.",
+    degree: "bachelor",
+    form: "full-time",
+    durationYears: 4,
+    budgetPlaces: 250,
+    paidPlaces: 300,
+    tuitionPerYear: 450000,
+    deadline: "2027-07-25",
+    languages: ["Русский", "Английский"],
+    exams: ["Математика (профиль)", "Обществознание", "Русский язык"],
+    career: ["Аналитик", "Экономист", "Инвестиционный аналитик", "Консультант"],
+    universityId: "hse",
+    facultyId: "hse-fes",
+  },
+  {
+    id: "msu-vmk-pmi",
+    slug: "applied-mathematics",
+    name: "Прикладная математика и информатика",
+    about:
+      "Фундаментальная математическая подготовка в сочетании с программированием и вычислительными методами.",
+    degree: "bachelor",
+    form: "full-time",
+    durationYears: 4,
+    budgetPlaces: 300,
+    paidPlaces: 80,
+    tuitionPerYear: 430000,
+    deadline: "2027-07-20",
+    languages: ["Русский"],
+    exams: ["Математика (профиль)", "Информатика", "Русский язык"],
+    career: ["Разработчик", "Исследователь", "Аналитик", "Преподаватель"],
+    universityId: "msu",
+    facultyId: "msu-vmk",
+  },
+  {
+    id: "msu-econ-econ",
+    slug: "economics",
+    name: "Экономика",
+    about: "Классическое экономическое образование с глубокой математической базой.",
+    degree: "bachelor",
+    form: "full-time",
+    durationYears: 4,
+    budgetPlaces: 200,
+    paidPlaces: 150,
+    tuitionPerYear: 420000,
+    deadline: "2027-07-20",
+    languages: ["Русский"],
+    exams: ["Математика (профиль)", "Обществознание", "Русский язык"],
+    career: ["Экономист", "Финансовый аналитик", "Банковский специалист"],
+    universityId: "msu",
+    facultyId: "msu-econ",
+  },
+  {
+    id: "mipt-fpmi-pmi",
+    slug: "applied-mathematics-and-computer-science",
+    name: "Прикладная математика и информатика",
+    about: "Программа Физтеха с индивидуальной траекторией и научной работой в институтах РАН.",
+    degree: "bachelor",
+    form: "full-time",
+    durationYears: 4,
+    budgetPlaces: 220,
+    paidPlaces: 30,
+    tuitionPerYear: 600000,
+    deadline: "2027-07-22",
+    languages: ["Русский", "Английский"],
+    exams: ["Математика (профиль)", "Физика", "Русский язык"],
+    career: ["Исследователь", "Разработчик", "Инженер-математик", "Учёный"],
+    universityId: "mipt",
+    facultyId: "mipt-fpmi",
+  },
+  {
+    id: "itmo-ait-se",
+    slug: "software-engineering",
+    name: "Программная инженерия",
+    about: "Практико-ориентированная программа с фокусом на промышленной разработке и алгоритмах.",
+    degree: "bachelor",
+    form: "full-time",
+    durationYears: 4,
+    budgetPlaces: 150,
+    paidPlaces: 100,
+    tuitionPerYear: 470000,
+    deadline: "2027-07-18",
+    languages: ["Русский", "Английский"],
+    exams: ["Математика (профиль)", "Информатика", "Русский язык"],
+    career: ["Разработчик", "Алгоритмист", "Team Lead", "CTO"],
+    universityId: "itmo",
+    facultyId: "itmo-ait",
+  },
+  {
+    id: "spbu-mathmech-math",
+    slug: "mathematics",
+    name: "Математика",
+    about: "Глубокая подготовка по чистой и прикладной математике в старейшей школе России.",
+    degree: "bachelor",
+    form: "full-time",
+    durationYears: 4,
+    budgetPlaces: 160,
+    paidPlaces: 60,
+    tuitionPerYear: 380000,
+    deadline: "2027-07-20",
+    languages: ["Русский"],
+    exams: ["Математика (профиль)", "Информатика", "Русский язык"],
+    career: ["Математик", "Аналитик", "Разработчик", "Исследователь"],
+    universityId: "spbu",
+    facultyId: "spbu-mathmech",
+  },
+  {
+    id: "bmstu-iu-ivt",
+    slug: "computing-machines-and-software",
+    name: "Вычислительные машины, комплексы, системы и сети",
+    about:
+      "Инженерная программа о проектировании вычислительной техники, встраиваемых систем и робототехники.",
+    degree: "specialist",
+    form: "full-time",
+    durationYears: 5.5,
+    budgetPlaces: 140,
+    paidPlaces: 70,
+    tuitionPerYear: 400000,
+    deadline: "2027-07-15",
+    languages: ["Русский"],
+    exams: ["Математика (профиль)", "Физика", "Русский язык"],
+    career: ["Инженер-программист", "Embedded-разработчик", "Робототехник", "Системный инженер"],
+    universityId: "bmstu",
+    facultyId: "bmstu-iu",
+  },
+];
+
+const universityById = new Map(universities.map((item) => [item.id, item]));
+const facultyById = new Map(faculties.map((item) => [item.id, item]));
+
+export function getUniversity(slug: string): University | undefined {
+  return universities.find((item) => item.slug === slug);
+}
+
+export function getFaculty(id: string): Faculty | undefined {
+  return facultyById.get(id);
+}
+
+export function getFaculties(university: University): Faculty[] {
+  return university.facultyIds
+    .map((id) => facultyById.get(id))
+    .filter((item): item is Faculty => Boolean(item));
+}
+
+export function getProgramsByUniversity(universityId: string): Program[] {
+  return programs.filter((item) => item.universityId === universityId);
+}
+
+export function getProgramsByFaculty(facultyId: string): Program[] {
+  return programs.filter((item) => item.facultyId === facultyId);
+}
+
+export function getProgram(universitySlug: string, programSlug: string): Program | undefined {
+  const university = getUniversity(universitySlug);
+  if (!university) return undefined;
+  return programs.find((item) => item.universityId === university.id && item.slug === programSlug);
+}
+
+export function withContext(program: Program): ProgramWithContext | undefined {
+  const university = universityById.get(program.universityId);
+  const faculty = facultyById.get(program.facultyId);
+  if (!university || !faculty) return undefined;
+  return { ...program, university, faculty };
+}
+
+export function getAllProgramsWithContext(): ProgramWithContext[] {
+  return programs.map(withContext).filter((item): item is ProgramWithContext => Boolean(item));
+}
+
+export function getPopularPrograms(limit = 6): ProgramWithContext[] {
+  return getAllProgramsWithContext()
+    .sort((a, b) => b.university.rating - a.university.rating)
+    .slice(0, limit);
+}
+
+export function getOpenAdmissions(limit = 5): ProgramWithContext[] {
+  return getAllProgramsWithContext()
+    .filter((item) => new Date(item.deadline).getTime() > Date.now())
+    .sort((a, b) => new Date(a.deadline).getTime() - new Date(b.deadline).getTime())
+    .slice(0, limit);
+}
+
+export function getTopUniversities(limit = 6): University[] {
+  return [...universities].sort((a, b) => a.ranking - b.ranking).slice(0, limit);
+}
+
+export interface UniversityFilters {
+  query?: string;
+  city?: string;
+  degree?: string;
+  form?: string;
+  budgetOnly?: boolean;
+}
+
+export function filterPrograms(filters: UniversityFilters): ProgramWithContext[] {
+  const query = filters.query?.trim().toLowerCase();
+
+  return getAllProgramsWithContext().filter((item) => {
+    if (query) {
+      const haystack =
+        `${item.name} ${item.university.name} ${item.university.shortName} ${item.faculty.name}`.toLowerCase();
+      if (!haystack.includes(query)) return false;
+    }
+    if (filters.city && filters.city !== "all" && item.university.city !== filters.city) {
+      return false;
+    }
+    if (filters.degree && filters.degree !== "all" && item.degree !== filters.degree) {
+      return false;
+    }
+    if (filters.form && filters.form !== "all" && item.form !== filters.form) {
+      return false;
+    }
+    if (filters.budgetOnly && item.budgetPlaces <= 0) {
+      return false;
+    }
+    return true;
+  });
+}
+
+export function getCities(): string[] {
+  return [...new Set(universities.map((item) => item.city))].sort((a, b) =>
+    a.localeCompare(b, "ru"),
+  );
+}
