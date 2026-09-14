@@ -36,7 +36,7 @@ export function SiteHeader() {
     <header className="border-border bg-background/80 sticky top-0 z-40 border-b backdrop-blur">
       <Container className="flex h-32 items-center justify-between gap-6">
         <Link href="/" aria-label={siteConfig.name}>
-          <span className="text-heading text-3xl font-semibold tracking-tight">
+          <span className="text-heading text-3xl font-bold tracking-tight">
             {siteConfig.name}
           </span>
         </Link>
