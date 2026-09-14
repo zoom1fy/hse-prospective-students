@@ -6,6 +6,7 @@ import { useState } from "react";
 
 import { Container } from "@/components/ui/container";
 import { buttonVariants } from "@/components/ui/button";
+import { ThemeToggle } from "@/components/layout/theme-toggle";
 import { siteConfig } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
@@ -38,7 +39,7 @@ export function SiteHeader() {
           <span className="bg-brand-600 flex size-9 items-center justify-center rounded-xl text-sm font-bold text-white">
             {siteConfig.shortName}
           </span>
-          <span className="text-base font-semibold tracking-tight">{siteConfig.name}</span>
+          <span className="text-heading text-base font-semibold tracking-tight">{siteConfig.name}</span>
         </Link>
 
         <nav className="hidden items-center gap-1 md:flex">
@@ -47,14 +48,16 @@ export function SiteHeader() {
           ))}
         </nav>
 
-        <div className="hidden items-center gap-2 md:flex">
-          <Link href="/dashboard" className={buttonVariants({ variant: "secondary", size: "sm" })}>
-            Личный кабинет
-          </Link>
-          <Link href="/dashboard/applications" className={buttonVariants({ size: "sm" })}>
-            Мои заявки
-          </Link>
-        </div>
+        <div className="flex items-center gap-2">
+          <ThemeToggle />
+          <div className="hidden items-center gap-2 md:flex">
+            <Link href="/dashboard" className={buttonVariants({ variant: "secondary", size: "sm" })}>
+              Личный кабинет
+            </Link>
+            <Link href="/dashboard/applications" className={buttonVariants({ size: "sm" })}>
+              Мои заявки
+            </Link>
+          </div>
           <button
             type="button"
             onClick={() => setOpen((value) => !value)}

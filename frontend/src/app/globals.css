@@ -1,43 +1,94 @@
 @import "tailwindcss";
 
-@theme {
+/* Тёмная тема включается классом .dark на <html> (светлая — по умолчанию) */
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme static {
+  /* --- Основная палитра --- */
+  --color-brand-50: #f1f3fa;
+  --color-brand-100: #e2e6f6;
+  --color-brand-200: #cad2ed;
+  --color-brand-300: #acb8e1;
+  --color-brand-400: #8a98cf;
+  --color-brand-500: #6675b8;
+  --color-brand-600: #374b9b;
+  --color-brand-700: #2f4188;
+  --color-brand-800: #273979;
+  --color-brand-900: #1b2f6c;
+  --color-brand-950: #0f2d69;
+
+  /* Нейтральная шкала из основной палитры */
+  --color-ink-200: #e6e7e8;
+  --color-ink-400: #c7c8ca;
+  --color-ink-600: #939598;
+
+  /* --- Палитры подразделений --- */
+  /* Точные науки: математика, физика, программирование */
+  --color-exact-100: #cddcf0;
+  --color-exact-500: #7da0d2;
+  --color-exact-600: #0fa0d7;
+
+  /* Естественные науки: биология, химия */
+  --color-natural-100: #d7ebb4;
+  --color-natural-500: #46a0a0;
+  --color-natural-600: #009b64;
+
+  /* Социальные науки: социология, политология, юриспруденция */
+  --color-social-100: #ffdc91;
+  --color-social-500: #eb8c3c;
+  --color-social-600: #eb691e;
+
+  /* Гуманитарные науки + дизайн, медиа, архитектура */
+  --color-humanities-100: #d7c3f0;
+  --color-humanities-500: #96648c;
+  --color-humanities-600: #7d50b9;
+
+  /* Бизнес и управление */
+  --color-business-100: #f5c3c3;
+  --color-business-500: #cd5a5a;
+  --color-business-600: #e61e3c;
+
+  /* Довузовское образование */
+  --color-preuniv-100: #fff07d;
+  --color-preuniv-500: #ffd746;
+  --color-preuniv-600: #fab900;
+
   --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, monospace;
-
-  --color-brand-50: #eef3ff;
-  --color-brand-100: #dbe5ff;
-  --color-brand-200: #bed0ff;
-  --color-brand-300: #92b0ff;
-  --color-brand-400: #5f86fc;
-  --color-brand-500: #3a5ef6;
-  --color-brand-600: #243eeb;
-  --color-brand-700: #1c2fd8;
-  --color-brand-800: #1d29af;
-  --color-brand-900: #1e2a8a;
-  --color-brand-950: #171c54;
 }
 
+/* --- Светлая тема (по умолчанию) --- */
 :root {
-  --background: #f6f7fb;
-  --foreground: #18181b;
+  color-scheme: light;
+  --background: #e6e7e8;
+  --foreground: #1a1d23;
+  --heading: #0f2d69;
   --surface: #ffffff;
-  --border: #e4e4e7;
+  --surface-muted: #f3f4f5;
+  --border: #c7c8ca;
+  --muted: #939598;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #09090b;
-    --foreground: #fafafa;
-    --surface: #18181b;
-    --border: #27272a;
-  }
+/* --- Тёмная тема --- */
+.dark {
+  color-scheme: dark;
+  --background: #0b1226;
+  --foreground: #e6e7e8;
+  --heading: #f4f6fb;
+  --surface: #101b33;
+  --surface-muted: #1a2747;
+  --border: #2a3860;
+  --muted: #a6a8ab;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-heading: var(--heading);
   --color-surface: var(--surface);
+  --color-surface-muted: var(--surface-muted);
   --color-border: var(--border);
+  --color-muted: var(--muted);
 }
 
 * {
@@ -54,6 +105,11 @@ body {
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+}
+
+h1,
+h2 {
+  color: var(--heading);
 }
 
 ::selection {

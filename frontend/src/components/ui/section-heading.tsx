@@ -18,7 +18,7 @@ export function SectionHeading({
   return (
     <div className={cn("flex flex-wrap items-end justify-between gap-4", className)} {...props}>
       <div className="max-w-2xl">
-        <h2 className="text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">
+        <h2 className="text-heading text-2xl font-semibold tracking-tight sm:text-3xl">
           {title}
         </h2>
         {description ? (
