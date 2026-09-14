@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "tw-animate-css";
 
 /* Тёмная тема включается классом .dark на <html> (светлая — по умолчанию) */
 @custom-variant dark (&:where(.dark, .dark *));
@@ -55,6 +56,21 @@
 
   --font-sans: var(--font-hse-sans), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+}
+
+@theme {
+  --animate-fade-in-down: fade-in-down 0.15s ease-out;
+
+  @keyframes fade-in-down {
+    from {
+      opacity: 0;
+      transform: translateY(-0.25rem);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
 }
 
 /* --- Светлая тема (по умолчанию) --- */

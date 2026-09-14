@@ -41,6 +41,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     >
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeInit }} />
+        <link rel="icon" type="image/png" href="/favicon.png" />
       </head>
       <body className="flex min-h-full flex-col antialiased">{children}</body>
     </html>
