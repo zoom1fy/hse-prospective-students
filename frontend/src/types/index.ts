@@ -24,6 +24,7 @@ export interface Program {
   budgetPlaces: number;
   paidPlaces: number;
   tuitionPerYear: number;
+  minScore: number;
   deadline: string;
   languages: string[];
   exams: string[];

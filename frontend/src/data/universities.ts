@@ -172,6 +172,7 @@ export const programs: Program[] = [
     budgetPlaces: 180,
     paidPlaces: 120,
     tuitionPerYear: 480000,
+    minScore: 78,
     deadline: "2027-07-25",
     languages: ["Русский", "Английский"],
     exams: ["Математика (профиль)", "Информатика", "Русский язык"],
@@ -191,6 +192,7 @@ export const programs: Program[] = [
     budgetPlaces: 120,
     paidPlaces: 90,
     tuitionPerYear: 520000,
+    minScore: 82,
     deadline: "2027-07-25",
     languages: ["Русский", "Английский"],
     exams: ["Математика (профиль)", "Информатика", "Русский язык"],
@@ -210,6 +212,7 @@ export const programs: Program[] = [
     budgetPlaces: 60,
     paidPlaces: 40,
     tuitionPerYear: 560000,
+    minScore: 85,
     deadline: "2027-08-10",
     languages: ["Русский", "Английский"],
     exams: ["Портфолио", "Собеседование"],
@@ -229,6 +232,7 @@ export const programs: Program[] = [
     budgetPlaces: 250,
     paidPlaces: 300,
     tuitionPerYear: 450000,
+    minScore: 75,
     deadline: "2027-07-25",
     languages: ["Русский", "Английский"],
     exams: ["Математика (профиль)", "Обществознание", "Русский язык"],
@@ -248,6 +252,7 @@ export const programs: Program[] = [
     budgetPlaces: 300,
     paidPlaces: 80,
     tuitionPerYear: 430000,
+    minScore: 90,
     deadline: "2027-07-20",
     languages: ["Русский"],
     exams: ["Математика (профиль)", "Информатика", "Русский язык"],
@@ -266,6 +271,7 @@ export const programs: Program[] = [
     budgetPlaces: 200,
     paidPlaces: 150,
     tuitionPerYear: 420000,
+    minScore: 80,
     deadline: "2027-07-20",
     languages: ["Русский"],
     exams: ["Математика (профиль)", "Обществознание", "Русский язык"],
@@ -284,6 +290,7 @@ export const programs: Program[] = [
     budgetPlaces: 220,
     paidPlaces: 30,
     tuitionPerYear: 600000,
+    minScore: 92,
     deadline: "2027-07-22",
     languages: ["Русский", "Английский"],
     exams: ["Математика (профиль)", "Физика", "Русский язык"],
@@ -302,6 +309,7 @@ export const programs: Program[] = [
     budgetPlaces: 150,
     paidPlaces: 100,
     tuitionPerYear: 470000,
+    minScore: 76,
     deadline: "2027-07-18",
     languages: ["Русский", "Английский"],
     exams: ["Математика (профиль)", "Информатика", "Русский язык"],
@@ -320,6 +328,7 @@ export const programs: Program[] = [
     budgetPlaces: 160,
     paidPlaces: 60,
     tuitionPerYear: 380000,
+    minScore: 88,
     deadline: "2027-07-20",
     languages: ["Русский"],
     exams: ["Математика (профиль)", "Информатика", "Русский язык"],
@@ -339,6 +348,7 @@ export const programs: Program[] = [
     budgetPlaces: 140,
     paidPlaces: 70,
     tuitionPerYear: 400000,
+    minScore: 70,
     deadline: "2027-07-15",
     languages: ["Русский"],
     exams: ["Математика (профиль)", "Физика", "Русский язык"],
@@ -412,6 +422,8 @@ export interface UniversityFilters {
   city?: string;
   degree?: string;
   form?: string;
+  direction?: string;
+  minScore?: number;
   budgetOnly?: boolean;
 }
 
@@ -433,6 +445,12 @@ export function filterPrograms(filters: UniversityFilters): ProgramWithContext[]
     if (filters.form && filters.form !== "all" && item.form !== filters.form) {
       return false;
     }
+    if (filters.direction && filters.direction !== "all" && item.name !== filters.direction) {
+      return false;
+    }
+    if (filters.minScore && item.minScore > filters.minScore) {
+      return false;
+    }
     if (filters.budgetOnly && item.budgetPlaces <= 0) {
       return false;
     }
@@ -442,6 +460,12 @@ export function filterPrograms(filters: UniversityFilters): ProgramWithContext[]
 
 export function getCities(): string[] {
   return [...new Set(universities.map((item) => item.city))].sort((a, b) =>
+    a.localeCompare(b, "ru"),
+  );
+}
+
+export function getDirections(): string[] {
+  return [...new Set(programs.map((item) => item.name))].sort((a, b) =>
     a.localeCompare(b, "ru"),
   );
 }
