@@ -18,7 +18,7 @@ function NavLink({ href, label }: { href: string; label: string }) {
     <Link
       href={href}
       className={cn(
-        "rounded-lg px-3 py-2 text-sm font-medium transition-colors",
+        "inline-flex items-center justify-center rounded-lg px-4 py-3 text-lg font-medium transition-colors",
         isActive
           ? "bg-brand-50 text-brand-700 dark:bg-brand-950 dark:text-brand-200"
           : "hover:text-foreground text-zinc-600 dark:text-zinc-400",
@@ -34,12 +34,11 @@ export function SiteHeader() {
 
   return (
     <header className="border-border bg-background/80 sticky top-0 z-40 border-b backdrop-blur">
-      <Container className="flex h-16 items-center justify-between gap-4">
-        <Link href="/" className="flex items-center gap-2.5">
-          <span className="bg-brand-600 flex size-9 items-center justify-center rounded-xl text-sm font-bold text-white">
-            {siteConfig.shortName}
+      <Container className="flex h-32 items-center justify-between gap-6">
+        <Link href="/" aria-label={siteConfig.name}>
+          <span className="text-heading text-3xl font-semibold tracking-tight">
+            {siteConfig.name}
           </span>
-          <span className="text-heading text-base font-semibold tracking-tight">{siteConfig.name}</span>
         </Link>
 
         <nav className="hidden items-center gap-1 md:flex">
@@ -48,13 +47,16 @@ export function SiteHeader() {
           ))}
         </nav>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-3">
           <ThemeToggle />
-          <div className="hidden items-center gap-2 md:flex">
-            <Link href="/dashboard" className={buttonVariants({ variant: "secondary", size: "sm" })}>
+          <div className="hidden items-center gap-3 md:flex">
+            <Link
+              href="/dashboard"
+              className={buttonVariants({ variant: "secondary", size: "xl" })}
+            >
               Личный кабинет
             </Link>
-            <Link href="/dashboard/applications" className={buttonVariants({ size: "sm" })}>
+            <Link href="/dashboard/applications" className={buttonVariants({ size: "xl" })}>
               Мои заявки
             </Link>
           </div>
@@ -63,13 +65,13 @@ export function SiteHeader() {
             onClick={() => setOpen((value) => !value)}
             aria-label="Меню"
             aria-expanded={open}
-            className="border-border inline-flex size-10 items-center justify-center rounded-lg border md:hidden"
+            className="border-border inline-flex size-14 items-center justify-center rounded-xl border transition-colors hover:bg-black/5 md:hidden dark:hover:bg-white/10"
           >
             <span className="sr-only">Открыть меню</span>
-            <span className="flex flex-col gap-1">
-              <span className="bg-foreground block h-0.5 w-5" />
-              <span className="bg-foreground block h-0.5 w-5" />
-              <span className="bg-foreground block h-0.5 w-5" />
+            <span className="flex flex-col gap-1.5">
+              <span className="bg-foreground block h-0.5 w-6" />
+              <span className="bg-foreground block h-0.5 w-6" />
+              <span className="bg-foreground block h-0.5 w-6" />
             </span>
           </button>
         </div>
@@ -77,16 +79,16 @@ export function SiteHeader() {
 
       {open ? (
         <div className="border-border border-t md:hidden">
-          <Container className="flex flex-col gap-1 py-3">
+          <Container className="flex flex-col gap-1 py-4">
             {siteConfig.nav.map((item) => (
               <NavLink key={item.href} href={item.href} label={item.label} />
             ))}
-            <Link href="/dashboard" className="rounded-lg px-3 py-2 text-sm font-medium">
+            <Link href="/dashboard" className="rounded-lg px-4 py-3 text-lg font-medium">
               Личный кабинет
             </Link>
             <Link
               href="/dashboard/applications"
-              className="rounded-lg px-3 py-2 text-sm font-medium"
+              className="rounded-lg px-4 py-3 text-lg font-medium"
             >
               Мои заявки
             </Link>
