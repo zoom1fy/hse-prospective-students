@@ -1,14 +1,10 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist_Mono } from "next/font/google";
 
+import { hseSans } from "@/lib/fonts";
 import { siteConfig } from "@/lib/site";
 
 import "./globals.css";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin", "cyrillic"],
-});
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
@@ -40,7 +36,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html
       lang="ru"
       suppressHydrationWarning
-      className={`${geistSans.variable} ${geistMono.variable} h-full`}
+      className={`${hseSans.variable} ${geistMono.variable} h-full`}
       data-scroll-behavior="smooth"
     >
       <head>
