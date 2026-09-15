@@ -54,12 +54,20 @@ export default function HomePage() {
 
       {/* SECTION 3: Календарь абитуриента */}
       <Container className="py-14 sm:py-16">
+        {/* Заголовок */}
+        <h1 className="text-4xl leading-[1.08] font-extrabold tracking-tight text-balance sm:text-6xl md:text-7xl lg:text-6xl">
+          Календарь абитуриента
+        </h1>
         <CalendarTimeline events={calendarEvents} />
       </Container>
 
       {/* SECTION 4: Как поступить за 4 шага */}
       <section className="border-border bg-surface border-y">
         <Container className="py-14 sm:py-16">
+          {/* Заголовок */}
+          <h1 className="text-4xl leading-[1.08] font-extrabold tracking-tight text-balance sm:text-6xl md:text-7xl lg:text-6xl">
+            Как поступить за 4 шага
+          </h1>
           <Steps />
         </Container>
       </section>
