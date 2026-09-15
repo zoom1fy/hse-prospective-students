@@ -1,1 +1,8 @@
-fastapi==0.141.1
+fastapi
+uvicorn[standard]
+sqlalchemy
+asyncpg
+pydantic
+pydantic-settings
+email-validator
+alembic
