@@ -1,15 +1,35 @@
-from fastapi import Header, HTTPException
+import jwt
+from fastapi import Depends, HTTPException, status
+from fastapi.security import OAuth2PasswordBearer
+from sqlalchemy.ext.asyncio import AsyncSession
+
+from app.core.security import decode_access_token
+from app.crud import users
+from app.db.database import get_db
+from app.models.user import User
+
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/auth/login")
 
 
-async def get_current_user_id(
-    x_user_id: int | None = Header(default=None),
-) -> int:
-    """
-    Временная зависимость.
+async def get_current_user(
+    token: str = Depends(oauth2_scheme),
+    db: AsyncSession = Depends(get_db),
+) -> User:
+    credentials_exception = HTTPException(
+        status_code=status.HTTP_401_UNAUTHORIZED,
+        detail="Could not validate credentials",
+        headers={"WWW-Authenticate": "Bearer"},
+    )
+    try:
+        payload = decode_access_token(token)
+        subject = payload.get("sub")
+        if subject is None:
+            raise credentials_exception
+        user_id = int(subject)
+    except (jwt.PyJWTError, ValueError):
+        raise credentials_exception from None
 
-    Сейчас user_id передается в заголовке X-User-Id.
-    После реализации JWT заменить эту функцию на реальную авторизацию.
-    """
-    if x_user_id is None:
-        raise HTTPException(status_code=401, detail="X-User-Id header is required")
-    return x_user_id
+    user = await users.get_user(db, user_id)
+    if user is None:
+        raise credentials_exception
+    return user

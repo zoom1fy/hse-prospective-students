@@ -1,4 +1,4 @@
-from pydantic import BaseModel, ConfigDict, EmailStr
+from pydantic import BaseModel, ConfigDict, EmailStr, Field
 
 
 class UserBase(BaseModel):
@@ -12,8 +12,8 @@ class UserBase(BaseModel):
     id_region: int | None = None
 
 
-class UserCreate(UserBase):
-    pass
+class UserRegister(UserBase):
+    password: str = Field(min_length=8, max_length=128)
 
 
 class UserUpdate(BaseModel):

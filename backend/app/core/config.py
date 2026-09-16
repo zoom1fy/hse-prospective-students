@@ -10,6 +10,10 @@ class Settings(BaseSettings):
     DB_USER: str
     DB_PASSWORD: str
 
+    SECRET_KEY: str
+    ACCESS_TOKEN_EXPIRE_MINUTES: int = 60
+    ALGORITHM: str = "HS256"
+
     model_config = SettingsConfigDict(
         env_file=os.path.join(
             os.path.dirname(os.path.abspath(__file__)),

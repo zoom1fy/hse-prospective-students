@@ -1,12 +1,18 @@
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from app.core.security import hash_password
 from app.models.user import User
-from app.schemas.user import UserCreate, UserUpdate
+from app.schemas.user import UserRegister, UserUpdate
 
 
 async def get_user(session: AsyncSession, user_id: int) -> User | None:
     result = await session.execute(select(User).where(User.id == user_id))
+    return result.scalar_one_or_none()
+
+
+async def get_user_by_email(session: AsyncSession, email: str) -> User | None:
+    result = await session.execute(select(User).where(User.email == email))
     return result.scalar_one_or_none()
 
 
@@ -15,8 +21,11 @@ async def get_users(session: AsyncSession) -> list[User]:
     return list(result.scalars().all())
 
 
-async def create_user(session: AsyncSession, data: UserCreate) -> User:
-    user = User(**data.model_dump())
+async def create_user(session: AsyncSession, data: UserRegister) -> User:
+    user = User(
+        **data.model_dump(exclude={"password"}),
+        password_hash=hash_password(data.password),
+    )
     session.add(user)
     await session.commit()
     await session.refresh(user)

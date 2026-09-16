@@ -4,7 +4,8 @@
 Поля:
     1. **first_name, last_name, patronymic** - ФИО абитуриента
     2. **email, passport, snils, education** - данные абитуриента
-    3. **id_region** - id региона где он живет
+    3. **password_hash** - хеш пароля (argon2), сам пароль не хранится
+    4. **id_region** - id региона где он живет
 
 
 **universities** - университеты

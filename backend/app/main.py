@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 
 from app.api.routers import (
+    auth,
     users,
     universities,
     faculties,
@@ -17,6 +18,7 @@ app = FastAPI(
     version="1.0.0",
 )
 
+app.include_router(auth.router, prefix="/api/auth", tags=["Auth"])
 app.include_router(users.router, prefix="/api/users", tags=["Users"])
 app.include_router(universities.router, prefix="/api/universities", tags=["Universities"])
 app.include_router(faculties.router, prefix="/api/faculties", tags=["Faculties"])

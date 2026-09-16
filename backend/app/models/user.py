@@ -26,6 +26,7 @@ class User(Base):
     last_name: Mapped[str] = mapped_column(String(100), nullable=False)
     patronymic: Mapped[str | None] = mapped_column(String(100), nullable=True)
     email: Mapped[str] = mapped_column(String(255), unique=True, nullable=False, index=True)
+    password_hash: Mapped[str] = mapped_column(String(255), nullable=False)
     passport: Mapped[str | None] = mapped_column(String(50), unique=True, nullable=True)
     snils: Mapped[str | None] = mapped_column(String(20), unique=True, nullable=True)
     education: Mapped[str | None] = mapped_column(Text, nullable=True)
