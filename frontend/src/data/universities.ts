@@ -6,6 +6,7 @@ export const universities: University[] = [
     slug: "hse",
     name: "Национальный исследовательский университет «Высшая школа экономики»",
     shortName: "НИУ ВШЭ",
+    image: "https://nnov.hse.ru/data/2019/09/19/1540922653/1WhatsApp%20Image%202019-09-19%20at%2012.53.07.jpeg",
     city: "Москва",
     founded: 1992,
     ranking: 1,

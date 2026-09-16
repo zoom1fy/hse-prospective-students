@@ -1,6 +1,6 @@
 export const siteConfig = {
-  name: "ВШЭ.Абитуриент",
-  shortName: "ПП",
+  name: "Я.Абитуриент",
+  shortName: "ЯА",
   description:
     "Агрегатор вузов, направлений и приёмных кампаний: подбор программ, личный кабинет и дерево поданных заявок.",
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",

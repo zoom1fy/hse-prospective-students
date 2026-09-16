@@ -38,6 +38,7 @@ export interface University {
   slug: string;
   name: string;
   shortName: string;
+  image?: string;
   city: string;
   founded: number;
   ranking: number;
