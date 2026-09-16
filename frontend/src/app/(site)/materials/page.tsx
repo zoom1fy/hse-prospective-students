@@ -4,7 +4,9 @@ import { MaterialsGrid } from "@/components/home/materials-grid";
 import { Breadcrumbs } from "@/components/layout/breadcrumbs";
 import { PageHeader } from "@/components/layout/page-header";
 import { Container } from "@/components/ui/container";
-import { materials } from "@/data/materials";
+import { getMaterialsCatalog } from "@/lib/api/materials";
+
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "Полезные материалы",
@@ -12,7 +14,9 @@ export const metadata: Metadata = {
     "Гайды для абитуриентов: как выбрать направление, не пропустить приёмную кампанию, подготовиться к ЕГЭ и олимпиадам, получить стипендию.",
 };
 
-export default function MaterialsPage() {
+export default async function MaterialsPage() {
+  const materials = await getMaterialsCatalog();
+
   return (
     <Container className="py-8 sm:py-12">
       <Breadcrumbs

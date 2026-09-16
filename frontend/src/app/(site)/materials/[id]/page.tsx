@@ -16,7 +16,7 @@ import {
   GraduationCap,
   Wallet,
 } from "@/components/ui/icons";
-import { getMaterial, materials } from "@/data/materials";
+import { getMaterialBySlug, getMaterialsCatalog } from "@/lib/api/materials";
 
 const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   BookOpen,
@@ -26,15 +26,11 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   GraduationCap,
 };
 
-export function generateStaticParams() {
-  return materials.map((material) => ({ id: material.id }));
-}
-
 export async function generateMetadata({
   params,
 }: PageProps<"/materials/[id]">): Promise<Metadata> {
   const { id } = await params;
-  const material = getMaterial(id);
+  const material = await getMaterialBySlug(id);
   if (!material) return { title: "Материал не найден" };
   return {
     title: material.title,
@@ -44,13 +40,13 @@ export async function generateMetadata({
 
 export default async function MaterialPage({ params }: PageProps<"/materials/[id]">) {
   const { id } = await params;
-  const material = getMaterial(id);
+  const material = await getMaterialBySlug(id);
 
   if (!material) {
     notFound();
   }
 
-  const otherMaterials = materials.filter((item) => item.id !== material.id);
+  const otherMaterials = (await getMaterialsCatalog()).filter((item) => item.id !== material.id);
   const Icon = iconMap[material.icon] ?? FileText;
 
   return (

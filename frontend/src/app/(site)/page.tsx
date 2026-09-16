@@ -8,11 +8,16 @@ import { Container } from "@/components/ui/container";
 import { ArrowRight } from "@/components/ui/icons";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { calendarEvents } from "@/data/calendar";
-import { materials } from "@/data/materials";
 import { getPopularPrograms } from "@/lib/api";
+import { getMaterialsCatalog } from "@/lib/api/materials";
+
+export const dynamic = "force-dynamic";
 
 export default async function HomePage() {
-  const popularPrograms = await getPopularPrograms(6);
+  const [popularPrograms, materials] = await Promise.all([
+    getPopularPrograms(6),
+    getMaterialsCatalog(),
+  ]);
 
   return (
     <>

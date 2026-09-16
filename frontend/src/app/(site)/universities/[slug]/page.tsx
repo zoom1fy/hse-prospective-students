@@ -9,6 +9,8 @@ import { Container } from "@/components/ui/container";
 import { getUniversityBySlug, getUniversityGroups } from "@/lib/api";
 import { formatNumber } from "@/lib/utils";
 
+export const dynamic = "force-dynamic";
+
 export async function generateMetadata({
   params,
 }: PageProps<"/universities/[slug]">): Promise<Metadata> {

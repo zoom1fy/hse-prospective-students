@@ -9,9 +9,10 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Container } from "@/components/ui/container";
 import { ArrowRight, CalendarClock, Check, GraduationCap, Wallet } from "@/components/ui/icons";
 import { getProgramPage } from "@/lib/api";
-import { getProgramsByUniversity, universities } from "@/data/universities";
 import { degreeLabels, studyFormLabels } from "@/lib/site";
 import { formatCurrency, formatDate, formatNumber, getDaysLeft } from "@/lib/utils";
+
+export const dynamic = "force-dynamic";
 
 export async function generateMetadata({
   params,
@@ -23,15 +24,6 @@ export async function generateMetadata({
     title: program.name,
     description: program.about,
   };
-}
-
-export async function generateStaticParams() {
-  return universities.flatMap((university) =>
-    getProgramsByUniversity(university.id).map((program) => ({
-      slug: university.slug,
-      programSlug: program.slug,
-    })),
-  );
 }
 
 export default async function ProgramPage({
