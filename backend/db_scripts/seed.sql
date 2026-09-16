@@ -10,6 +10,8 @@ BEGIN;
 TRUNCATE TABLE
     achievement,
     achievement_categories,
+    diplomas,
+    diploma_types,
     comparisons,
     education_level,
     exams,
@@ -71,6 +73,13 @@ INSERT INTO achievement_categories (id, name) VALUES
     (4, 'Академические успехи'),
     (5, 'Творческие конкурсы');
 
+INSERT INTO diploma_types (id, name) VALUES
+    (1, 'Аттестат'),
+    (2, 'Бакалавриат'),
+    (3, 'Специалитет'),
+    (4, 'Магистратура'),
+    (5, 'Аспирантура');
+
 INSERT INTO exams (id, name) VALUES
     (1, 'Русский язык'),
     (2, 'Математика (профиль)'),
@@ -116,12 +125,21 @@ INSERT INTO universities (id, name, email, short_name, description, official_url
     (25, 'Крымский федеральный университет имени В.И. Вернадского', 'priem@cfuv.ru', 'КФУ им. Вернадского', 'Крупнейший университет Крыма', 'https://cfuv.ru', 'https://cfuv.ru/upload/cfuv_logo.png', 13);
 -- ----- Пользователи -----
 
-INSERT INTO users (id, first_name, last_name, patronymic, email, password_hash, passport, snils, education, id_region, created_at, updated_at) VALUES
-    (1, 'Иван', 'Иванов', 'Иванович', 'ivan.ivanov@example.com', '$argon2id$v=19$m=65536,t=3,p=4$yVXSThbNA6ksrMst7H2uDQ$Mi/kADD/5QyCeEcAFWc3MuCvAd0jENsStAR/CfG1tMw', '4510 123456', '123-456-789 01', '11 классов', 1, '2026-09-01 10:00:00+00', '2026-09-01 10:00:00+00'),
-    (2, 'Мария', 'Петрова', 'Александровна', 'maria.petrova@example.com', '$argon2id$v=19$m=65536,t=3,p=4$yVXSThbNA6ksrMst7H2uDQ$Mi/kADD/5QyCeEcAFWc3MuCvAd0jENsStAR/CfG1tMw', '4510 654321', '987-654-321 02', '11 классов', 2, '2026-09-01 10:05:00+00', '2026-09-01 10:05:00+00'),
-    (3, 'Алексей', 'Смирнов', 'Сергеевич', 'alexey.smirnov@example.com', '$argon2id$v=19$m=65536,t=3,p=4$yVXSThbNA6ksrMst7H2uDQ$Mi/kADD/5QyCeEcAFWc3MuCvAd0jENsStAR/CfG1tMw', '4512 111222', '111-222-333 03', '11 классов', 4, '2026-09-01 10:10:00+00', '2026-09-01 10:10:00+00'),
-    (4, 'Елена', 'Кузнецова', 'Дмитриевна', 'elena.kuznetsova@example.com', '$argon2id$v=19$m=65536,t=3,p=4$yVXSThbNA6ksrMst7H2uDQ$Mi/kADD/5QyCeEcAFWc3MuCvAd0jENsStAR/CfG1tMw', '4514 333444', '444-555-666 04', '11 классов', 3, '2026-09-01 10:15:00+00', '2026-09-01 10:15:00+00'),
-    (5, 'Дмитрий', 'Соколов', 'Олегович', 'dmitry.sokolov@example.com', '$argon2id$v=19$m=65536,t=3,p=4$yVXSThbNA6ksrMst7H2uDQ$Mi/kADD/5QyCeEcAFWc3MuCvAd0jENsStAR/CfG1tMw', '4516 555666', '777-888-999 05', '11 классов', 5, '2026-09-01 10:20:00+00', '2026-09-01 10:20:00+00');
+INSERT INTO users (id, first_name, last_name, patronymic, email, password_hash, education, id_region, created_at, updated_at) VALUES
+    (1, 'Иван', 'Иванов', 'Иванович', 'ivan.ivanov@example.com', '$argon2id$v=19$m=65536,t=3,p=4$yVXSThbNA6ksrMst7H2uDQ$Mi/kADD/5QyCeEcAFWc3MuCvAd0jENsStAR/CfG1tMw', '11 классов', 1, '2026-09-01 10:00:00+00', '2026-09-01 10:00:00+00'),
+    (2, 'Мария', 'Петрова', 'Александровна', 'maria.petrova@example.com', '$argon2id$v=19$m=65536,t=3,p=4$yVXSThbNA6ksrMst7H2uDQ$Mi/kADD/5QyCeEcAFWc3MuCvAd0jENsStAR/CfG1tMw', '11 классов', 2, '2026-09-01 10:05:00+00', '2026-09-01 10:05:00+00'),
+    (3, 'Алексей', 'Смирнов', 'Сергеевич', 'alexey.smirnov@example.com', '$argon2id$v=19$m=65536,t=3,p=4$yVXSThbNA6ksrMst7H2uDQ$Mi/kADD/5QyCeEcAFWc3MuCvAd0jENsStAR/CfG1tMw', '11 классов', 4, '2026-09-01 10:10:00+00', '2026-09-01 10:10:00+00'),
+    (4, 'Елена', 'Кузнецова', 'Дмитриевна', 'elena.kuznetsova@example.com', '$argon2id$v=19$m=65536,t=3,p=4$yVXSThbNA6ksrMst7H2uDQ$Mi/kADD/5QyCeEcAFWc3MuCvAd0jENsStAR/CfG1tMw', '11 классов', 3, '2026-09-01 10:15:00+00', '2026-09-01 10:15:00+00'),
+    (5, 'Дмитрий', 'Соколов', 'Олегович', 'dmitry.sokolov@example.com', '$argon2id$v=19$m=65536,t=3,p=4$yVXSThbNA6ksrMst7H2uDQ$Mi/kADD/5QyCeEcAFWc3MuCvAd0jENsStAR/CfG1tMw', '11 классов', 5, '2026-09-01 10:20:00+00', '2026-09-01 10:20:00+00');
+
+-- ----- Дипломы и документы об образовании -----
+
+INSERT INTO diplomas (id, id_user, id_diploma_type, name, institution, year, average_score, created_at) VALUES
+    (1, 1, 1, 'Аттестат о среднем общем образовании', 'ГБОУ Школа № 179', 2026, 4.9, '2026-09-01 11:00:00+00'),
+    (2, 2, 1, 'Аттестат о среднем общем образовании', 'Гимназия № 56', 2026, 5.0, '2026-09-01 11:05:00+00'),
+    (3, 3, 1, 'Аттестат о среднем общем образовании', 'Лицей № 130', 2025, 4.7, '2026-09-01 11:10:00+00'),
+    (4, 4, 2, 'Диплом бакалавра по направлению «Экономика»', 'НИУ ВШЭ', 2026, 4.8, '2026-09-01 11:15:00+00'),
+    (5, 5, 1, 'Аттестат о среднем общем образовании', 'Лицей № 9', 2024, 4.5, '2026-09-01 11:20:00+00');
 
 -- ----- Факультеты -----
 
@@ -564,6 +582,7 @@ DECLARE
 BEGIN
     FOREACH seq_name IN ARRAY ARRAY[
         'achievement_id_seq', 'achievement_categories_id_seq', 'comparisons_id_seq',
+        'diplomas_id_seq', 'diploma_types_id_seq',
         'education_level_id_seq', 'exams_id_seq', 'faculties_id_seq', 'program_exam_id_seq',
         'programs_id_seq', 'recommendation_program_user_id_seq', 'regions_id_seq',
         'statement_id_seq', 'statement_statuses_id_seq', 'type_study_id_seq',

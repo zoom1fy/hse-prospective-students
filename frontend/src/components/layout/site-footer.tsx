@@ -19,6 +19,12 @@ export function SiteFooter() {
             <p className="mt-3 max-w-sm text-sm text-muted sm:ml-auto">
               {siteConfig.description}
             </p>
+            <Link
+              href="/admin"
+              className="text-muted hover:text-brand-600 mt-4 inline-block text-xs transition-colors"
+            >
+              Админ-панель
+            </Link>
           </div>
         </div>
       </Container>

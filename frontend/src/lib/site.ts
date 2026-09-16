@@ -7,6 +7,7 @@ export const siteConfig = {
   nav: [
     { href: "/", label: "Главная" },
     { href: "/universities", label: "Вузы и программы" },
+    { href: "/materials", label: "Материалы" },
   ],
 } as const;
 

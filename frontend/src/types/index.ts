@@ -38,7 +38,7 @@ export interface University {
   slug: string;
   name: string;
   shortName: string;
-  image?: string;
+  logo?: string;
   city: string;
   founded: number;
   ranking: number;
@@ -52,46 +52,36 @@ export interface University {
 
 export interface Diploma {
   id: string;
-  type: "school" | "bachelor" | "specialist" | "master" | "postgraduate";
-  title: string;
+  typeId: number;
+  typeName: string;
+  name: string;
   institution: string;
   year: number;
-  averageScore: number;
+  averageScore: number | null;
 }
 
 export interface Achievement {
   id: string;
-  title: string;
-  level: "international" | "national" | "regional" | "university";
-  year: number;
-  points: number;
+  name: string;
+  category: string | null;
 }
 
-export interface OtherEducation {
-  id: string;
-  title: string;
-  institution: string;
-  year: number;
+export interface DiplomaType {
+  id: number;
+  name: string;
 }
 
 export interface UserProfile {
   id: string;
   email: string;
-  phone: string;
+  phone: string | null;
+  region: string | null;
+  education: string | null;
   fullName: {
     last: string;
     first: string;
-    middle: string;
+    middle: string | null;
   };
-  passport: {
-    series: string;
-    number: string;
-    issuedBy: string;
-    issuedAt: string;
-    departmentCode: string;
-  };
-  snils: string;
-  education: OtherEducation[];
   diplomas: Diploma[];
   achievements: Achievement[];
 }

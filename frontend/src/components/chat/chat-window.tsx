@@ -84,22 +84,20 @@ export function ChatWindow() {
   }
 
   return (
-    <Card className="relative flex max-h-[min(72vh,660px)] flex-1 flex-col overflow-hidden rounded-3xl border border-border/60 bg-surface/80 shadow-[0_8px_40px_-12px_rgba(0,0,0,0.12)] backdrop-blur-xl dark:border-border/60 dark:bg-surface/80">
+    <Card className="border-border/60 bg-surface/80 dark:border-border/60 dark:bg-surface/80 relative flex max-h-[min(72vh,660px)] min-h-[min(72vh)] flex-1 flex-col overflow-hidden rounded-3xl border shadow-[0_8px_40px_-12px_rgba(0,0,0,0.12)] backdrop-blur-xl">
       {/* Декоративное свечение сверху */}
-      <div className="from-brand-500/10 pointer-events-none absolute inset-x-0 top-0 h-40 bg-gradient-to-b to-transparent" />
+      <div className="from-brand-500/10 pointer-events-none absolute inset-x-0 top-0 h-40 bg-linear-to-b to-transparent" />
 
-      <CardHeader className="relative z-10 flex-none flex-row items-center gap-3 border-b border-border/40 px-5 py-4 dark:border-border/60">
+      <CardHeader className="border-border/40 dark:border-border/60 relative z-10 flex-none flex-row items-center gap-3 border-b px-5 py-4">
         <div className="relative">
-          <span className="from-brand-500 to-brand-700 shadow-brand-500/25 inline-flex size-10 items-center justify-center rounded-2xl bg-gradient-to-br text-white shadow-lg">
+          <span className="from-brand-500 to-brand-700 shadow-brand-500/25 inline-flex size-10 items-center justify-center rounded-2xl bg-linear-to-br text-white shadow-lg">
             <Bot className="size-5" />
           </span>
-          <span className="absolute -right-0.5 -bottom-0.5 size-3 rounded-full border-2 border-surface bg-emerald-500" />
+          <span className="border-surface absolute -right-0.5 -bottom-0.5 size-3 rounded-full border-2 bg-emerald-500" />
         </div>
         <div className="flex flex-col">
-          <p className="text-sm font-semibold tracking-tight text-heading">
-            ИИ Чат-бот
-          </p>
-          <p className="text-xs text-muted">Онлайн — отвечает мгновенно</p>
+          <p className="text-heading text-sm font-semibold tracking-tight">ИИ Чат-бот</p>
+          <p className="text-muted text-xs">Онлайн — отвечает мгновенно</p>
         </div>
       </CardHeader>
 
@@ -114,7 +112,7 @@ export function ChatWindow() {
               )}
             >
               {message.role === "bot" ? (
-                <span className="from-brand-500 to-brand-700 shadow-brand-500/20 mt-0.5 inline-flex size-8 flex-none items-center justify-center rounded-xl bg-gradient-to-br text-white shadow-md">
+                <span className="from-brand-500 to-brand-700 shadow-brand-500/20 mt-0.5 inline-flex size-8 flex-none items-center justify-center rounded-xl bg-linear-to-br text-white shadow-md">
                   <Bot className="size-4" />
                 </span>
               ) : null}
@@ -122,8 +120,8 @@ export function ChatWindow() {
                 className={cn(
                   "max-w-[85%] rounded-2xl px-4 py-2.5 text-sm leading-relaxed sm:max-w-[70%]",
                   message.role === "user"
-                    ? "from-brand-600 to-brand-700 shadow-brand-500/20 rounded-br-md bg-gradient-to-br text-white shadow-md"
-                    : "rounded-bl-md border border-border/60 bg-surface text-foreground shadow-sm dark:border-border dark:bg-surface-muted dark:text-foreground",
+                    ? "from-brand-600 to-brand-700 shadow-brand-500/20 rounded-br-md bg-linear-to-br text-white shadow-md"
+                    : "border-border/60 bg-surface text-foreground dark:border-border dark:bg-surface-muted dark:text-foreground rounded-bl-md border shadow-sm",
                 )}
               >
                 {message.text}
@@ -133,21 +131,21 @@ export function ChatWindow() {
 
           {typing ? (
             <div className="animate-in fade-in flex items-center gap-3 duration-300">
-              <span className="from-brand-500 to-brand-700 shadow-brand-500/20 mt-0.5 inline-flex size-8 flex-none items-center justify-center rounded-xl bg-gradient-to-br text-white shadow-md">
+              <span className="from-brand-500 to-brand-700 shadow-brand-500/20 mt-0.5 inline-flex size-8 flex-none items-center justify-center rounded-xl bg-linear-to-br text-white shadow-md">
                 <Bot className="size-4" />
               </span>
-              <div className="rounded-2xl rounded-bl-md border border-border/60 bg-surface px-4 py-3 shadow-sm dark:border-border dark:bg-surface-muted">
+              <div className="border-border/60 bg-surface dark:border-border dark:bg-surface-muted rounded-2xl rounded-bl-md border px-4 py-3 shadow-sm">
                 <span className="flex gap-1">
-                  <span className="size-1.5 animate-bounce rounded-full bg-muted [animation-delay:0ms]" />
-                  <span className="size-1.5 animate-bounce rounded-full bg-muted [animation-delay:150ms]" />
-                  <span className="size-1.5 animate-bounce rounded-full bg-muted [animation-delay:300ms]" />
+                  <span className="bg-muted size-1.5 animate-bounce rounded-full [animation-delay:0ms]" />
+                  <span className="bg-muted size-1.5 animate-bounce rounded-full [animation-delay:150ms]" />
+                  <span className="bg-muted size-1.5 animate-bounce rounded-full [animation-delay:300ms]" />
                 </span>
               </div>
             </div>
           ) : null}
         </div>
 
-        <div className="flex-none border-t border-border/40 p-4 sm:p-5 dark:border-border/60">
+        <div className="border-border/40 dark:border-border/60 flex-none border-t p-4 sm:p-5">
           {!started ? (
             <div className="mb-4">
               <button
@@ -184,7 +182,7 @@ export function ChatWindow() {
                         type="button"
                         onClick={() => sendMessage(suggestion)}
                         disabled={typing}
-                        className="hover:border-brand-300 hover:bg-brand-50 hover:text-brand-700 dark:hover:border-brand-700 dark:hover:bg-brand-950/40 dark:hover:text-brand-300 cursor-pointer rounded-full border border-border bg-surface px-3.5 py-1.5 text-xs font-medium text-foreground transition-all disabled:opacity-40 dark:border-border dark:bg-surface-muted dark:text-muted"
+                        className="hover:border-brand-300 hover:bg-brand-50 hover:text-brand-700 dark:hover:border-brand-700 dark:hover:bg-brand-950/40 dark:hover:text-brand-300 border-border bg-surface text-foreground dark:border-border dark:bg-surface-muted dark:text-muted cursor-pointer rounded-full border px-3.5 py-1.5 text-xs font-medium transition-all disabled:opacity-40"
                       >
                         {suggestion}
                       </button>
@@ -200,7 +198,7 @@ export function ChatWindow() {
               event.preventDefault();
               sendMessage(value);
             }}
-            className="group focus-within:border-brand-400 focus-within:ring-brand-500/10 dark:focus-within:border-brand-600 flex items-center gap-2 rounded-2xl border border-border bg-surface p-1.5 shadow-sm transition-all focus-within:ring-4 dark:border-border dark:bg-surface-muted"
+            className="group focus-within:border-brand-400 focus-within:ring-brand-500/10 dark:focus-within:border-brand-600 border-border bg-surface dark:border-border dark:bg-surface-muted flex items-center gap-2 rounded-2xl border p-1.5 shadow-sm transition-all focus-within:ring-4"
           >
             <Input
               value={value}
@@ -211,14 +209,14 @@ export function ChatWindow() {
             />
             <Button
               type="submit"
-              className="from-brand-600 to-brand-700 shadow-brand-500/20 hover:shadow-brand-500/30 size-10 flex-none rounded-xl bg-gradient-to-br text-white shadow-md transition-all hover:shadow-lg disabled:opacity-30 disabled:shadow-none"
+              className="from-brand-600 to-brand-700 shadow-brand-500/20 hover:shadow-brand-500/30 size-10 flex-none rounded-xl bg-linear-to-br text-white shadow-md transition-all hover:shadow-lg disabled:opacity-30 disabled:shadow-none"
               disabled={!value.trim() || typing}
               aria-label="Отправить"
             >
               <Send className="size-4" />
             </Button>
           </form>
-          <p className="mt-3 text-center text-[11px] text-muted">
+          <p className="text-muted mt-3 text-center text-[11px]">
             Бот использует данные каталога и ещё не подключён к реальной системе отвечания.
           </p>
         </div>

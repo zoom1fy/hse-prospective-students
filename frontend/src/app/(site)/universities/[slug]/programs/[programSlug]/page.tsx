@@ -8,13 +8,8 @@ import { ButtonLink } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Container } from "@/components/ui/container";
 import { ArrowRight, CalendarClock, Check, GraduationCap, Wallet } from "@/components/ui/icons";
-import {
-  getProgram,
-  getProgramsByUniversity,
-  getUniversity,
-  universities,
-  withContext,
-} from "@/data/universities";
+import { getProgramPage } from "@/lib/api";
+import { getProgramsByUniversity, universities } from "@/data/universities";
 import { degreeLabels, studyFormLabels } from "@/lib/site";
 import { formatCurrency, formatDate, formatNumber, getDaysLeft } from "@/lib/utils";
 
@@ -22,7 +17,7 @@ export async function generateMetadata({
   params,
 }: PageProps<"/universities/[slug]/programs/[programSlug]">): Promise<Metadata> {
   const { slug, programSlug } = await params;
-  const program = getProgram(slug, programSlug);
+  const program = await getProgramPage(slug, programSlug);
   if (!program) return { title: "Программа не найдена" };
   return {
     title: program.name,
@@ -43,18 +38,14 @@ export default async function ProgramPage({
   params,
 }: PageProps<"/universities/[slug]/programs/[programSlug]">) {
   const { slug, programSlug } = await params;
-  const program = getProgram(slug, programSlug);
-  const university = getUniversity(slug);
+  const programWithContext = await getProgramPage(slug, programSlug);
 
-  if (!program || !university) {
-    notFound();
-  }
-
-  const programWithContext = withContext(program);
   if (!programWithContext) {
     notFound();
   }
 
+  const program = programWithContext;
+  const university = programWithContext.university;
   const faculty = programWithContext.faculty;
   const daysLeft = getDaysLeft(program.deadline);
 

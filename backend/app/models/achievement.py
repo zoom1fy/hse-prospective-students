@@ -30,3 +30,7 @@ class Achievement(Base):
 
     user: Mapped["User"] = relationship(back_populates="achievements")
     category: Mapped["AchievementCategory"] = relationship(back_populates="achievements")
+
+    @property
+    def category_name(self) -> str:
+        return self.category.name if self.category else ""
