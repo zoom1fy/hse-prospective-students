@@ -1,15 +1,9 @@
 import type { Metadata, Viewport } from "next";
-import { Geist_Mono } from "next/font/google";
 
 import { hseSans } from "@/lib/fonts";
 import { siteConfig } from "@/lib/site";
 
 import "./globals.css";
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
@@ -36,7 +30,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html
       lang="ru"
       suppressHydrationWarning
-      className={`${hseSans.variable} ${geistMono.variable} h-full`}
+      className={`${hseSans.variable} h-full`}
       data-scroll-behavior="smooth"
     >
       <head>
