@@ -34,36 +34,34 @@ export function ProgramCard({
         </div>
         <CardTitle className="mt-2">{program.name}</CardTitle>
         {showUniversity ? (
-          <p className="text-sm text-muted">
+          <p className="text-muted text-sm">
             {program.university.shortName} · {program.faculty.shortName}
           </p>
         ) : (
-          <p className="text-sm text-muted">{program.faculty.shortName}</p>
+          <p className="text-muted text-sm">{program.faculty.shortName}</p>
         )}
       </CardHeader>
       <CardContent className="flex flex-1 flex-col gap-4">
         <div className="grid grid-cols-2 gap-3 text-sm">
-          <div className="flex items-center gap-2 text-foreground">
-            <GraduationCap className="size-4 shrink-0 text-muted" />
+          <div className="text-foreground flex items-center gap-2">
+            <GraduationCap className="text-muted size-4 shrink-0" />
             <span>{formatNumber(program.budgetPlaces)} бюджет</span>
           </div>
-          <div className="flex items-center gap-2 text-foreground">
-            <Wallet className="size-4 shrink-0 text-muted" />
+          <div className="text-foreground flex items-center gap-2">
+            <Wallet className="text-muted size-4 shrink-0" />
             <span>{formatCurrency(program.tuitionPerYear)}/год</span>
           </div>
-          <div className="flex items-center gap-2 text-foreground">
-            <MapPin className="size-4 shrink-0 text-muted" />
+          <div className="text-foreground flex items-center gap-2">
+            <MapPin className="text-muted size-4 shrink-0" />
             <span>{program.university.city}</span>
           </div>
-          <div className="flex items-center gap-2 text-foreground">
-            <CalendarClock className="size-4 shrink-0 text-muted" />
+          <div className="text-foreground flex items-center gap-2">
+            <CalendarClock className="text-muted size-4 shrink-0" />
             <span>до {formatDate(program.deadline)}</span>
           </div>
         </div>
         <div className="border-border mt-auto flex items-center justify-between border-t pt-4">
-          <span className="text-sm text-muted">
-            {program.durationYears} года обучения
-          </span>
+          <span className="text-muted text-sm">{program.durationYears} года обучения</span>
           <a
             href={href}
             className="text-brand-600 dark:text-brand-400 text-sm font-medium hover:underline"

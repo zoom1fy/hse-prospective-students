@@ -200,9 +200,7 @@ export function Steps() {
                     </h3>
 
                     {/* DESCRIPTION */}
-                    <p className="text-muted mt-2 text-sm leading-6">
-                      {step.description}
-                    </p>
+                    <p className="text-muted mt-2 text-sm leading-6">{step.description}</p>
                   </motion.div>
                 </div>
               </motion.div>

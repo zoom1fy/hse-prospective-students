@@ -19,9 +19,7 @@ export default async function MaterialsPage() {
 
   return (
     <Container className="py-8 sm:py-12">
-      <Breadcrumbs
-        items={[{ label: "Главная", href: "/" }, { label: "Полезные материалы" }]}
-      />
+      <Breadcrumbs items={[{ label: "Главная", href: "/" }, { label: "Полезные материалы" }]} />
 
       <PageHeader
         className="mt-4"

@@ -118,7 +118,10 @@ export function AdminStatements() {
                 </thead>
                 <tbody>
                   {filtered.map((statement) => (
-                    <tr key={statement.id} className="border-border hover:bg-surface-muted/40 border-b">
+                    <tr
+                      key={statement.id}
+                      className="border-border hover:bg-surface-muted/40 border-b"
+                    >
                       <td className="text-muted px-4 py-3">{statement.id}</td>
                       <td className="px-4 py-3 font-medium">{statement.user_name || "—"}</td>
                       <td className="px-4 py-3">{statement.program_name || "—"}</td>

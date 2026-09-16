@@ -13,9 +13,9 @@ export default function DashboardProfilePage() {
         <h1 className="text-heading text-2xl font-semibold tracking-tight sm:text-3xl">
           Личные данные
         </h1>
-        <p className="mt-2 text-sm text-muted sm:text-base">
-          Заполните ФИО, контакты, документы об образовании и достижения — данные используются
-          для подбора программ.
+        <p className="text-muted mt-2 text-sm sm:text-base">
+          Заполните ФИО, контакты, документы об образовании и достижения — данные используются для
+          подбора программ.
         </p>
       </div>
 

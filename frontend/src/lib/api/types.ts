@@ -1,8 +1,3 @@
-export interface ApiToken {
-  access_token: string;
-  token_type: string;
-}
-
 export interface ApiDiplomaType {
   id: number;
   name: string;
@@ -20,7 +15,7 @@ export interface ApiDiploma {
   created_at: string;
 }
 
-export interface ApiAchievement {
+interface ApiAchievement {
   id: number;
   id_user: number;
   name: string;
@@ -46,7 +41,7 @@ export interface ApiReference {
   name: string;
 }
 
-export interface ApiMaterialSection {
+interface ApiMaterialSection {
   heading: string;
   paragraphs: string[];
 }
@@ -170,11 +165,6 @@ export interface ApiProgram {
   id_faculty: number;
 }
 
-export interface ApiExam {
-  id: number;
-  name: string;
-}
-
 export interface ApiStatement {
   id: number;
   id_user: number;
@@ -184,14 +174,14 @@ export interface ApiStatement {
   updated_at: string;
 }
 
-export interface ApiStatementTreeProgram {
+interface ApiStatementTreeProgram {
   id: number;
   name: string | null;
   official_url: string | null;
   status: string;
 }
 
-export interface ApiStatementTreeFaculty {
+interface ApiStatementTreeFaculty {
   id: number;
   name: string;
   official_url: string | null;
@@ -214,16 +204,6 @@ export interface ApiRecommendation {
   id_user: number;
   id_program: number;
   rank: number;
-  explanation: string | null;
-  created_at: string;
-}
-
-export interface ApiComparison {
-  id: number;
-  id_user: number;
-  id_program_1: number;
-  id_program_2: number;
-  selected_program_id: number;
   explanation: string | null;
   created_at: string;
 }

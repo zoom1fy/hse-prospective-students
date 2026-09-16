@@ -1,4 +1,4 @@
-export interface MaterialSection {
+interface MaterialSection {
   heading: string;
   paragraphs: string[];
 }

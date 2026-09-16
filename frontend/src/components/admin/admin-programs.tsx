@@ -173,7 +173,10 @@ export function AdminPrograms() {
                     const faculty = facultyById.get(program.id_faculty);
                     const university = faculty ? universityById.get(faculty.id_university) : null;
                     return (
-                      <tr key={program.id} className="border-border hover:bg-surface-muted/40 border-b">
+                      <tr
+                        key={program.id}
+                        className="border-border hover:bg-surface-muted/40 border-b"
+                      >
                         <td className="px-4 py-3">
                           <p className="font-medium">{program.name}</p>
                           <p className="text-muted text-xs">{program.code}</p>
@@ -182,13 +185,18 @@ export function AdminPrograms() {
                           {university ? `${university.short_name ?? university.name} · ` : ""}
                           {faculty?.short_name ?? faculty?.name ?? "—"}
                         </td>
-                        <td className="px-4 py-3">{levelById.get(program.id_education_level) ?? "—"}</td>
+                        <td className="px-4 py-3">
+                          {levelById.get(program.id_education_level) ?? "—"}
+                        </td>
                         <td className="px-4 py-3">{typeById.get(program.id_type_study) ?? "—"}</td>
                         <td className="px-4 py-3">
-                          {formatNumber(program.budget_places)} / {formatNumber(program.paid_places)}
+                          {formatNumber(program.budget_places)} /{" "}
+                          {formatNumber(program.paid_places)}
                         </td>
                         <td className="px-4 py-3">
-                          {program.tuition_price ? formatCurrency(Number(program.tuition_price)) : "—"}
+                          {program.tuition_price
+                            ? formatCurrency(Number(program.tuition_price))
+                            : "—"}
                         </td>
                         <td className="px-4 py-3">
                           {program.is_active ? (

@@ -116,9 +116,7 @@ export function RecommendationsContent() {
                 <CardContent className="flex flex-col gap-4">
                   <div className="flex flex-wrap gap-2">
                     <Badge>{degreeLabels[program.degree] ?? program.degree}</Badge>
-                    <Badge variant="neutral">
-                      {studyFormLabels[program.form] ?? program.form}
-                    </Badge>
+                    <Badge variant="neutral">{studyFormLabels[program.form] ?? program.form}</Badge>
                     <Badge variant="neutral">
                       {formatNumber(program.budgetPlaces)} бюджетных мест
                     </Badge>
@@ -128,7 +126,10 @@ export function RecommendationsContent() {
                   {reasons.length > 0 ? (
                     <ul className="flex flex-col gap-1.5">
                       {reasons.map((reason) => (
-                        <li key={reason} className="text-foreground flex items-center gap-2 text-sm">
+                        <li
+                          key={reason}
+                          className="text-foreground flex items-center gap-2 text-sm"
+                        >
                           <Check className="size-4 text-emerald-600" />
                           {reason}
                         </li>

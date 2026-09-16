@@ -1,7 +1,6 @@
 import { apiDelete, apiGet, apiPatch, apiPost, isApiConfigured } from "./client";
 import type {
   ApiAdminStatement,
-  ApiExam,
   ApiFaculty,
   ApiFacultyInput,
   ApiMaterial,
@@ -25,10 +24,7 @@ export async function getAdminUsers(): Promise<ApiUser[]> {
   return apiGet<ApiUser[]>("/api/users/");
 }
 
-export async function updateAdminUser(
-  id: number,
-  data: Record<string, unknown>,
-): Promise<ApiUser> {
+export async function updateAdminUser(id: number, data: Record<string, unknown>): Promise<ApiUser> {
   ensureConfigured();
   return apiPatch<ApiUser>(`/api/users/${id}`, data);
 }
@@ -106,26 +102,6 @@ export async function updateProgram(
 export async function deleteProgram(id: number): Promise<void> {
   ensureConfigured();
   await apiDelete(`/api/programs/${id}`);
-}
-
-export async function getExams(): Promise<ApiExam[]> {
-  ensureConfigured();
-  return apiGet<ApiExam[]>("/api/exams/");
-}
-
-export async function createExam(data: { name: string }): Promise<ApiExam> {
-  ensureConfigured();
-  return apiPost<ApiExam>("/api/exams/", data);
-}
-
-export async function updateExam(id: number, data: { name: string }): Promise<ApiExam> {
-  ensureConfigured();
-  return apiPatch<ApiExam>(`/api/exams/${id}`, data);
-}
-
-export async function deleteExam(id: number): Promise<void> {
-  ensureConfigured();
-  await apiDelete(`/api/exams/${id}`);
 }
 
 export async function getAllMaterials(): Promise<ApiMaterial[]> {

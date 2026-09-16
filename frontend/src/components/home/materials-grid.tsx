@@ -38,12 +38,12 @@ export function MaterialsGrid({ materials, className }: MaterialsGridProps) {
                 <h3 className="text-lg font-semibold tracking-tight">{material.title}</h3>
               </div>
 
-              <p className="mt-4 flex-1 text-[15px] leading-relaxed text-muted">
+              <p className="text-muted mt-4 flex-1 text-[15px] leading-relaxed">
                 {material.description}
               </p>
 
               <div className="mt-6 flex items-center justify-between">
-                <span className="text-xs text-muted">{material.readTime}</span>
+                <span className="text-muted text-xs">{material.readTime}</span>
                 <span className="text-brand-600 dark:text-brand-400 inline-flex items-center gap-1.5 text-sm font-medium">
                   Подробнее
                   <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />

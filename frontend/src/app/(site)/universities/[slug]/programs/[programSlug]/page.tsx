@@ -61,15 +61,13 @@ export default async function ProgramPage({
           </div>
 
           <h1 className="mt-4 text-3xl font-semibold tracking-tight sm:text-4xl">{program.name}</h1>
-          <p className="mt-2 text-sm text-muted">
+          <p className="text-muted mt-2 text-sm">
             {university.shortName} · {faculty.name} · {university.city}
           </p>
 
           <section className="mt-8">
             <h2 className="text-lg font-semibold tracking-tight">О программе</h2>
-            <p className="mt-3 text-sm leading-6 text-foreground">
-              {program.about}
-            </p>
+            <p className="text-foreground mt-3 text-sm leading-6">{program.about}</p>
           </section>
 
           <section className="mt-8">
@@ -85,7 +83,7 @@ export default async function ProgramPage({
                 </li>
               ))}
             </ul>
-            <p className="mt-3 text-xs text-muted">
+            <p className="text-muted mt-3 text-xs">
               Языки обучения: {program.languages.join(", ")}
             </p>
           </section>
@@ -108,14 +106,14 @@ export default async function ProgramPage({
               <div className="flex items-center gap-3">
                 <GraduationCap className="text-brand-600 size-5" />
                 <div>
-                  <p className="text-sm text-muted">Бюджетные места</p>
+                  <p className="text-muted text-sm">Бюджетные места</p>
                   <p className="font-semibold">{formatNumber(program.budgetPlaces)}</p>
                 </div>
               </div>
               <div className="flex items-center gap-3">
                 <Wallet className="text-brand-600 size-5" />
                 <div>
-                  <p className="text-sm text-muted">Платное обучение</p>
+                  <p className="text-muted text-sm">Платное обучение</p>
                   <p className="font-semibold">
                     {formatNumber(program.paidPlaces)} мест ·{" "}
                     {formatCurrency(program.tuitionPerYear)}/год
@@ -125,12 +123,12 @@ export default async function ProgramPage({
               <div className="flex items-center gap-3">
                 <CalendarClock className="text-brand-600 size-5" />
                 <div>
-                  <p className="text-sm text-muted">Приём документов до</p>
+                  <p className="text-muted text-sm">Приём документов до</p>
                   <p className="font-semibold">{formatDate(program.deadline)}</p>
                 </div>
               </div>
 
-              <div className="border-border border-t pt-4 text-sm text-muted">
+              <div className="border-border text-muted border-t pt-4 text-sm">
                 Срок обучения: {program.durationYears} лет
               </div>
 

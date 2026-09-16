@@ -48,7 +48,7 @@ export default async function UniversitiesPage({ searchParams }: PageProps<"/uni
       </div>
 
       <div className="mt-8 flex items-center justify-between">
-        <p className="text-sm text-muted">
+        <p className="text-muted text-sm">
           Найдено программ: <span className="text-foreground font-medium">{programs.length}</span>
         </p>
       </div>

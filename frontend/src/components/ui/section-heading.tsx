@@ -21,11 +21,7 @@ export function SectionHeading({
         <h2 className="text-heading text-4xl leading-[1.08] font-extrabold tracking-tight text-balance sm:text-6xl md:text-7xl lg:text-6xl">
           {title}
         </h2>
-        {description ? (
-          <p className="mt-3 text-sm text-muted sm:text-base">
-            {description}
-          </p>
-        ) : null}
+        {description ? <p className="text-muted mt-3 text-sm sm:text-base">{description}</p> : null}
       </div>
       {action}
     </div>

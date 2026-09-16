@@ -16,7 +16,7 @@ export function ProgramSpotlightCard({ program }: ProgramSpotlightCardProps) {
   const daysLeft = getDaysLeft(program.deadline);
 
   return (
-    <article className="group hover:border-brand-400/40 relative flex h-full flex-col overflow-hidden rounded-3xl border border-white/60 bg-white/80 text-foreground shadow-[0_10px_40px_-12px_rgba(0,0,0,0.15)] backdrop-blur-xl transition-all duration-500 hover:shadow-[0_24px_60px_-15px_rgba(0,0,0,0.05)] dark:border-white/10 dark:bg-neutral-900/70 dark:text-foreground dark:shadow-[0_10px_40px_-12px_rgba(0,0,0,0.6)] dark:hover:shadow-[0_24px_60px_-15px_rgba(0,0,0,0.8)]">
+    <article className="group hover:border-brand-400/40 text-foreground dark:text-foreground relative flex h-full flex-col overflow-hidden rounded-3xl border border-white/60 bg-white/80 shadow-[0_10px_40px_-12px_rgba(0,0,0,0.15)] backdrop-blur-xl transition-all duration-500 hover:shadow-[0_24px_60px_-15px_rgba(0,0,0,0.05)] dark:border-white/10 dark:bg-neutral-900/70 dark:shadow-[0_10px_40px_-12px_rgba(0,0,0,0.6)] dark:hover:shadow-[0_24px_60px_-15px_rgba(0,0,0,0.8)]">
       {/* top hairline highlight */}
       <div
         aria-hidden
@@ -32,7 +32,7 @@ export function ProgramSpotlightCard({ program }: ProgramSpotlightCardProps) {
         <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/30 to-transparent" />
 
         {/* rating pill */}
-        <div className="absolute top-3 right-3 flex items-center gap-1 rounded-full border border-white/40 bg-white/85 px-2.5 py-1 text-xs font-semibold text-foreground shadow-lg backdrop-blur-md">
+        <div className="text-foreground absolute top-3 right-3 flex items-center gap-1 rounded-full border border-white/40 bg-white/85 px-2.5 py-1 text-xs font-semibold shadow-lg backdrop-blur-md">
           <Star className="size-3.5 fill-amber-500 text-amber-500" />
           {program.university.rating.toFixed(1)}
         </div>
@@ -64,9 +64,7 @@ export function ProgramSpotlightCard({ program }: ProgramSpotlightCardProps) {
         <h3 className="mt-3 line-clamp-2 text-lg leading-snug font-semibold tracking-tight">
           {program.name}
         </h3>
-        <p className="mt-2 line-clamp-2 text-sm text-muted">
-          {program.about}
-        </p>
+        <p className="text-muted mt-2 line-clamp-2 text-sm">{program.about}</p>
 
         <div className="mt-5 grid grid-cols-2 gap-3 text-sm">
           <StatTile
@@ -81,8 +79,8 @@ export function ProgramSpotlightCard({ program }: ProgramSpotlightCardProps) {
           />
         </div>
 
-        <div className="mt-6 flex items-center justify-between border-t border-border/50 pt-4 dark:border-white/10">
-          <span className="flex items-center gap-1.5 text-xs text-muted">
+        <div className="border-border/50 mt-6 flex items-center justify-between border-t pt-4 dark:border-white/10">
+          <span className="text-muted flex items-center gap-1.5 text-xs">
             <CalendarClock className="size-3.5" />
             до {formatDate(program.deadline)}
           </span>
@@ -129,12 +127,12 @@ function StatTile({
   value: React.ReactNode;
 }) {
   return (
-    <div className="group-hover:border-brand-400/30 dark:group-hover:border-brand-400/30 relative overflow-hidden rounded-2xl border border-border/50 bg-neutral-50/60 p-3 transition-colors duration-300 dark:border-white/10 dark:bg-white/3">
+    <div className="group-hover:border-brand-400/30 dark:group-hover:border-brand-400/30 border-border/50 relative overflow-hidden rounded-2xl border bg-neutral-50/60 p-3 transition-colors duration-300 dark:border-white/10 dark:bg-white/3">
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 bg-linear-to-br from-white/40 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100 dark:from-white/5"
       />
-      <p className="relative flex items-center gap-1.5 text-xs text-muted">
+      <p className="text-muted relative flex items-center gap-1.5 text-xs">
         {icon}
         {label}
       </p>

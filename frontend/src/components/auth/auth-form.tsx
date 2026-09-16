@@ -108,10 +108,7 @@ export function AuthForm({ mode }: AuthFormProps) {
         }
         const { access_token } = (await loginRes.json()) as { access_token: string };
         setAccessToken(access_token);
-        window.localStorage.setItem(
-          "hse-session",
-          JSON.stringify({ email, at: Date.now() }),
-        );
+        window.localStorage.setItem("hse-session", JSON.stringify({ email, at: Date.now() }));
       } else {
         window.localStorage.setItem(
           "hse-session",

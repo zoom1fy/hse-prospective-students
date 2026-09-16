@@ -9,12 +9,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Field, Input, Select, Textarea } from "@/components/ui/field";
 import { Pencil, Trash } from "@/components/ui/icons";
 import { Modal } from "@/components/ui/modal";
-import {
-  deleteAdminUser,
-  getAdminUsers,
-  getRegions,
-  updateAdminUser,
-} from "@/lib/api/admin";
+import { deleteAdminUser, getAdminUsers, getRegions, updateAdminUser } from "@/lib/api/admin";
 import type { ApiReference, ApiUser } from "@/lib/api/types";
 
 import { ConfirmDialog } from "./confirm-dialog";
@@ -149,7 +144,11 @@ export function AdminUsers() {
                       <td className="px-4 py-3">{user.diplomas.length}</td>
                       <td className="px-4 py-3">{user.achievements.length}</td>
                       <td className="px-4 py-3">
-                        {user.is_admin ? <Badge>Администратор</Badge> : <span className="text-muted">Абитуриент</span>}
+                        {user.is_admin ? (
+                          <Badge>Администратор</Badge>
+                        ) : (
+                          <span className="text-muted">Абитуриент</span>
+                        )}
                       </td>
                       <td className="px-4 py-3">
                         <div className="flex justify-end gap-1">
@@ -244,12 +243,7 @@ function UserModal({
   }
 
   return (
-    <Modal
-      open
-      onClose={onClose}
-      title="Редактирование пользователя"
-      description={user.email}
-    >
+    <Modal open onClose={onClose} title="Редактирование пользователя" description={user.email}>
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
         <div className="grid gap-4 sm:grid-cols-2">
           <Field label="Фамилия" htmlFor="admin-last">

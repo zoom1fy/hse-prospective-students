@@ -42,9 +42,8 @@ export function DashboardNav() {
   return (
     <nav className="flex gap-1 overflow-x-auto lg:flex-col">
       {navItems.map((item) => {
-        const isActive = "exact" in item && item.exact
-          ? pathname === item.href
-          : pathname.startsWith(item.href);
+        const isActive =
+          "exact" in item && item.exact ? pathname === item.href : pathname.startsWith(item.href);
         return (
           <Link
             key={item.href}

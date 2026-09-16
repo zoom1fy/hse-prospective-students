@@ -32,10 +32,7 @@ export default async function UniversityPage({ params }: PageProps<"/universitie
   }
 
   const universityGroups = await getUniversityGroups(university);
-  const programsCount = universityGroups.reduce(
-    (sum, group) => sum + group.programs.length,
-    0,
-  );
+  const programsCount = universityGroups.reduce((sum, group) => sum + group.programs.length, 0);
 
   return (
     <Container className="py-8 sm:py-12">
@@ -51,7 +48,7 @@ export default async function UniversityPage({ params }: PageProps<"/universitie
         {university.ranking > 0 ? (
           <Card>
             <CardContent className="p-5">
-              <p className="text-sm text-muted">Место в рейтинге</p>
+              <p className="text-muted text-sm">Место в рейтинге</p>
               <p className="mt-1 text-2xl font-semibold">#{university.ranking}</p>
             </CardContent>
           </Card>
@@ -59,20 +56,20 @@ export default async function UniversityPage({ params }: PageProps<"/universitie
         {university.students > 0 ? (
           <Card>
             <CardContent className="p-5">
-              <p className="text-sm text-muted">Студентов</p>
+              <p className="text-muted text-sm">Студентов</p>
               <p className="mt-1 text-2xl font-semibold">{formatNumber(university.students)}</p>
             </CardContent>
           </Card>
         ) : null}
         <Card>
           <CardContent className="p-5">
-            <p className="text-sm text-muted">Программ</p>
+            <p className="text-muted text-sm">Программ</p>
             <p className="mt-1 text-2xl font-semibold">{programsCount}</p>
           </CardContent>
         </Card>
         <Card>
           <CardContent className="p-5">
-            <p className="text-sm text-muted">Оценка абитуриентов</p>
+            <p className="text-muted text-sm">Оценка абитуриентов</p>
             <p className="mt-1 text-2xl font-semibold">{university.rating.toFixed(1)}</p>
           </CardContent>
         </Card>
@@ -80,9 +77,7 @@ export default async function UniversityPage({ params }: PageProps<"/universitie
 
       <div className="mt-10">
         <h2 className="text-xl font-semibold tracking-tight">О вузе</h2>
-        <p className="mt-3 max-w-3xl text-sm leading-6 text-foreground">
-          {university.about}
-        </p>
+        <p className="text-foreground mt-3 max-w-3xl text-sm leading-6">{university.about}</p>
         <div className="mt-4 flex flex-wrap gap-1.5">
           {university.tags.map((tag) => (
             <Badge key={tag} variant="neutral">
@@ -97,27 +92,15 @@ export default async function UniversityPage({ params }: PageProps<"/universitie
         <div className="mt-6 flex flex-col gap-10">
           {universityGroups.map(({ faculty, programs }) => {
             return (
-              <section
-                key={faculty.id}
-                id={`faculty-${faculty.slug}`}
-                className="scroll-mt-24"
-              >
+              <section key={faculty.id} id={`faculty-${faculty.slug}`} className="scroll-mt-24">
                 <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
                   <h3 className="text-lg font-semibold tracking-tight">{faculty.name}</h3>
-                  <span className="text-sm text-muted">
-                    {programs.length} программ(ы)
-                  </span>
+                  <span className="text-muted text-sm">{programs.length} программ(ы)</span>
                 </div>
-                <p className="mt-1 max-w-3xl text-sm text-muted">
-                  {faculty.about}
-                </p>
+                <p className="text-muted mt-1 max-w-3xl text-sm">{faculty.about}</p>
                 <div className="mt-5 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
                   {programs.map((program) => (
-                    <ProgramCard
-                      key={program.id}
-                      program={program}
-                      showUniversity={false}
-                    />
+                    <ProgramCard key={program.id} program={program} showUniversity={false} />
                   ))}
                 </div>
               </section>

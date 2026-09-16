@@ -9,12 +9,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Field, Input, Select, Textarea } from "@/components/ui/field";
 import { Pencil, Plus, Trash } from "@/components/ui/icons";
 import { Modal } from "@/components/ui/modal";
-import {
-  createMaterial,
-  deleteMaterial,
-  getAllMaterials,
-  updateMaterial,
-} from "@/lib/api/admin";
+import { createMaterial, deleteMaterial, getAllMaterials, updateMaterial } from "@/lib/api/admin";
 import type { ApiMaterial, ApiMaterialInput } from "@/lib/api/types";
 
 const iconOptions = ["BookOpen", "FileText", "Award", "Wallet", "GraduationCap"];
@@ -227,11 +222,10 @@ function MaterialModal({
     icon: material?.icon ?? "FileText",
     read_time: material?.read_time ?? "5 мин",
     is_published: material?.is_published ?? true,
-    sections:
-      material?.sections.map((section) => ({
-        heading: section.heading,
-        paragraphs: section.paragraphs.join("\n"),
-      })) ?? [{ heading: "", paragraphs: "" }],
+    sections: material?.sections.map((section) => ({
+      heading: section.heading,
+      paragraphs: section.paragraphs.join("\n"),
+    })) ?? [{ heading: "", paragraphs: "" }],
   }));
   const [error, setError] = useState("");
   const [saving, setSaving] = useState(false);
@@ -362,7 +356,11 @@ function MaterialModal({
           {form.sections.map((section, index) => (
             <div key={index} className="border-border flex flex-col gap-3 rounded-xl border p-4">
               <div className="flex items-end gap-2">
-                <Field label="Заголовок раздела" htmlFor={`mat-section-${index}`} className="flex-1">
+                <Field
+                  label="Заголовок раздела"
+                  htmlFor={`mat-section-${index}`}
+                  className="flex-1"
+                >
                   <Input
                     id={`mat-section-${index}`}
                     value={section.heading}
@@ -390,10 +388,7 @@ function MaterialModal({
                   <Trash className="size-4" />
                 </Button>
               </div>
-              <Field
-                label="Абзацы (по одному на строку)"
-                htmlFor={`mat-paragraphs-${index}`}
-              >
+              <Field label="Абзацы (по одному на строку)" htmlFor={`mat-paragraphs-${index}`}>
                 <Textarea
                   id={`mat-paragraphs-${index}`}
                   value={section.paragraphs}

@@ -26,7 +26,7 @@ export function isApiConfigured(): boolean {
   return true;
 }
 
-export function getAccessToken(): string | null {
+function getAccessToken(): string | null {
   if (typeof window === "undefined") return null;
   return window.localStorage.getItem(TOKEN_STORAGE_KEY);
 }
@@ -34,11 +34,6 @@ export function getAccessToken(): string | null {
 export function setAccessToken(token: string): void {
   if (typeof window === "undefined") return;
   window.localStorage.setItem(TOKEN_STORAGE_KEY, token);
-}
-
-export function clearAccessToken(): void {
-  if (typeof window === "undefined") return;
-  window.localStorage.removeItem(TOKEN_STORAGE_KEY);
 }
 
 export function buildQuery(
@@ -53,7 +48,7 @@ export function buildQuery(
   return query ? `?${query}` : "";
 }
 
-export class ApiError extends Error {
+class ApiError extends Error {
   constructor(
     message: string,
     readonly status: number,
@@ -68,7 +63,7 @@ export class ApiError extends Error {
  * Thin fetch wrapper around the backend API.
  * The backend is not wired up yet, so pages use the mock layer in `src/data`.
  */
-export async function apiFetch<T>(
+async function apiFetch<T>(
   path: string,
   init: RequestInit & { next?: { revalidate?: number; tags?: string[] } } = {},
 ): Promise<T> {

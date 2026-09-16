@@ -60,7 +60,7 @@ export interface Diploma {
   averageScore: number | null;
 }
 
-export interface Achievement {
+interface Achievement {
   id: string;
   name: string;
   category: string | null;
@@ -93,7 +93,7 @@ export interface ProgramRecommendation {
   reasons: string[];
 }
 
-export interface ApplicationProgramNode {
+interface ApplicationProgramNode {
   id: string;
   programSlug: string;
   programName: string;
@@ -102,7 +102,7 @@ export interface ApplicationProgramNode {
   submittedAt: string;
 }
 
-export interface ApplicationFacultyNode {
+interface ApplicationFacultyNode {
   id: string;
   facultySlug: string;
   facultyName: string;

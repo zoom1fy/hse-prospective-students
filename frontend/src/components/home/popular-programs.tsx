@@ -92,7 +92,7 @@ export function PopularProgramsCarousel({ programs }: PopularProgramsCarouselPro
           type="button"
           onClick={() => go(-1)}
           aria-label="Предыдущие программы"
-          className="cursor-pointer group hover:border-brand-400/60 hover:text-brand-600 focus-visible:ring-brand-400 dark:hover:text-brand-400 absolute top-1/2 left-2 z-40 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-white/20 bg-white/70 text-foreground shadow-[0_8px_30px_rgb(0,0,0,0.12)] backdrop-blur-xl transition-all duration-300 hover:scale-105 hover:bg-white hover:shadow-[0_8px_30px_rgb(0,0,0,0.18)] focus-visible:ring-2 focus-visible:outline-none sm:left-3 lg:-left-6 dark:border-white/10 dark:bg-neutral-900/70 dark:text-foreground dark:hover:bg-neutral-900"
+          className="group hover:border-brand-400/60 hover:text-brand-600 focus-visible:ring-brand-400 dark:hover:text-brand-400 text-foreground dark:text-foreground absolute top-1/2 left-2 z-40 flex h-12 w-12 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full border border-white/20 bg-white/70 shadow-[0_8px_30px_rgb(0,0,0,0.12)] backdrop-blur-xl transition-all duration-300 hover:scale-105 hover:bg-white hover:shadow-[0_8px_30px_rgb(0,0,0,0.18)] focus-visible:ring-2 focus-visible:outline-none sm:left-3 lg:-left-6 dark:border-white/10 dark:bg-neutral-900/70 dark:hover:bg-neutral-900"
         >
           <ChevronLeft className="group-hover:-scale-0.5 size-5 transition-transform duration-300" />
         </button>
@@ -101,7 +101,7 @@ export function PopularProgramsCarousel({ programs }: PopularProgramsCarouselPro
           type="button"
           onClick={() => go(1)}
           aria-label="Следующие программы"
-          className="cursor-pointer group hover:border-brand-400/60 hover:text-brand-600 focus-visible:ring-brand-400 dark:hover:text-brand-400 absolute top-1/2 right-2 z-40 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-white/20 bg-white/70 text-foreground shadow-[0_8px_30px_rgb(0,0,0,0.12)] backdrop-blur-xl transition-all duration-300 hover:scale-105 hover:bg-white hover:shadow-[0_8px_30px_rgb(0,0,0,0.18)] focus-visible:ring-2 focus-visible:outline-none sm:right-3 lg:-right-6 dark:border-white/10 dark:bg-neutral-900/70 dark:text-foreground dark:hover:bg-neutral-900"
+          className="group hover:border-brand-400/60 hover:text-brand-600 focus-visible:ring-brand-400 dark:hover:text-brand-400 text-foreground dark:text-foreground absolute top-1/2 right-2 z-40 flex h-12 w-12 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full border border-white/20 bg-white/70 shadow-[0_8px_30px_rgb(0,0,0,0.12)] backdrop-blur-xl transition-all duration-300 hover:scale-105 hover:bg-white hover:shadow-[0_8px_30px_rgb(0,0,0,0.18)] focus-visible:ring-2 focus-visible:outline-none sm:right-3 lg:-right-6 dark:border-white/10 dark:bg-neutral-900/70 dark:hover:bg-neutral-900"
         >
           <ChevronRight className="group-hover:scale-0.5 size-5 transition-transform duration-300" />
         </button>

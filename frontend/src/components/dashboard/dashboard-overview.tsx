@@ -142,12 +142,16 @@ export function DashboardOverview() {
   }, []);
 
   if (state === "loading") {
-    return <div className="rounded-xl border border-border bg-surface p-6 text-sm text-muted">Загрузка…</div>;
+    return (
+      <div className="border-border bg-surface text-muted rounded-xl border p-6 text-sm">
+        Загрузка…
+      </div>
+    );
   }
 
   if (state === "error" || !data) {
     return (
-      <div className="rounded-xl border border-dashed border-border p-12 text-center text-sm text-muted">
+      <div className="border-border text-muted rounded-xl border border-dashed p-12 text-center text-sm">
         <p>Не удалось загрузить данные.</p>
         <p className="mt-2">
           <Link
@@ -183,7 +187,7 @@ export function DashboardOverview() {
           <CardContent className="flex items-center gap-3 p-5">
             <ClipboardList className="text-brand-600 size-5" />
             <div>
-              <p className="text-sm text-muted">Заявок подано</p>
+              <p className="text-muted text-sm">Заявок подано</p>
               <p className="text-xl font-semibold">{statementsCount}</p>
             </div>
           </CardContent>
@@ -192,7 +196,7 @@ export function DashboardOverview() {
           <CardContent className="flex items-center gap-3 p-5">
             <FileText className="text-brand-600 size-5" />
             <div>
-              <p className="text-sm text-muted">Дипломов</p>
+              <p className="text-muted text-sm">Дипломов</p>
               <p className="text-xl font-semibold">
                 {profile.diplomas.length > 0 ? profile.diplomas.length : "в разработке"}
               </p>
@@ -203,7 +207,7 @@ export function DashboardOverview() {
           <CardContent className="flex items-center gap-3 p-5">
             <Award className="text-brand-600 size-5" />
             <div>
-              <p className="text-sm text-muted">Достижений</p>
+              <p className="text-muted text-sm">Достижений</p>
               <p className="text-xl font-semibold">
                 {profile.achievements.length > 0 ? profile.achievements.length : "в разработке"}
               </p>
@@ -214,7 +218,7 @@ export function DashboardOverview() {
           <CardContent className="flex items-center gap-3 p-5">
             <Sparkles className="text-brand-600 size-5" />
             <div>
-              <p className="text-sm text-muted">Рекомендаций</p>
+              <p className="text-muted text-sm">Рекомендаций</p>
               <p className="text-xl font-semibold">
                 {recommendations.length > 0 ? recommendations.length : "в разработке"}
               </p>
@@ -296,7 +300,7 @@ export function DashboardOverview() {
                 <CardContent className="flex flex-wrap items-center justify-between gap-4 p-5">
                   <div>
                     <p className="font-medium">{program.name}</p>
-                    <p className="text-sm text-muted">
+                    <p className="text-muted text-sm">
                       {program.university.shortName} · {program.faculty.shortName}
                     </p>
                   </div>
@@ -314,7 +318,7 @@ export function DashboardOverview() {
             ))}
           </div>
         ) : (
-          <div className="mt-4 rounded-xl border border-dashed border-border p-8 text-center text-sm text-muted">
+          <div className="border-border text-muted mt-4 rounded-xl border border-dashed p-8 text-center text-sm">
             Рекомендации в разработке — сгенерируйте их, заполнив профиль.
           </div>
         )}
@@ -357,7 +361,7 @@ export function DashboardOverview() {
             ))}
           </div>
         ) : (
-          <div className="mt-4 rounded-xl border border-dashed border-border p-8 text-center text-sm text-muted">
+          <div className="border-border text-muted mt-4 rounded-xl border border-dashed p-8 text-center text-sm">
             Заявок пока нет.
           </div>
         )}

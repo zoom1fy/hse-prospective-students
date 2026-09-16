@@ -69,7 +69,7 @@ export default async function MaterialPage({ params }: PageProps<"/materials/[id
               <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">
                 {material.title}
               </h1>
-              <p className="mt-3 text-sm leading-6 text-muted sm:text-base">
+              <p className="text-muted mt-3 text-sm leading-6 sm:text-base">
                 {material.description}
               </p>
               <div className="mt-4 flex flex-wrap gap-2">
@@ -99,8 +99,10 @@ export default async function MaterialPage({ params }: PageProps<"/materials/[id
           </div>
 
           <div className="border-border bg-surface mt-12 rounded-2xl border p-6 sm:p-8">
-            <p className="text-lg font-semibold tracking-tight">Проверьте свои шансы на поступление</p>
-            <p className="mt-2 max-w-2xl text-sm leading-relaxed text-muted">
+            <p className="text-lg font-semibold tracking-tight">
+              Проверьте свои шансы на поступление
+            </p>
+            <p className="text-muted mt-2 max-w-2xl text-sm leading-relaxed">
               Заполните профиль — подбор программ учтёт ваши баллы, дипломы и достижения и
               рассчитает реалистичные шансы по каждому направлению.
             </p>

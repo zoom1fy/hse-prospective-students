@@ -49,7 +49,8 @@ async function loadTree(): Promise<ApplicationUniversityNode[]> {
 function countPrograms(tree: ApplicationUniversityNode[]): number {
   return tree.reduce(
     (sum, university) =>
-      sum + university.faculties.reduce((facultySum, faculty) => facultySum + faculty.programs.length, 0),
+      sum +
+      university.faculties.reduce((facultySum, faculty) => facultySum + faculty.programs.length, 0),
     0,
   );
 }
@@ -152,7 +153,9 @@ export function ApplicationsContent() {
             <EmptyState
               title="Пока нет поданных заявок"
               description="Начните с подбора программ и подайте первую заявку."
-              action={<ButtonLink href="/dashboard/recommendations">Подобрать программы</ButtonLink>}
+              action={
+                <ButtonLink href="/dashboard/recommendations">Подобрать программы</ButtonLink>
+              }
             />
           )
         ) : null}

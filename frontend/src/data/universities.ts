@@ -105,7 +105,7 @@ export const universities: University[] = [
   },
 ];
 
-export const faculties: Faculty[] = [
+const faculties: Faculty[] = [
   {
     id: "hse-fcs",
     slug: "computer-science",
@@ -165,7 +165,7 @@ export const faculties: Faculty[] = [
   },
 ];
 
-export const programs: Program[] = [
+const programs: Program[] = [
   {
     id: "hse-fcs-pi",
     slug: "applied-informatics",
@@ -371,18 +371,10 @@ export function getUniversity(slug: string): University | undefined {
   return universities.find((item) => item.slug === slug);
 }
 
-export function getFaculty(id: string): Faculty | undefined {
-  return facultyById.get(id);
-}
-
 export function getFaculties(university: University): Faculty[] {
   return university.facultyIds
     .map((id) => facultyById.get(id))
     .filter((item): item is Faculty => Boolean(item));
-}
-
-export function getProgramsByUniversity(universityId: string): Program[] {
-  return programs.filter((item) => item.universityId === universityId);
 }
 
 export function getProgramsByFaculty(facultyId: string): Program[] {
@@ -406,23 +398,6 @@ export function getAllProgramsWithContext(): ProgramWithContext[] {
   return programs.map(withContext).filter((item): item is ProgramWithContext => Boolean(item));
 }
 
-export function getPopularPrograms(limit = 6): ProgramWithContext[] {
-  return getAllProgramsWithContext()
-    .sort((a, b) => b.university.rating - a.university.rating)
-    .slice(0, limit);
-}
-
-export function getOpenAdmissions(limit = 5): ProgramWithContext[] {
-  return getAllProgramsWithContext()
-    .filter((item) => new Date(item.deadline).getTime() > Date.now())
-    .sort((a, b) => new Date(a.deadline).getTime() - new Date(b.deadline).getTime())
-    .slice(0, limit);
-}
-
-export function getTopUniversities(limit = 6): University[] {
-  return [...universities].sort((a, b) => a.ranking - b.ranking).slice(0, limit);
-}
-
 export interface UniversityFilters {
   query?: string;
   city?: string;
@@ -433,37 +408,6 @@ export interface UniversityFilters {
   budgetOnly?: boolean;
 }
 
-export function filterPrograms(filters: UniversityFilters): ProgramWithContext[] {
-  const query = filters.query?.trim().toLowerCase();
-
-  return getAllProgramsWithContext().filter((item) => {
-    if (query) {
-      const haystack =
-        `${item.name} ${item.university.name} ${item.university.shortName} ${item.faculty.name}`.toLowerCase();
-      if (!haystack.includes(query)) return false;
-    }
-    if (filters.city && filters.city !== "all" && item.university.city !== filters.city) {
-      return false;
-    }
-    if (filters.degree && filters.degree !== "all" && item.degree !== filters.degree) {
-      return false;
-    }
-    if (filters.form && filters.form !== "all" && item.form !== filters.form) {
-      return false;
-    }
-    if (filters.direction && filters.direction !== "all" && item.name !== filters.direction) {
-      return false;
-    }
-    if (filters.minScore && item.minScore > filters.minScore) {
-      return false;
-    }
-    if (filters.budgetOnly && item.budgetPlaces <= 0) {
-      return false;
-    }
-    return true;
-  });
-}
-
 export function getCities(): string[] {
   return [...new Set(universities.map((item) => item.city))].sort((a, b) =>
     a.localeCompare(b, "ru"),
@@ -471,7 +415,5 @@ export function getCities(): string[] {
 }
 
 export function getDirections(): string[] {
-  return [...new Set(programs.map((item) => item.name))].sort((a, b) =>
-    a.localeCompare(b, "ru"),
-  );
+  return [...new Set(programs.map((item) => item.name))].sort((a, b) => a.localeCompare(b, "ru"));
 }

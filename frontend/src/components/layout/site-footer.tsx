@@ -8,7 +8,7 @@ export function SiteFooter() {
     <footer className="border-border bg-surface mt-auto border-t">
       <Container className="py-10">
         <div className="flex flex-col gap-6 sm:flex-row sm:items-start sm:justify-between">
-          <div className="text-xs text-muted">
+          <div className="text-muted text-xs">
             © {new Date().getFullYear()} {siteConfig.name}. Демонстрационный прототип.
           </div>
 
@@ -16,9 +16,7 @@ export function SiteFooter() {
             <Link href="/" className="hover:text-brand-600 font-semibold transition-colors">
               {siteConfig.name}
             </Link>
-            <p className="mt-3 max-w-sm text-sm text-muted sm:ml-auto">
-              {siteConfig.description}
-            </p>
+            <p className="text-muted mt-3 max-w-sm text-sm sm:ml-auto">{siteConfig.description}</p>
             <Link
               href="/admin"
               className="text-muted hover:text-brand-600 mt-4 inline-block text-xs transition-colors"

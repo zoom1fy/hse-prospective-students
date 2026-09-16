@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import { Check, ChevronDown } from "@/components/ui/icons";
 import { cn } from "@/lib/utils";
 
-export interface DropdownOption {
+interface DropdownOption {
   value: string;
   label: string;
 }
@@ -59,7 +59,7 @@ export function DropdownSelect({
         aria-haspopup="listbox"
         aria-expanded={open}
         className={cn(
-          "flex h-12 w-full items-center justify-between gap-2 rounded-xl border bg-surface px-4 text-left text-sm shadow-sm transition outline-none",
+          "bg-surface flex h-12 w-full items-center justify-between gap-2 rounded-xl border px-4 text-left text-sm shadow-sm transition outline-none",
           "focus-visible:ring-brand-500/30 focus-visible:border-brand-500 focus-visible:ring-2",
           open
             ? "border-brand-500 ring-brand-500/30 ring-2"
@@ -69,10 +69,7 @@ export function DropdownSelect({
       >
         <span className="truncate">{selected ? selected.label : placeholder}</span>
         <ChevronDown
-          className={cn(
-            "size-4 shrink-0 text-muted transition-transform",
-            open && "rotate-180",
-          )}
+          className={cn("text-muted size-4 shrink-0 transition-transform", open && "rotate-180")}
         />
       </button>
 

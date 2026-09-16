@@ -20,11 +20,7 @@ export function PageHeader({ title, description, eyebrow, actions, className }: 
         <h1 className="text-heading mt-1 text-2xl font-semibold tracking-tight sm:text-3xl">
           {title}
         </h1>
-        {description ? (
-          <p className="mt-2 text-sm text-muted sm:text-base">
-            {description}
-          </p>
-        ) : null}
+        {description ? <p className="text-muted mt-2 text-sm sm:text-base">{description}</p> : null}
       </div>
       {actions ? <div className="flex items-center gap-2">{actions}</div> : null}
     </div>

@@ -6,15 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Field, Input, Select, Textarea } from "@/components/ui/field";
-import {
-  Award,
-  BookOpen,
-  Check,
-  GraduationCap,
-  Plus,
-  Trash,
-  User,
-} from "@/components/ui/icons";
+import { Award, BookOpen, Check, GraduationCap, Plus, Trash, User } from "@/components/ui/icons";
 import { Modal } from "@/components/ui/modal";
 import type { ApiDiplomaCreate, ApiUserUpdate } from "@/lib/api/types";
 import type { DiplomaType, UserProfile } from "@/types";

@@ -30,9 +30,7 @@ import type {
 
 import { ConfirmDialog } from "./confirm-dialog";
 
-type Confirm =
-  | { kind: "university"; item: ApiUniversity }
-  | { kind: "faculty"; item: ApiFaculty };
+type Confirm = { kind: "university"; item: ApiUniversity } | { kind: "faculty"; item: ApiFaculty };
 
 export function AdminUniversities() {
   const [universities, setUniversities] = useState<ApiUniversity[]>([]);
@@ -41,9 +39,10 @@ export function AdminUniversities() {
   const [state, setState] = useState<"loading" | "ready" | "error">("loading");
   const [reloadKey, setReloadKey] = useState(0);
   const [editingUniversity, setEditingUniversity] = useState<ApiUniversity | "new" | null>(null);
-  const [facultyModal, setFacultyModal] = useState<
-    { universityId: number; faculty: ApiFaculty | null } | null
-  >(null);
+  const [facultyModal, setFacultyModal] = useState<{
+    universityId: number;
+    faculty: ApiFaculty | null;
+  } | null>(null);
   const [confirm, setConfirm] = useState<Confirm | null>(null);
   const [error, setError] = useState("");
 

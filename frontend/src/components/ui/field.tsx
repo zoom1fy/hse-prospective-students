@@ -30,7 +30,7 @@ export function Field({ label, htmlFor, hint, className, children, ...props }: F
         {label}
       </label>
       {children}
-      {hint ? <p className="text-xs text-muted">{hint}</p> : null}
+      {hint ? <p className="text-muted text-xs">{hint}</p> : null}
     </div>
   );
 }

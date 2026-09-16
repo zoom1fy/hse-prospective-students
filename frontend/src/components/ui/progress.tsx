@@ -14,10 +14,7 @@ export function Progress({ value, max = 100, className }: ProgressProps) {
       aria-valuenow={percentage}
       aria-valuemin={0}
       aria-valuemax={100}
-      className={cn(
-        "h-2 w-full overflow-hidden rounded-full bg-surface-muted",
-        className,
-      )}
+      className={cn("bg-surface-muted h-2 w-full overflow-hidden rounded-full", className)}
     >
       <div
         className="bg-brand-600 h-full rounded-full transition-[width]"

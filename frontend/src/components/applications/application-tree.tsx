@@ -24,7 +24,7 @@ function ToggleButton({
       onClick={onClick}
       aria-expanded={expanded}
       aria-label={label}
-      className="border-border inline-flex size-7 shrink-0 items-center justify-center rounded-md border text-muted transition-colors hover:bg-muted/25"
+      className="border-border text-muted hover:bg-muted/25 inline-flex size-7 shrink-0 items-center justify-center rounded-md border transition-colors"
     >
       <ChevronDown className={cn("size-4 transition-transform", !expanded && "-rotate-90")} />
     </button>
@@ -66,9 +66,7 @@ export function ApplicationTree({ data }: { data: ApplicationUniversityNode[] })
                   {university.universityShortName}
                 </Link>
                 <Badge variant="neutral">{university.city}</Badge>
-                <span className="text-xs text-muted">
-                  {programsCount} программ(ы)
-                </span>
+                <span className="text-muted text-xs">{programsCount} программ(ы)</span>
               </div>
             </div>
 
@@ -79,7 +77,7 @@ export function ApplicationTree({ data }: { data: ApplicationUniversityNode[] })
                   return (
                     <div
                       key={faculty.id}
-                      className="rounded-xl bg-surface-muted/60 p-3 dark:bg-surface/50"
+                      className="bg-surface-muted/60 dark:bg-surface/50 rounded-xl p-3"
                     >
                       <div className="flex items-start gap-3">
                         <ToggleButton
@@ -105,13 +103,13 @@ export function ApplicationTree({ data }: { data: ApplicationUniversityNode[] })
                               >
                                 <span className="flex items-center gap-2 text-sm">
                                   <span className="font-medium">{program.programName}</span>
-                                  <span className="text-xs text-muted">
+                                  <span className="text-muted text-xs">
                                     Приоритет {program.priority}
                                   </span>
                                 </span>
                                 <span className="flex items-center gap-2">
                                   <StatusBadge status={program.status} />
-                                  <ExternalLink className="group-hover:text-brand-600 size-4 text-muted transition-colors" />
+                                  <ExternalLink className="group-hover:text-brand-600 text-muted size-4 transition-colors" />
                                 </span>
                               </Link>
                             </li>
