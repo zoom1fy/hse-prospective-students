@@ -19,9 +19,7 @@ function useAuth() {
 
   useEffect(() => {
     const update = () =>
-      setAuthed(
-        Boolean(localStorage.getItem("hse-token") || localStorage.getItem("hse-session")),
-      );
+      setAuthed(Boolean(localStorage.getItem("hse-token") || localStorage.getItem("hse-session")));
     update();
     window.addEventListener("storage", update);
     return () => window.removeEventListener("storage", update);
@@ -77,7 +75,7 @@ function NavTabs() {
           href={item.href}
           aria-current={isNavItemActive(item.href, pathname) ? "page" : undefined}
           className={cn(
-            "relative z-10 inline-flex h-18 w-48 cursor-pointer items-center justify-center rounded-lg text-center text-lg font-medium whitespace-nowrap transition-colors",
+            "relative z-10 inline-flex h-14 w-40 cursor-pointer items-center justify-center rounded-lg text-center text-base font-medium whitespace-nowrap transition-colors",
             isNavItemActive(item.href, pathname)
               ? "text-brand-700 dark:text-brand-200"
               : "hover:text-foreground text-muted",
@@ -99,9 +97,9 @@ const chatBotClasses = cn(
 
 function ChatBotButton() {
   return (
-    <Link href="/chat" className={buttonVariants({ size: "xl", className: chatBotClasses })}>
+    <Link href="/chat" className={buttonVariants({ size: "lg", className: chatBotClasses })}>
       <span className="relative z-10 inline-flex items-center gap-2">
-        <Sparkles className="size-5" />
+        <Sparkles className="size-4" />
         ИИ Чат-бот
       </span>
     </Link>
@@ -115,19 +113,19 @@ export function SiteHeader() {
 
   return (
     <header className="border-border bg-background/80 sticky top-0 z-40 border-b backdrop-blur">
-      <div className="mx-auto flex h-32 w-full max-w-352 items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto flex h-24 w-full max-w-352 items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
         <Link href="/" aria-label={siteConfig.name} className="cursor-pointer">
-          <span className="text-heading text-3xl font-bold tracking-tight">{siteConfig.name}</span>
+          <span className="text-heading text-2xl font-bold tracking-tight">{siteConfig.name}</span>
         </Link>
 
         <NavTabs />
 
-        <div className="flex items-center gap-3">
-          <div className="hidden items-center gap-3 md:flex">
+        <div className="flex items-center gap-2">
+          <div className="hidden items-center gap-2 md:flex">
             <ChatBotButton />
             <Link
               href={authed ? "/dashboard" : "/login"}
-              className={buttonVariants({ variant: "secondary", size: "xl" })}
+              className={buttonVariants({ variant: "secondary", size: "lg" })}
             >
               {authed ? "Личный кабинет" : "Войти"}
             </Link>
@@ -138,13 +136,13 @@ export function SiteHeader() {
             onClick={() => setOpen((value) => !value)}
             aria-label="Меню"
             aria-expanded={open}
-            className="border-border hover:bg-muted/25 inline-flex size-14 cursor-pointer items-center justify-center rounded-xl border transition-colors xl:hidden"
+            className="border-border hover:bg-muted/25 inline-flex size-11 cursor-pointer items-center justify-center rounded-lg border transition-colors xl:hidden"
           >
             <span className="sr-only">Открыть меню</span>
-            <span className="flex flex-col gap-1.5">
-              <span className="bg-foreground block h-0.5 w-6" />
-              <span className="bg-foreground block h-0.5 w-6" />
-              <span className="bg-foreground block h-0.5 w-6" />
+            <span className="flex flex-col gap-1">
+              <span className="bg-foreground block h-0.5 w-5" />
+              <span className="bg-foreground block h-0.5 w-5" />
+              <span className="bg-foreground block h-0.5 w-5" />
             </span>
           </button>
         </div>
@@ -159,7 +157,7 @@ export function SiteHeader() {
                 href={item.href}
                 aria-current={isNavItemActive(item.href, pathname) ? "page" : undefined}
                 className={cn(
-                  "rounded-lg px-4 py-3 text-lg font-medium",
+                  "rounded-lg px-4 py-2.5 text-base font-medium",
                   isNavItemActive(item.href, pathname)
                     ? "bg-brand-50 text-brand-700 dark:bg-brand-950 dark:text-brand-200"
                     : "text-muted",
@@ -171,7 +169,7 @@ export function SiteHeader() {
             <ChatBotButton />
             <Link
               href={authed ? "/dashboard" : "/login"}
-              className="rounded-lg px-4 py-3 text-lg font-medium"
+              className="rounded-lg px-4 py-2.5 text-base font-medium"
             >
               {authed ? "Личный кабинет" : "Войти"}
             </Link>
