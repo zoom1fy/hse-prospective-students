@@ -45,3 +45,15 @@ class StatementTreeUniversity(BaseModel):
 
 class StatementTreeResponse(BaseModel):
     universities: list[StatementTreeUniversity]
+
+
+class AdminStatementResponse(BaseModel):
+    id: int
+    id_user: int
+    user_name: str
+    id_program: int
+    program_name: str
+    id_status: int
+    status_name: str
+    created_at: datetime
+    updated_at: datetime

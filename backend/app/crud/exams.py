@@ -2,7 +2,7 @@ from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.models.exam import Exam, ProgramExam, UserExam
-from app.schemas.exam import ExamCreate, ProgramExamCreate
+from app.schemas.exam import ExamCreate, ExamUpdate, ProgramExamCreate
 
 
 async def get_exams(session: AsyncSession) -> list[Exam]:
@@ -21,6 +21,19 @@ async def create_exam(session: AsyncSession, data: ExamCreate) -> Exam:
     await session.commit()
     await session.refresh(obj)
     return obj
+
+
+async def update_exam(session: AsyncSession, exam: Exam, data: ExamUpdate) -> Exam:
+    for field, value in data.model_dump(exclude_unset=True).items():
+        setattr(exam, field, value)
+    await session.commit()
+    await session.refresh(exam)
+    return exam
+
+
+async def delete_exam(session: AsyncSession, exam: Exam) -> None:
+    await session.delete(exam)
+    await session.commit()
 
 
 async def create_program_exam(session: AsyncSession, data: ProgramExamCreate) -> ProgramExam:

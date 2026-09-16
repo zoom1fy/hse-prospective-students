@@ -1,14 +1,41 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.api.deps import get_current_user
+from app.api.deps import get_current_user, require_admin
 from app.crud import statements
 from app.db.database import get_db
 from app.models.user import User
-from app.schemas.statement import StatementCreate, StatementResponse, StatementTreeResponse, StatementUpdate
+from app.schemas.statement import (
+    AdminStatementResponse,
+    StatementCreate,
+    StatementResponse,
+    StatementTreeResponse,
+    StatementUpdate,
+)
 from app.services.statement_service import get_statement_tree
 
 router = APIRouter()
+
+
+@router.get("/all", response_model=list[AdminStatementResponse])
+async def get_all_statements(
+    _: User = Depends(require_admin),
+    db: AsyncSession = Depends(get_db),
+):
+    return await statements.get_all_statements(db)
+
+
+@router.patch("/admin/{statement_id}", response_model=AdminStatementResponse)
+async def admin_update_statement(
+    statement_id: int,
+    data: StatementUpdate,
+    _: User = Depends(require_admin),
+    db: AsyncSession = Depends(get_db),
+):
+    statement = await statements.get_statement_admin(db, statement_id)
+    if not statement:
+        raise HTTPException(404, "Statement not found")
+    return await statements.admin_update_statement(db, statement, data)
 
 
 @router.get("/", response_model=list[StatementResponse])

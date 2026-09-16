@@ -53,3 +53,8 @@ async def update_user(session: AsyncSession, user: User, data: UserUpdate) -> Us
         setattr(user, field, value)
     await session.commit()
     return await get_user(session, user.id)
+
+
+async def delete_user(session: AsyncSession, user: User) -> None:
+    await session.delete(user)
+    await session.commit()

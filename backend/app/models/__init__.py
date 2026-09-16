@@ -6,6 +6,7 @@ from app.models.program import Program
 from app.models.exam import Exam, ProgramExam, UserExam
 from app.models.achievement import Achievement, AchievementCategory
 from app.models.diploma import Diploma, DiplomaType
+from app.models.material import Material
 from app.models.statement import Statement, StatementStatus
 from app.models.favorite import UserProgram
 from app.models.recommendation import RecommendationProgramUser
@@ -24,6 +25,7 @@ __all__ = [
     "AchievementCategory",
     "Diploma",
     "DiplomaType",
+    "Material",
     "TypeStudy",
     "EducationLevel",
     "Statement",

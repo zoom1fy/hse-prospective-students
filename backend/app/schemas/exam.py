@@ -5,6 +5,10 @@ class ExamCreate(BaseModel):
     name: str
 
 
+class ExamUpdate(BaseModel):
+    name: str | None = None
+
+
 class ExamResponse(ExamCreate):
     id: int
     model_config = ConfigDict(from_attributes=True)

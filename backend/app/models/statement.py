@@ -35,3 +35,17 @@ class Statement(Base):
     user: Mapped["User"] = relationship(back_populates="statements")
     program: Mapped["Program"] = relationship(back_populates="statements")
     status: Mapped["StatementStatus"] = relationship(back_populates="statements")
+
+    @property
+    def user_name(self) -> str:
+        if not self.user:
+            return ""
+        return f"{self.user.last_name} {self.user.first_name}".strip()
+
+    @property
+    def program_name(self) -> str:
+        return self.program.name if self.program else ""
+
+    @property
+    def status_name(self) -> str:
+        return self.status.name if self.status else ""

@@ -1,19 +1,19 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.api.deps import get_current_user
+from app.api.deps import get_current_user, require_admin
 from app.crud import diplomas, users
 from app.db.database import get_db
 from app.models.user import User
 from app.schemas.diploma import DiplomaCreate, DiplomaResponse
-from app.schemas.user import UserResponse, UserUpdate
+from app.schemas.user import UserAdminUpdate, UserResponse, UserUpdate
 
 router = APIRouter()
 
 
 @router.get("/", response_model=list[UserResponse])
 async def get_users(
-    _: User = Depends(get_current_user),
+    _: User = Depends(require_admin),
     db: AsyncSession = Depends(get_db),
 ):
     return await users.get_users(db)
@@ -65,10 +65,37 @@ async def update_me(
 @router.get("/{user_id}", response_model=UserResponse)
 async def get_user(
     user_id: int,
-    _: User = Depends(get_current_user),
+    _: User = Depends(require_admin),
     db: AsyncSession = Depends(get_db),
 ):
     user = await users.get_user(db, user_id)
     if not user:
         raise HTTPException(404, "User not found")
     return user
+
+
+@router.patch("/{user_id}", response_model=UserResponse)
+async def update_user(
+    user_id: int,
+    data: UserAdminUpdate,
+    _: User = Depends(require_admin),
+    db: AsyncSession = Depends(get_db),
+):
+    user = await users.get_user(db, user_id)
+    if not user:
+        raise HTTPException(404, "User not found")
+    return await users.update_user(db, user, data)
+
+
+@router.delete("/{user_id}", status_code=204)
+async def delete_user(
+    user_id: int,
+    admin: User = Depends(require_admin),
+    db: AsyncSession = Depends(get_db),
+):
+    if admin.id == user_id:
+        raise HTTPException(400, "Нельзя удалить собственный аккаунт")
+    user = await users.get_user(db, user_id)
+    if not user:
+        raise HTTPException(404, "User not found")
+    await users.delete_user(db, user)

@@ -2,7 +2,7 @@ from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.models.university import University
-from app.schemas.university import UniversityCreate
+from app.schemas.university import UniversityCreate, UniversityUpdate
 
 
 async def get_universities(session: AsyncSession) -> list[University]:
@@ -21,3 +21,18 @@ async def create_university(session: AsyncSession, data: UniversityCreate) -> Un
     await session.commit()
     await session.refresh(obj)
     return obj
+
+
+async def update_university(
+    session: AsyncSession, university: University, data: UniversityUpdate
+) -> University:
+    for field, value in data.model_dump(exclude_unset=True).items():
+        setattr(university, field, value)
+    await session.commit()
+    await session.refresh(university)
+    return university
+
+
+async def delete_university(session: AsyncSession, university: University) -> None:
+    await session.delete(university)
+    await session.commit()

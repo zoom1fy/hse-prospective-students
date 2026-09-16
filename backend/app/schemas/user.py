@@ -26,8 +26,13 @@ class UserUpdate(BaseModel):
     id_region: int | None = None
 
 
+class UserAdminUpdate(UserUpdate):
+    is_admin: bool | None = None
+
+
 class UserResponse(UserBase):
     id: int
+    is_admin: bool = False
     diplomas: list[DiplomaResponse] = []
     achievements: list[AchievementResponse] = []
     model_config = ConfigDict(from_attributes=True)

@@ -9,6 +9,7 @@ from app.api.routers import (
     faculties,
     programs,
     exams,
+    materials,
     statements,
     recommendations,
     comparisons,
@@ -37,6 +38,7 @@ app.include_router(universities.router, prefix="/api/universities", tags=["Unive
 app.include_router(faculties.router, prefix="/api/faculties", tags=["Faculties"])
 app.include_router(programs.router, prefix="/api/programs", tags=["Programs"])
 app.include_router(exams.router, prefix="/api/exams", tags=["Exams"])
+app.include_router(materials.router, prefix="/api/materials", tags=["Materials"])
 app.include_router(statements.router, prefix="/api/statements", tags=["Statements"])
 app.include_router(recommendations.router, prefix="/api/recommendations", tags=["Recommendations"])
 app.include_router(comparisons.router, prefix="/api/comparisons", tags=["Comparisons"])
