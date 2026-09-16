@@ -18,7 +18,10 @@ function useAuth() {
   const [authed, setAuthed] = useState(false);
 
   useEffect(() => {
-    const update = () => setAuthed(Boolean(localStorage.getItem("hse-session")));
+    const update = () =>
+      setAuthed(
+        Boolean(localStorage.getItem("hse-token") || localStorage.getItem("hse-session")),
+      );
     update();
     window.addEventListener("storage", update);
     return () => window.removeEventListener("storage", update);
@@ -58,7 +61,7 @@ function NavTabs() {
   return (
     <nav
       ref={navRef}
-      className="relative hidden items-center gap-1 lg:flex"
+      className="relative hidden items-center gap-1 xl:flex"
       aria-label="Основная навигация"
     >
       {indicator ? (
@@ -135,7 +138,7 @@ export function SiteHeader() {
             onClick={() => setOpen((value) => !value)}
             aria-label="Меню"
             aria-expanded={open}
-            className="border-border hover:bg-muted/25 inline-flex size-14 cursor-pointer items-center justify-center rounded-xl border transition-colors md:hidden"
+            className="border-border hover:bg-muted/25 inline-flex size-14 cursor-pointer items-center justify-center rounded-xl border transition-colors xl:hidden"
           >
             <span className="sr-only">Открыть меню</span>
             <span className="flex flex-col gap-1.5">
@@ -148,7 +151,7 @@ export function SiteHeader() {
       </div>
 
       {open ? (
-        <div className="border-border border-t md:hidden">
+        <div className="border-border border-t xl:hidden">
           <div className="flex flex-col gap-1 px-4 py-4 sm:px-6">
             {siteConfig.nav.map((item) => (
               <Link

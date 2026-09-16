@@ -13,13 +13,13 @@ interface UniversityImageProps {
 
 export function UniversityImage({ university, className }: UniversityImageProps) {
   const [failed, setFailed] = useState(false);
-  const showImage = Boolean(university.image) && !failed;
+  const showImage = Boolean(university.logo) && !failed;
 
   return (
     <div className={cn("bg-brand-700 relative overflow-hidden", className)}>
       {showImage ? (
         <Image
-          src={university.image as string}
+          src={university.logo as string}
           alt={`${university.shortName} — ${university.name}`}
           fill
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"

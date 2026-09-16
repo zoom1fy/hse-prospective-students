@@ -3,14 +3,16 @@ import { MaterialsGrid } from "@/components/home/materials-grid";
 import { PopularProgramsCarousel } from "@/components/home/popular-programs";
 import { Steps } from "@/components/home/steps";
 import { CalendarTimeline } from "@/components/home/calendar-timeline";
+import { ButtonLink } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
+import { ArrowRight } from "@/components/ui/icons";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { calendarEvents } from "@/data/calendar";
 import { materials } from "@/data/materials";
-import { getPopularPrograms } from "@/data/universities";
+import { getPopularPrograms } from "@/lib/api";
 
-export default function HomePage() {
-  const popularPrograms = getPopularPrograms(6);
+export default async function HomePage() {
+  const popularPrograms = await getPopularPrograms(6);
 
   return (
     <>
@@ -60,8 +62,16 @@ export default function HomePage() {
 
       {/* SECTION 5: Полезные материалы */}
       <Container className="py-14 sm:py-16">
-        <SectionHeading title="Полезные материалы" />
-        <MaterialsGrid materials={materials} />
+        <SectionHeading
+          title="Полезные материалы"
+          action={
+            <ButtonLink href="/materials" variant="secondary">
+              Все материалы
+              <ArrowRight className="size-4" />
+            </ButtonLink>
+          }
+        />
+        <MaterialsGrid materials={materials} className="mt-8" />
       </Container>
     </>
   );

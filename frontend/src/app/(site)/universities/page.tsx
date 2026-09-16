@@ -7,7 +7,7 @@ import { PageHeader } from "@/components/layout/page-header";
 import { ButtonLink } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { EmptyState } from "@/components/ui/empty-state";
-import { filterPrograms, getCities } from "@/data/universities";
+import { filterPrograms, getCatalog } from "@/lib/api";
 
 export const metadata: Metadata = {
   title: "Вузы и программы",
@@ -29,8 +29,8 @@ export default async function UniversitiesPage({ searchParams }: PageProps<"/uni
   const form = first(params.form) || "all";
   const budgetOnly = first(params.budgetOnly) === "true";
 
-  const programs = filterPrograms({ query, city, degree, form, budgetOnly });
-  const cities = getCities();
+  const { programs: catalogPrograms, cities } = await getCatalog();
+  const programs = filterPrograms(catalogPrograms, { query, city, degree, form, budgetOnly });
 
   return (
     <Container className="py-8 sm:py-12">
