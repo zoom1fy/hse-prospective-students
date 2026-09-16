@@ -18,4 +18,5 @@ class AchievementCreate(BaseModel):
 class AchievementResponse(AchievementCreate):
     id: int
     id_user: int
+    category_name: str
     model_config = ConfigDict(from_attributes=True)

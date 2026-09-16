@@ -1,4 +1,6 @@
-from sqlalchemy import delete, select
+import random
+
+from sqlalchemy import delete, func, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.models.program import Program
@@ -13,8 +15,8 @@ async def generate_recommendations(
     """
     Временная реализация.
 
-    Здесь позже будет AI-логика. Пока возвращаем активные программы
-    в качестве каркаса, чтобы API уже был рабочим.
+    Здесь позже будет AI-логика. Пока случайно выбираем активные
+    программы из базы, чтобы API уже был рабочим.
     """
     await session.execute(
         delete(RecommendationProgramUser).where(
@@ -25,19 +27,20 @@ async def generate_recommendations(
     result = await session.execute(
         select(Program)
         .where(Program.is_active.is_(True))
-        .order_by(Program.id)
+        .order_by(func.random())
         .limit(top_n)
     )
     programs = list(result.scalars().all())
 
     recommendations: list[RecommendationProgramUser] = []
 
-    for rank, program in enumerate(programs, start=1):
+    for program in programs:
+        score = random.randint(55, 95)
         recommendation = RecommendationProgramUser(
             id_user=user_id,
             id_program=program.id,
-            rank=rank,
-            explanation="Временная рекомендация. AI-логика будет добавлена позже.",
+            rank=score,
+            explanation=f"Случайный подбор. Соответствие профилю — {score}%. AI-логика будет добавлена позже.",
         )
         session.add(recommendation)
         recommendations.append(recommendation)

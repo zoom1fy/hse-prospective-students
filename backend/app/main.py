@@ -1,8 +1,10 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 
 from app.api.routers import (
     auth,
     users,
+    references,
     universities,
     faculties,
     programs,
@@ -12,14 +14,25 @@ from app.api.routers import (
     comparisons,
 )
 
-
 app = FastAPI(
     title="HSE Prospective Students API",
     version="1.0.0",
 )
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "http://localhost:3000",
+        "http://127.0.0.1:3000",
+    ],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 app.include_router(auth.router, prefix="/api/auth", tags=["Auth"])
 app.include_router(users.router, prefix="/api/users", tags=["Users"])
+app.include_router(references.router, prefix="/api/references", tags=["References"])
 app.include_router(universities.router, prefix="/api/universities", tags=["Universities"])
 app.include_router(faculties.router, prefix="/api/faculties", tags=["Faculties"])
 app.include_router(programs.router, prefix="/api/programs", tags=["Programs"])

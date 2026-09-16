@@ -11,6 +11,7 @@ from app.db.base import Base
 if TYPE_CHECKING:
     from app.models.references import Region
     from app.models.achievement import Achievement
+    from app.models.diploma import Diploma
     from app.models.exam import UserExam
     from app.models.statement import Statement
     from app.models.favorite import UserProgram
@@ -27,14 +28,13 @@ class User(Base):
     patronymic: Mapped[str | None] = mapped_column(String(100), nullable=True)
     email: Mapped[str] = mapped_column(String(255), unique=True, nullable=False, index=True)
     password_hash: Mapped[str] = mapped_column(String(255), nullable=False)
-    passport: Mapped[str | None] = mapped_column(String(50), unique=True, nullable=True)
-    snils: Mapped[str | None] = mapped_column(String(20), unique=True, nullable=True)
     education: Mapped[str | None] = mapped_column(Text, nullable=True)
     id_region: Mapped[int | None] = mapped_column(ForeignKey("regions.id", ondelete="SET NULL"))
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=datetime.utcnow, nullable=False)
     updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=datetime.utcnow, onupdate=datetime.utcnow, nullable=False)
 
     region: Mapped["Region | None"] = relationship(back_populates="users")
+    diplomas: Mapped[list["Diploma"]] = relationship(back_populates="user", cascade="all, delete-orphan")
     achievements: Mapped[list["Achievement"]] = relationship(back_populates="user", cascade="all, delete-orphan")
     exams: Mapped[list["UserExam"]] = relationship(back_populates="user", cascade="all, delete-orphan")
     statements: Mapped[list["Statement"]] = relationship(back_populates="user", cascade="all, delete-orphan")
