@@ -21,7 +21,7 @@ export default function HomePage() {
             <SectionHeading title="Найдите вуз и программу, которая подходит именно вам" />
 
             {/* Описание */}
-            <p className="mt-6 max-w-3xl text-lg leading-relaxed text-foreground sm:text-xl">
+            <p className="text-foreground mt-6 max-w-3xl text-lg leading-relaxed sm:text-xl">
               Ведущие университеты, популярные направления, открытые наборы и личный кабинет с
               подбором программ по вашим данным — в одном месте.
             </p>

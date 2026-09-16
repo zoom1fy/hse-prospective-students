@@ -123,7 +123,7 @@ export function SiteHeader() {
           <div className="hidden items-center gap-3 md:flex">
             <ChatBotButton />
             <Link
-              href={authed ? "/dashboard" : "/auth/login"}
+              href={authed ? "/dashboard" : "/login"}
               className={buttonVariants({ variant: "secondary", size: "xl" })}
             >
               {authed ? "Личный кабинет" : "Войти"}
@@ -135,7 +135,7 @@ export function SiteHeader() {
             onClick={() => setOpen((value) => !value)}
             aria-label="Меню"
             aria-expanded={open}
-            className="border-border inline-flex size-14 cursor-pointer items-center justify-center rounded-xl border transition-colors hover:bg-muted/25 md:hidden"
+            className="border-border hover:bg-muted/25 inline-flex size-14 cursor-pointer items-center justify-center rounded-xl border transition-colors md:hidden"
           >
             <span className="sr-only">Открыть меню</span>
             <span className="flex flex-col gap-1.5">
@@ -167,7 +167,7 @@ export function SiteHeader() {
             ))}
             <ChatBotButton />
             <Link
-              href={authed ? "/dashboard" : "/auth/login"}
+              href={authed ? "/dashboard" : "/login"}
               className="rounded-lg px-4 py-3 text-lg font-medium"
             >
               {authed ? "Личный кабинет" : "Войти"}
