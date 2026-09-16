@@ -27,24 +27,25 @@ interface MaterialsGridProps {
 export function MaterialsGrid({ materials }: MaterialsGridProps) {
   return (
     <div>
-      <SectionHeading
-        title="Полезные материалы"
-        description="Статьи, гайды и полезные ссылки для поступающих."
-      />
-      <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {materials.map((material) => {
           const Icon = iconMap[material.icon] ?? FileText;
           return (
             <Link key={material.id} href={material.href} className="group block">
-              <Card className="flex h-full flex-col p-6 transition-colors group-hover:border-brand-300 dark:group-hover:border-brand-700">
-                <Icon className="text-brand-600 size-6 shrink-0" />
-                <h3 className="mt-4 font-semibold tracking-tight">{material.title}</h3>
-                <p className="mt-2 flex-1 text-sm text-zinc-500 dark:text-zinc-400">
+              <Card className="group-hover:border-brand-300 dark:group-hover:border-brand-700 flex h-full flex-col p-7 transition-all duration-200 group-hover:-translate-y-0.5 group-hover:shadow-md sm:p-8">
+                {/* Иконка + заголовок в одной строке */}
+                <div className="flex items-center gap-3">
+                  <Icon className="text-brand-600 size-7 shrink-0" />
+                  <h3 className="text-lg font-semibold tracking-tight">{material.title}</h3>
+                </div>
+
+                <p className="mt-4 flex-1 text-[15px] leading-relaxed text-muted">
                   {material.description}
                 </p>
-                <span className="text-brand-600 dark:text-brand-400 mt-4 inline-flex items-center gap-1.5 text-sm font-medium">
+
+                <span className="text-brand-600 dark:text-brand-400 mt-6 inline-flex items-center gap-1.5 text-sm font-medium">
                   Подробнее
-                  <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
+                  <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
                 </span>
               </Card>
             </Link>

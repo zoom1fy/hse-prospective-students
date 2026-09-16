@@ -8,26 +8,25 @@ const steps = [
   {
     number: 1,
     title: "Выберите направление",
-    description: "Изучите программы, сравните вузы и найдите то, что подходит именно вам.",
+    description: "Изучите программы, сравните вузы и найдите то, что подходит именно вам",
     Icon: Search,
   },
   {
     number: 2,
     title: "Подготовьте документы",
-    description: "Соберите пакет документов: паспорт, СНИЛС, аттестат и результаты ЕГЭ.",
+    description: "Соберите пакет документов: паспорт, СНИЛС, аттестат и результаты ЕГЭ",
     Icon: FileText,
   },
   {
     number: 3,
     title: "Подайте заявление",
-    description:
-      "Заполните онлайн-заявку в личном кабинете или подайте документы лично в приёмной комиссии.",
+    description: "Заполните онлайн-заявку в личном кабинете или подайте документы лично",
     Icon: ClipboardList,
   },
   {
     number: 4,
     title: "Зачисление",
-    description: "Отслеживайте статус заявления и получите приглашение на обучение.",
+    description: "Отслеживайте статус заявления и получите приглашение на обучение",
     Icon: Check,
   },
 ];
@@ -63,7 +62,7 @@ export function Steps() {
   return (
     <section className="py-10 sm:py-14">
       <motion.div
-        className="relative mx-auto mt-10 max-w-6xl"
+        className="relative mx-auto mt-10 max-w-6xl cursor-pointer"
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
@@ -152,7 +151,7 @@ export function Steps() {
                       ease: [0.22, 1, 0.36, 1],
                     }}
                     whileHover={{
-                      scale: 1.12,
+                      scale: 1.22,
                     }}
                     className="border-background bg-brand-600 relative z-20 flex size-14 shrink-0 items-center justify-center rounded-full border-4 text-base font-bold text-white shadow-[0_0_0_1px_rgba(99,102,241,0.2),0_8px_24px_-8px_rgba(99,102,241,0.6)] transition-shadow duration-300 group-hover:shadow-[0_0_0_6px_rgba(99,102,241,0.08),0_14px_34px_-8px_rgba(99,102,241,0.7)] lg:mx-auto"
                   >
@@ -171,51 +170,39 @@ export function Steps() {
 
                   {/* CARD */}
                   <motion.div
-                    whileHover={{
-                      y: -6,
-                      transition: {
-                        duration: 0.25,
-                        ease: "easeOut",
-                      },
-                    }}
-                    className="border-border/60 bg-card/50 group-hover:border-brand-500/25 group-hover:bg-card/80 min-w-0 flex-1 rounded-2xl border p-5 shadow-sm backdrop-blur-xl transition-all duration-300 group-hover:shadow-[0_20px_45px_-25px_rgba(99,102,241,0.4)] lg:mt-7 lg:min-h-61.25 lg:p-6"
+                    transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+                    className="border-border/60 bg-surface/50 group-hover:border-brand-500/25 group-hover:bg-surface/80 relative flex min-w-0 flex-1 flex-col items-center overflow-hidden rounded-2xl border p-5 text-center shadow-sm backdrop-blur-xl transition-all duration-300 group-hover:shadow-[0_20px_45px_-25px_rgba(99,102,241,0.4)] lg:mt-7 lg:p-6"
                   >
+                    {/* top hairline */}
+                    <div
+                      aria-hidden
+                      className="via-brand-500/60 pointer-events-none absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+                    />
+
                     {/* ICON */}
                     <motion.div
-                      initial={{
-                        opacity: 0,
-                        scale: 0.7,
-                        rotate: -8,
-                      }}
-                      whileInView={{
-                        opacity: 1,
-                        scale: 1,
-                        rotate: 0,
-                      }}
-                      viewport={{
-                        once: true,
-                      }}
+                      initial={{ opacity: 0, scale: 0.7, rotate: -8 }}
+                      whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
+                      viewport={{ once: true }}
                       transition={{
                         duration: 0.5,
                         delay: 0.4 + index * 0.18,
                         ease: [0.22, 1, 0.36, 1],
                       }}
-                      whileHover={{
-                        scale: 1.1,
-                        rotate: 4,
-                        transition: {
-                          duration: 0.2,
-                        },
-                      }}
-                      className="bg-brand-500/10 text-brand-600 group-hover:bg-brand-500/15 dark:text-brand-400 flex size-10 items-center justify-center rounded-xl transition-colors duration-300"
+                      className="bg-brand-500/10 text-brand-600 group-hover:bg-brand-500/15 dark:text-brand-400 flex size-14 items-center justify-center rounded-2xl transition-colors duration-300"
                     >
-                      <step.Icon className="size-5" />
+                      <step.Icon className="size-6" />
                     </motion.div>
 
                     {/* TITLE */}
-                    <h3 className="group-hover:text-brand-600 dark:group-hover:text-brand-400 mt-4 text-4xl font-semibold tracking-tight transition-colors duration-300">
+                    <h3 className="group-hover:text-brand-600 dark:group-hover:text-brand-400 mt-5 text-lg font-semibold tracking-tight transition-colors duration-300">
                       {step.title}
                     </h3>
+
+                    {/* DESCRIPTION */}
+                    <p className="text-muted mt-2 text-sm leading-6">
+                      {step.description}
+                    </p>
                   </motion.div>
                 </div>
               </motion.div>
