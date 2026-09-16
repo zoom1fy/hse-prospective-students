@@ -1,3 +1,4 @@
+import { AdminGuard } from "@/components/admin/admin-guard";
 import { AdminNav } from "@/components/layout/admin-nav";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
@@ -12,7 +13,9 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           <aside className="lg:sticky lg:top-24 lg:self-start">
             <AdminNav />
           </aside>
-          <div className="min-w-0">{children}</div>
+          <div className="min-w-0">
+            <AdminGuard>{children}</AdminGuard>
+          </div>
         </Container>
       </main>
       <SiteFooter />

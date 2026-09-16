@@ -2,6 +2,7 @@ import type { UserProfile } from "@/types";
 
 export const currentUserProfile: UserProfile = {
   id: "user-1",
+  isAdmin: true,
   email: "a.smirnova@example.com",
   phone: "+7 (999) 123-45-67",
   region: "Москва",

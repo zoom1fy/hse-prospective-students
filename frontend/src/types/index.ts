@@ -73,6 +73,7 @@ export interface DiplomaType {
 
 export interface UserProfile {
   id: string;
+  isAdmin: boolean;
   email: string;
   phone: string | null;
   region: string | null;

@@ -5,6 +5,7 @@ import {
   getProgram as getMockProgram,
   getProgramsByFaculty as getMockProgramsByFaculty,
   getUniversity as getMockUniversity,
+  universities as mockUniversities,
   withContext as mockWithContext,
   type UniversityFilters,
 } from "@/data/universities";
@@ -60,7 +61,8 @@ export function filterPrograms(
 
   return programs.filter((item) => {
     if (query) {
-      const haystack = `${item.name} ${item.university.name} ${item.university.shortName} ${item.faculty.name} ${item.faculty.shortName}`.toLowerCase();
+      const haystack =
+        `${item.name} ${item.university.name} ${item.university.shortName} ${item.faculty.name} ${item.faculty.shortName}`.toLowerCase();
       if (!haystack.includes(query)) return false;
     }
     if (filters.city && filters.city !== "all" && item.university.city !== filters.city) {
@@ -155,8 +157,8 @@ export async function getUniversityGroups(
 
   try {
     const [apiFaculties, apiPrograms] = await Promise.all([
-      apiGet<ApiFaculty[]>(`/api/faculties${buildQuery({ university_id: university.id })}`),
-      apiGet<ApiProgram[]>(`/api/programs${buildQuery({ university_id: university.id })}`),
+      apiGet<ApiFaculty[]>(`/api/faculties/${buildQuery({ university_id: university.id })}`),
+      apiGet<ApiProgram[]>(`/api/programs/${buildQuery({ university_id: university.id })}`),
     ]);
 
     return apiFaculties.map((apiFaculty) => {
@@ -173,9 +175,7 @@ export async function getUniversityGroups(
 
 export async function getPopularPrograms(limit = 6): Promise<ProgramWithContext[]> {
   const { programs } = await getCatalog();
-  return programs
-    .sort((a, b) => b.university.rating - a.university.rating)
-    .slice(0, limit);
+  return programs.sort((a, b) => b.university.rating - a.university.rating).slice(0, limit);
 }
 
 export async function getProgramPage(
@@ -328,12 +328,24 @@ export async function generateCurrentUserRecommendations(
   }
 
   try {
-    const apiRecommendations = await apiPost<ApiRecommendation[]>(
-      "/api/recommendations/generate",
-      { top_n: topN },
-    );
+    const apiRecommendations = await apiPost<ApiRecommendation[]>("/api/recommendations/generate", {
+      top_n: topN,
+    });
     return await mapRecommendations(apiRecommendations);
   } catch {
     return [];
+  }
+}
+
+export async function getUniversities(): Promise<University[]> {
+  if (!isApiConfigured()) {
+    return [...mockUniversities];
+  }
+
+  try {
+    const apiUniversities = await apiGet<ApiUniversity[]>("/api/universities/");
+    return apiUniversities.map(mapApiUniversity);
+  } catch {
+    return [...mockUniversities];
   }
 }

@@ -1,6 +1,8 @@
+import type { Material } from "@/data/materials";
 import type { Faculty, Program, University, UserProfile } from "@/types";
+
 import { regionName, toDegree, toStudyForm } from "./references";
-import type { ApiFaculty, ApiProgram, ApiUniversity, ApiUser } from "./types";
+import type { ApiFaculty, ApiMaterial, ApiProgram, ApiUniversity, ApiUser } from "./types";
 
 function admissionDeadline(isActive: boolean): string {
   const year = new Date().getFullYear();
@@ -58,9 +60,34 @@ export function mapApiProgram(api: ApiProgram): Program {
   };
 }
 
+function formatMonthYear(value: string): string {
+  const formatted = new Intl.DateTimeFormat("ru-RU", {
+    month: "long",
+    year: "numeric",
+  }).format(new Date(value));
+  return formatted.charAt(0).toUpperCase() + formatted.slice(1);
+}
+
+export function mapApiMaterial(api: ApiMaterial): Material {
+  return {
+    id: api.slug,
+    title: api.title,
+    description: api.description,
+    href: `/materials/${api.slug}`,
+    icon: api.icon,
+    readTime: api.read_time,
+    updatedAt: formatMonthYear(api.updated_at),
+    sections: api.sections.map((section) => ({
+      heading: section.heading,
+      paragraphs: section.paragraphs,
+    })),
+  };
+}
+
 export function mapApiUserToProfile(api: ApiUser): UserProfile {
   return {
     id: String(api.id),
+    isAdmin: api.is_admin ?? false,
     email: api.email,
     phone: null,
     region: api.id_region != null ? regionName(api.id_region) : null,

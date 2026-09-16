@@ -10,6 +10,7 @@ const items = [
   { href: "/admin/users", label: "Пользователи" },
   { href: "/admin/universities", label: "Университеты" },
   { href: "/admin/programs", label: "Программы" },
+  { href: "/admin/statements", label: "Заявки" },
   { href: "/admin/materials", label: "Материалы" },
 ];
 
