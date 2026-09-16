@@ -9,12 +9,16 @@ services:
     environment:
       - NODE_ENV=production
       - PORT=3000
+      - API_INTERNAL_URL=http://backend:8000
     healthcheck:
-      test: curl -s http://localhost:3000/health | grep -q 'ok' || exit 1 #["CMD", "node", "-e", "fetch('http://localhost:3000/health').then(r=>{if(!r.ok)process.exit(1)}).catch(()=>process.exit(1))"]
+      test: curl -s http://localhost:3000/api/health | grep -q 'ok' || exit 1
       interval: 5s
       timeout: 5s
       retries: 3
       start_period: 10s
+    networks:
+      - default
+      - backend-network
   nginx:
     image: nginx:1.27-alpine
     restart: unless-stopped
@@ -31,6 +35,9 @@ services:
       timeout: 5s
       retries: 3
       start_period: 10s
+    networks:
+      - default
+      - backend-network
   db:
     image: postgres:17-alpine
     restart: unless-stopped
@@ -62,6 +69,13 @@ services:
     depends_on:
       db:
         condition: service_healthy
+    environment:
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_NAME=hse_prospective_students
+      - DB_USER=postgres
+      - DB_PASSWORD=postgres
+      - SECRET_KEY=${SECRET_KEY:-compose-dev-secret-change-me}
     # command: ["sh", "-c", "export PYTHONPATH=$PYTHONPATH:. && alembic upgrade head"]
     networks:
       - backend-network
@@ -72,6 +86,13 @@ services:
     restart: unless-stopped
     expose:
       - "8000"
+    environment:
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_NAME=hse_prospective_students
+      - DB_USER=postgres
+      - DB_PASSWORD=postgres
+      - SECRET_KEY=${SECRET_KEY:-compose-dev-secret-change-me}
     # environment:
     #    - DB_=3000
     depends_on:

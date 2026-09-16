@@ -1,13 +1,29 @@
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL ?? "";
+const PUBLIC_API_URL = process.env.NEXT_PUBLIC_API_URL ?? "";
+const INTERNAL_API_URL = process.env.API_INTERNAL_URL ?? "";
+const FETCH_TIMEOUT_MS = 8000;
 
 const TOKEN_STORAGE_KEY = "hse-token";
 
+function resolveApiBaseUrl(): string {
+  if (typeof window === "undefined") {
+    return INTERNAL_API_URL || PUBLIC_API_URL;
+  }
+  // В продакшене браузер обращается к своему origin (/api): запрос проксируется nginx и rewrite Next.
+  if (process.env.NODE_ENV === "production") {
+    return "";
+  }
+  return PUBLIC_API_URL;
+}
+
 export function getApiBaseUrl(): string {
-  return API_BASE_URL;
+  return resolveApiBaseUrl();
 }
 
 export function isApiConfigured(): boolean {
-  return Boolean(API_BASE_URL);
+  if (typeof window === "undefined" && process.env.NEXT_PHASE === "phase-production-build") {
+    return false;
+  }
+  return true;
 }
 
 export function getAccessToken(): string | null {
@@ -56,14 +72,15 @@ export async function apiFetch<T>(
   path: string,
   init: RequestInit & { next?: { revalidate?: number; tags?: string[] } } = {},
 ): Promise<T> {
-  const { headers, ...rest } = init;
+  const { headers, signal, ...rest } = init;
 
-  const response = await fetch(`${API_BASE_URL}${path}`, {
+  const response = await fetch(`${resolveApiBaseUrl()}${path}`, {
     ...rest,
     headers: {
       "Content-Type": "application/json",
       ...headers,
     },
+    signal: signal ?? AbortSignal.timeout(FETCH_TIMEOUT_MS),
   });
 
   if (!response.ok) {
