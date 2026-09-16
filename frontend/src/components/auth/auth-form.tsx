@@ -19,6 +19,7 @@ import {
   Sparkles,
   User,
 } from "@/components/ui/icons";
+import { getApiBaseUrl, isApiConfigured, setAccessToken } from "@/lib/api/client";
 import { siteConfig } from "@/lib/site";
 
 interface AuthFormProps {
@@ -58,7 +59,7 @@ export function AuthForm({ mode }: AuthFormProps) {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
-  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setError("");
 
@@ -76,13 +77,53 @@ export function AuthForm({ mode }: AuthFormProps) {
     }
 
     setLoading(true);
-    window.setTimeout(() => {
-      localStorage.setItem(
-        "hse-session",
-        JSON.stringify({ email, firstName, lastName, patronymic, at: Date.now() }),
-      );
+    try {
+      if (isApiConfigured()) {
+        if (!isLogin) {
+          const registerRes = await fetch(`${getApiBaseUrl()}/api/auth/register`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              first_name: firstName || "Пользователь",
+              last_name: lastName || "—",
+              patronymic: patronymic || null,
+              email,
+              password,
+            }),
+          });
+          if (!registerRes.ok) {
+            const err = await registerRes.json().catch(() => null);
+            throw new Error(err?.detail ?? "Ошибка регистрации");
+          }
+        }
+
+        const loginBody = new URLSearchParams({ username: email, password });
+        const loginRes = await fetch(`${getApiBaseUrl()}/api/auth/login`, {
+          method: "POST",
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          body: loginBody,
+        });
+        if (!loginRes.ok) {
+          throw new Error("Неверный email или пароль");
+        }
+        const { access_token } = (await loginRes.json()) as { access_token: string };
+        setAccessToken(access_token);
+        window.localStorage.setItem(
+          "hse-session",
+          JSON.stringify({ email, at: Date.now() }),
+        );
+      } else {
+        window.localStorage.setItem(
+          "hse-session",
+          JSON.stringify({ email, firstName, lastName, patronymic, at: Date.now() }),
+        );
+      }
       router.push("/dashboard");
-    }, 700);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Произошла ошибка");
+    } finally {
+      setLoading(false);
+    }
   }
 
   function passwordField(
