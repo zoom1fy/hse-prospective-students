@@ -1,0 +1,21 @@
+FROM python:3.13.15-alpine3.24
+
+
+WORKDIR /app
+
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+RUN apk add postgresql17-client
+COPY . .
+
+# CMD ["/bin/sh"]
+COPY ./entrypoint.migrate.sh ./entrypoint.migrate.sh
+RUN chmod +x ./entrypoint.migrate.sh
+ENV PYTHONPATH=/app
+
+ENTRYPOINT ["/app/entrypoint.migrate.sh"]
+
+# CMD ["/bin/sh"]
+# ENV PYTHONPATH=/app
+
+# CMD ["sh", "-c", "export PYTHONPATH=$PYTHONPATH:. && alembic upgrade head"]
