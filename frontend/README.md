@@ -21,7 +21,7 @@
 | `/universities/[slug]`                        | Сайт вуза: о вузе, факультеты и программы                                  |
 | `/universities/[slug]/programs/[programSlug]` | Сайт программы                                                             |
 | `/dashboard`                                  | Личный кабинет: обзор, полнота профиля, рекомендации                       |
-| `/dashboard/profile`                          | Личные данные: ФИО, паспорт, СНИЛС, дипломы, достижения                    |
+| `/dashboard/profile`                          | Личные данные: ФИО, контакты, дипломы, достижения                          |
 | `/dashboard/recommendations`                  | Подбор программ по данным профиля                                          |
 | `/dashboard/applications`                     | Древо поданных заявок (вуз → факультет → программа)                        |
 | `/api/health`                                 | Health-check                                                               |
