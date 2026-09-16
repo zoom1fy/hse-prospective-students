@@ -17,10 +17,12 @@ export function SectionHeading({
 }: SectionHeadingProps) {
   return (
     <div className={cn("flex flex-wrap items-end justify-between gap-4", className)} {...props}>
-      <div className="max-w-2xl">
-        <h2 className="text-heading text-2xl font-semibold tracking-tight sm:text-3xl">{title}</h2>
+      <div className="max-w-6xl">
+        <h2 className="text-heading text-4xl leading-[1.08] font-extrabold tracking-tight text-balance sm:text-6xl md:text-7xl lg:text-6xl">
+          {title}
+        </h2>
         {description ? (
-          <p className="mt-2 text-sm text-zinc-500 sm:text-base dark:text-zinc-400">
+          <p className="mt-3 text-sm text-muted sm:text-base">
             {description}
           </p>
         ) : null}

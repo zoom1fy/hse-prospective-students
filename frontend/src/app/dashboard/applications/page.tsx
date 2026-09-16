@@ -46,7 +46,7 @@ export default function ApplicationsPage() {
       </div>
 
       <Card className="mt-6">
-        <CardContent className="flex flex-wrap items-center gap-3 p-4 text-sm text-zinc-500 dark:text-zinc-400">
+        <CardContent className="flex flex-wrap items-center gap-3 p-4 text-sm text-muted">
           <span className="text-foreground font-medium">Легенда:</span>
           <StatusBadge status="draft" />
           <StatusBadge status="submitted" />

@@ -56,12 +56,12 @@ export function HeroSearch() {
       {/* Big search bar */}
       <div className="border-border bg-surface flex w-full items-center gap-2 rounded-2xl border p-2 shadow-lg">
         <div className="flex flex-1 items-center gap-2 px-3">
-          <Search className="size-5 shrink-0 text-zinc-400" />
+          <Search className="size-5 shrink-0 text-muted" />
           <input
             value={query}
             onChange={(event) => setQuery(event.target.value)}
             placeholder="Вуз, направление или город"
-            className="h-12 w-full bg-transparent text-base outline-none placeholder:text-zinc-400"
+            className="h-12 w-full bg-transparent text-base outline-none placeholder:text-muted"
             aria-label="Поиск вузов и программ"
           />
         </div>

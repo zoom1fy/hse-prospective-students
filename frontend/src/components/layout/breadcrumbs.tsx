@@ -20,16 +20,16 @@ export function Breadcrumbs({ items, className }: { items: Crumb[]; className?: 
             {item.href && !isLast ? (
               <Link
                 href={item.href}
-                className="hover:text-foreground text-zinc-500 transition-colors dark:text-zinc-400"
+                className="hover:text-foreground text-muted transition-colors"
               >
                 {item.label}
               </Link>
             ) : (
-              <span className={isLast ? "text-foreground" : "text-zinc-500 dark:text-zinc-400"}>
+              <span className={isLast ? "text-foreground" : "text-muted"}>
                 {item.label}
               </span>
             )}
-            {!isLast ? <span className="text-zinc-400">/</span> : null}
+            {!isLast ? <span className="text-muted">/</span> : null}
           </span>
         );
       })}

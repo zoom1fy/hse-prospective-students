@@ -64,13 +64,13 @@ export function DropdownSelect({
           open
             ? "border-brand-500 ring-brand-500/30 ring-2"
             : "border-border hover:border-brand-300 dark:hover:border-brand-700",
-          !selected && "text-zinc-400 dark:text-zinc-500",
+          !selected && "text-muted",
         )}
       >
         <span className="truncate">{selected ? selected.label : placeholder}</span>
         <ChevronDown
           className={cn(
-            "size-4 shrink-0 text-zinc-400 transition-transform",
+            "size-4 shrink-0 text-muted transition-transform",
             open && "rotate-180",
           )}
         />

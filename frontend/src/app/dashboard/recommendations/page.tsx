@@ -39,7 +39,7 @@ export default function RecommendationsPage() {
             <CardHeader className="flex-row items-start justify-between gap-4">
               <div>
                 <CardTitle>{program.name}</CardTitle>
-                <p className="mt-1 text-sm text-zinc-500 dark:text-zinc-400">
+                <p className="mt-1 text-sm text-muted">
                   {program.university.shortName} · {program.faculty.shortName} ·{" "}
                   {program.university.city}
                 </p>
@@ -59,7 +59,7 @@ export default function RecommendationsPage() {
                   {reasons.map((reason) => (
                     <li
                       key={reason}
-                      className="flex items-center gap-2 text-sm text-zinc-600 dark:text-zinc-300"
+                      className="flex items-center gap-2 text-sm text-foreground"
                     >
                       <Check className="size-4 text-emerald-600" />
                       {reason}

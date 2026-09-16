@@ -77,7 +77,7 @@ function NavTabs() {
             "relative z-10 inline-flex h-18 w-48 cursor-pointer items-center justify-center rounded-lg text-center text-lg font-medium whitespace-nowrap transition-colors",
             isNavItemActive(item.href, pathname)
               ? "text-brand-700 dark:text-brand-200"
-              : "hover:text-foreground text-zinc-600 dark:text-zinc-400",
+              : "hover:text-foreground text-muted",
           )}
         >
           {item.label}
@@ -135,7 +135,7 @@ export function SiteHeader() {
             onClick={() => setOpen((value) => !value)}
             aria-label="Меню"
             aria-expanded={open}
-            className="border-border inline-flex size-14 cursor-pointer items-center justify-center rounded-xl border transition-colors hover:bg-black/5 md:hidden dark:hover:bg-white/10"
+            className="border-border inline-flex size-14 cursor-pointer items-center justify-center rounded-xl border transition-colors hover:bg-muted/25 md:hidden"
           >
             <span className="sr-only">Открыть меню</span>
             <span className="flex flex-col gap-1.5">
@@ -159,7 +159,7 @@ export function SiteHeader() {
                   "rounded-lg px-4 py-3 text-lg font-medium",
                   isNavItemActive(item.href, pathname)
                     ? "bg-brand-50 text-brand-700 dark:bg-brand-950 dark:text-brand-200"
-                    : "text-zinc-600 dark:text-zinc-400",
+                    : "text-muted",
                 )}
               >
                 {item.label}

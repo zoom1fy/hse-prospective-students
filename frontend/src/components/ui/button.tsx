@@ -9,8 +9,8 @@ const base =
 const variants = {
   primary: "bg-brand-600 text-white hover:bg-brand-700",
   secondary:
-    "border border-border bg-surface text-foreground hover:bg-brand-50 dark:hover:bg-zinc-800",
-  ghost: "text-foreground hover:bg-black/5 dark:hover:bg-white/10",
+    "border border-border bg-surface text-foreground hover:bg-brand-50 dark:hover:bg-surface-muted",
+  ghost: "text-foreground hover:bg-muted/25",
   danger: "bg-rose-600 text-white hover:bg-rose-700",
 } as const;
 

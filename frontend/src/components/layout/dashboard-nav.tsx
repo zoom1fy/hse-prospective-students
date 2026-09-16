@@ -27,7 +27,7 @@ export function DashboardNav() {
               "rounded-lg px-3 py-2 text-sm font-medium whitespace-nowrap transition-colors",
               isActive
                 ? "bg-brand-600 text-white"
-                : "text-zinc-600 hover:bg-black/5 dark:text-zinc-300 dark:hover:bg-white/10",
+                : "text-muted hover:bg-muted/25",
             )}
           >
             {item.label}

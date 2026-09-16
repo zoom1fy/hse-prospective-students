@@ -34,34 +34,34 @@ export function ProgramCard({
         </div>
         <CardTitle className="mt-2">{program.name}</CardTitle>
         {showUniversity ? (
-          <p className="text-sm text-zinc-500 dark:text-zinc-400">
+          <p className="text-sm text-muted">
             {program.university.shortName} · {program.faculty.shortName}
           </p>
         ) : (
-          <p className="text-sm text-zinc-500 dark:text-zinc-400">{program.faculty.shortName}</p>
+          <p className="text-sm text-muted">{program.faculty.shortName}</p>
         )}
       </CardHeader>
       <CardContent className="flex flex-1 flex-col gap-4">
         <div className="grid grid-cols-2 gap-3 text-sm">
-          <div className="flex items-center gap-2 text-zinc-600 dark:text-zinc-300">
-            <GraduationCap className="size-4 shrink-0 text-zinc-400" />
+          <div className="flex items-center gap-2 text-foreground">
+            <GraduationCap className="size-4 shrink-0 text-muted" />
             <span>{formatNumber(program.budgetPlaces)} бюджет</span>
           </div>
-          <div className="flex items-center gap-2 text-zinc-600 dark:text-zinc-300">
-            <Wallet className="size-4 shrink-0 text-zinc-400" />
+          <div className="flex items-center gap-2 text-foreground">
+            <Wallet className="size-4 shrink-0 text-muted" />
             <span>{formatCurrency(program.tuitionPerYear)}/год</span>
           </div>
-          <div className="flex items-center gap-2 text-zinc-600 dark:text-zinc-300">
-            <MapPin className="size-4 shrink-0 text-zinc-400" />
+          <div className="flex items-center gap-2 text-foreground">
+            <MapPin className="size-4 shrink-0 text-muted" />
             <span>{program.university.city}</span>
           </div>
-          <div className="flex items-center gap-2 text-zinc-600 dark:text-zinc-300">
-            <CalendarClock className="size-4 shrink-0 text-zinc-400" />
+          <div className="flex items-center gap-2 text-foreground">
+            <CalendarClock className="size-4 shrink-0 text-muted" />
             <span>до {formatDate(program.deadline)}</span>
           </div>
         </div>
         <div className="border-border mt-auto flex items-center justify-between border-t pt-4">
-          <span className="text-sm text-zinc-500 dark:text-zinc-400">
+          <span className="text-sm text-muted">
             {program.durationYears} года обучения
           </span>
           <a

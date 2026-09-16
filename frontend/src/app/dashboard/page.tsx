@@ -54,7 +54,7 @@ export default function DashboardPage() {
           <CardContent className="flex items-center gap-3 p-5">
             <ClipboardList className="text-brand-600 size-5" />
             <div>
-              <p className="text-sm text-zinc-500 dark:text-zinc-400">Заявок подано</p>
+              <p className="text-sm text-muted">Заявок подано</p>
               <p className="text-xl font-semibold">{applications}</p>
             </div>
           </CardContent>
@@ -63,7 +63,7 @@ export default function DashboardPage() {
           <CardContent className="flex items-center gap-3 p-5">
             <FileText className="text-brand-600 size-5" />
             <div>
-              <p className="text-sm text-zinc-500 dark:text-zinc-400">Дипломов</p>
+              <p className="text-sm text-muted">Дипломов</p>
               <p className="text-xl font-semibold">{profile.diplomas.length}</p>
             </div>
           </CardContent>
@@ -72,7 +72,7 @@ export default function DashboardPage() {
           <CardContent className="flex items-center gap-3 p-5">
             <Award className="text-brand-600 size-5" />
             <div>
-              <p className="text-sm text-zinc-500 dark:text-zinc-400">Достижений</p>
+              <p className="text-sm text-muted">Достижений</p>
               <p className="text-xl font-semibold">{profile.achievements.length}</p>
             </div>
           </CardContent>
@@ -81,7 +81,7 @@ export default function DashboardPage() {
           <CardContent className="flex items-center gap-3 p-5">
             <Sparkles className="text-brand-600 size-5" />
             <div>
-              <p className="text-sm text-zinc-500 dark:text-zinc-400">Рекомендаций</p>
+              <p className="text-sm text-muted">Рекомендаций</p>
               <p className="text-xl font-semibold">{recommendations.length}</p>
             </div>
           </CardContent>
@@ -95,7 +95,7 @@ export default function DashboardPage() {
           </CardHeader>
           <CardContent>
             <div className="flex items-center justify-between text-sm">
-              <span className="text-zinc-500 dark:text-zinc-400">
+              <span className="text-muted">
                 Чем больше данных, тем точнее подбор программ
               </span>
               <span className="font-semibold">{completeness}%</span>
@@ -118,21 +118,21 @@ export default function DashboardPage() {
           </CardHeader>
           <CardContent className="flex flex-col gap-3 text-sm">
             <div className="flex items-center justify-between gap-3">
-              <span className="text-zinc-500 dark:text-zinc-400">ФИО</span>
+              <span className="text-muted">ФИО</span>
               <span className="text-right">
                 {profile.fullName.last} {profile.fullName.first} {profile.fullName.middle}
               </span>
             </div>
             <div className="flex items-center justify-between gap-3">
-              <span className="text-zinc-500 dark:text-zinc-400">СНИЛС</span>
+              <span className="text-muted">СНИЛС</span>
               <span>{profile.snils}</span>
             </div>
             <div className="flex items-center justify-between gap-3">
-              <span className="text-zinc-500 dark:text-zinc-400">Email</span>
+              <span className="text-muted">Email</span>
               <span>{profile.email}</span>
             </div>
             <div className="flex items-center justify-between gap-3">
-              <span className="text-zinc-500 dark:text-zinc-400">Аттестат</span>
+              <span className="text-muted">Аттестат</span>
               <Badge variant="neutral">
                 {profile.diplomas[0]?.year} · ср. {profile.diplomas[0]?.averageScore}
               </Badge>
@@ -157,7 +157,7 @@ export default function DashboardPage() {
               <CardContent className="flex flex-wrap items-center justify-between gap-4 p-5">
                 <div>
                   <p className="font-medium">{program.name}</p>
-                  <p className="text-sm text-zinc-500 dark:text-zinc-400">
+                  <p className="text-sm text-muted">
                     {program.university.shortName} · {program.faculty.shortName}
                   </p>
                 </div>
@@ -194,13 +194,13 @@ export default function DashboardPage() {
                   <BookOpen className="text-brand-600 size-4" />
                   {university.universityShortName}
                 </span>
-                <span className="text-sm text-zinc-500 dark:text-zinc-400">
+                <span className="text-sm text-muted">
                   {university.faculties
                     .flatMap((faculty) => faculty.programs)
                     .map((program) => program.programName)
                     .join(", ")}
                 </span>
-                <span className="text-xs text-zinc-500 dark:text-zinc-400">
+                <span className="text-xs text-muted">
                   обновлено{" "}
                   {formatDate(
                     university.faculties[0]?.programs[0]?.submittedAt ?? new Date().toISOString(),

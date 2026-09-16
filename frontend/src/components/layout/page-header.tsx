@@ -21,7 +21,7 @@ export function PageHeader({ title, description, eyebrow, actions, className }: 
           {title}
         </h1>
         {description ? (
-          <p className="mt-2 text-sm text-zinc-500 sm:text-base dark:text-zinc-400">
+          <p className="mt-2 text-sm text-muted sm:text-base">
             {description}
           </p>
         ) : null}

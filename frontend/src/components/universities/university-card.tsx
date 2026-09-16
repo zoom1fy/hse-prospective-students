@@ -21,13 +21,13 @@ export function UniversityCard({
         </span>
         <div className="min-w-0">
           <CardTitle className="truncate">{university.shortName}</CardTitle>
-          <p className="text-sm text-zinc-500 dark:text-zinc-400">
+          <p className="text-sm text-muted">
             {university.city} · с {university.founded}
           </p>
         </div>
       </CardHeader>
       <CardContent className="flex flex-1 flex-col gap-4">
-        <p className="line-clamp-2 flex-1 text-sm text-zinc-500 dark:text-zinc-400">
+        <p className="line-clamp-2 flex-1 text-sm text-muted">
           {university.about}
         </p>
         <div className="flex flex-wrap gap-1.5">
@@ -38,7 +38,7 @@ export function UniversityCard({
           ))}
         </div>
         <div className="border-border flex items-center justify-between border-t pt-4 text-sm">
-          <span className="inline-flex items-center gap-1.5 text-zinc-500 dark:text-zinc-400">
+          <span className="inline-flex items-center gap-1.5 text-muted">
             <Users className="size-4" />
             {formatCompact(university.students)} студентов
           </span>

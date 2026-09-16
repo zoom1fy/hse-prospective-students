@@ -37,7 +37,7 @@ export default async function UniversityLayout({
               </span>
               <div>
                 <h1 className="text-2xl font-semibold tracking-tight">{university.shortName}</h1>
-                <p className="mt-1 text-sm text-zinc-500 dark:text-zinc-400">
+                <p className="mt-1 text-sm text-muted">
                   {university.city} · основан в {university.founded} г.
                 </p>
                 <div className="mt-3 flex flex-wrap items-center gap-2">
@@ -64,19 +64,19 @@ export default async function UniversityLayout({
           <nav className="mt-6 flex flex-wrap gap-1">
             <Link
               href={`/universities/${university.slug}`}
-              className="rounded-lg px-3 py-2 text-sm font-medium text-zinc-600 hover:bg-black/5 dark:text-zinc-300 dark:hover:bg-white/10"
+              className="rounded-lg px-3 py-2 text-sm font-medium text-muted hover:bg-muted/25"
             >
               О вузе и программах
             </Link>
             <Link
               href="/dashboard/recommendations"
-              className="rounded-lg px-3 py-2 text-sm font-medium text-zinc-600 hover:bg-black/5 dark:text-zinc-300 dark:hover:bg-white/10"
+              className="rounded-lg px-3 py-2 text-sm font-medium text-muted hover:bg-muted/25"
             >
               Подобрать программу
             </Link>
             <Link
               href="/dashboard/applications"
-              className="rounded-lg px-3 py-2 text-sm font-medium text-zinc-600 hover:bg-black/5 dark:text-zinc-300 dark:hover:bg-white/10"
+              className="rounded-lg px-3 py-2 text-sm font-medium text-muted hover:bg-muted/25"
             >
               Мои заявки
             </Link>

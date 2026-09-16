@@ -37,7 +37,7 @@ export function ThemeToggle() {
       aria-label={dark ? "Включить светлую тему" : "Включить тёмную тему"}
       className={cn(
         "text-foreground inline-flex size-14 cursor-pointer items-center justify-center rounded-xl",
-        "transition-colors hover:bg-black/5 dark:text-zinc-300 dark:hover:bg-white/10",
+        "transition-colors hover:bg-muted/25",
         "focus-visible:ring-brand-500 focus-visible:ring-offset-background focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none",
       )}
     >

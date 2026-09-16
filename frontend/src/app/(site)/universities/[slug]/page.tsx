@@ -48,25 +48,25 @@ export default async function UniversityPage({ params }: PageProps<"/universitie
       <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
         <Card>
           <CardContent className="p-5">
-            <p className="text-sm text-zinc-500 dark:text-zinc-400">Место в рейтинге</p>
+            <p className="text-sm text-muted">Место в рейтинге</p>
             <p className="mt-1 text-2xl font-semibold">#{university.ranking}</p>
           </CardContent>
         </Card>
         <Card>
           <CardContent className="p-5">
-            <p className="text-sm text-zinc-500 dark:text-zinc-400">Студентов</p>
+            <p className="text-sm text-muted">Студентов</p>
             <p className="mt-1 text-2xl font-semibold">{formatNumber(university.students)}</p>
           </CardContent>
         </Card>
         <Card>
           <CardContent className="p-5">
-            <p className="text-sm text-zinc-500 dark:text-zinc-400">Программ</p>
+            <p className="text-sm text-muted">Программ</p>
             <p className="mt-1 text-2xl font-semibold">{programsCount}</p>
           </CardContent>
         </Card>
         <Card>
           <CardContent className="p-5">
-            <p className="text-sm text-zinc-500 dark:text-zinc-400">Оценка абитуриентов</p>
+            <p className="text-sm text-muted">Оценка абитуриентов</p>
             <p className="mt-1 text-2xl font-semibold">{university.rating.toFixed(1)}</p>
           </CardContent>
         </Card>
@@ -74,7 +74,7 @@ export default async function UniversityPage({ params }: PageProps<"/universitie
 
       <div className="mt-10">
         <h2 className="text-xl font-semibold tracking-tight">О вузе</h2>
-        <p className="mt-3 max-w-3xl text-sm leading-6 text-zinc-600 dark:text-zinc-300">
+        <p className="mt-3 max-w-3xl text-sm leading-6 text-foreground">
           {university.about}
         </p>
         <div className="mt-4 flex flex-wrap gap-1.5">
@@ -95,11 +95,11 @@ export default async function UniversityPage({ params }: PageProps<"/universitie
               <section key={faculty.id} id={`faculty-${faculty.slug}`} className="scroll-mt-24">
                 <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
                   <h3 className="text-lg font-semibold tracking-tight">{faculty.name}</h3>
-                  <span className="text-sm text-zinc-500 dark:text-zinc-400">
+                  <span className="text-sm text-muted">
                     {facultyPrograms.length} программ(ы)
                   </span>
                 </div>
-                <p className="mt-1 max-w-3xl text-sm text-zinc-500 dark:text-zinc-400">
+                <p className="mt-1 max-w-3xl text-sm text-muted">
                   {faculty.about}
                 </p>
                 <div className="mt-5 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">

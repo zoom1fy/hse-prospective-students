@@ -15,7 +15,7 @@ export function Progress({ value, max = 100, className }: ProgressProps) {
       aria-valuemin={0}
       aria-valuemax={100}
       className={cn(
-        "h-2 w-full overflow-hidden rounded-full bg-zinc-200 dark:bg-zinc-800",
+        "h-2 w-full overflow-hidden rounded-full bg-surface-muted",
         className,
       )}
     >
