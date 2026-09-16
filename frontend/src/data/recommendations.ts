@@ -12,30 +12,33 @@ const REASON_BY_FACULTY: Record<string, string> = {
 };
 
 /**
- * Very simple recommendation scoring used by the skeleton.
- * The real implementation will live on the backend and account for
- * exam results, olympiad benefits and preferences.
+ * Простой скоринг для офлайн-режима (когда API не подключён).
+ * Реальные рекомендации приходят с бэкенда.
  */
 export function getRecommendations(profile: UserProfile, limit = 4): ProgramRecommendation[] {
-  const achievementPoints = profile.achievements.reduce((sum, item) => sum + item.points, 0);
-  const averageScore = profile.diplomas.reduce((sum, item) => sum + item.averageScore, 0);
+  const hasDiploma = profile.diplomas.length > 0;
+  const hasOlympiad = profile.achievements.some((item) => item.category === "Олимпиады");
 
   return getAllProgramsWithContext()
     .map((program) => {
       const reasons: string[] = [];
-      let score = 50 + Math.min(achievementPoints / 5, 25) + averageScore;
+      let score = 55;
 
       const reason = REASON_BY_FACULTY[program.facultyId];
       if (reason) {
         reasons.push(reason);
-        score += 15;
+        score += 20;
+      }
+      if (hasDiploma) {
+        reasons.push("Есть документ об образовании");
+        score += 10;
       }
       if (program.budgetPlaces > 100) {
         reasons.push("Много бюджетных мест");
         score += 5;
       }
-      if (profile.achievements.some((item) => item.level === "national")) {
-        reasons.push("Есть диплом Всероссийской олимпиады (БВИ)");
+      if (hasOlympiad) {
+        reasons.push("Есть достижения в олимпиадах");
         score += 10;
       }
 

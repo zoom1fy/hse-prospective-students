@@ -2,60 +2,52 @@
 
 import { useState } from "react";
 
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Field, Input, Select } from "@/components/ui/field";
+import { Field, Input, Select, Textarea } from "@/components/ui/field";
 import {
   Award,
   BookOpen,
   Check,
-  FileText,
   GraduationCap,
   Plus,
   Trash,
   User,
 } from "@/components/ui/icons";
-import type { Achievement, Diploma, UserProfile } from "@/types";
+import { Modal } from "@/components/ui/modal";
+import type { ApiDiplomaCreate, ApiUserUpdate } from "@/lib/api/types";
+import type { DiplomaType, UserProfile } from "@/types";
 
-const diplomaTypeLabels: Record<Diploma["type"], string> = {
-  school: "Аттестат",
-  bachelor: "Бакалавриат",
-  specialist: "Специалитет",
-  master: "Магистратура",
-  postgraduate: "Аспирантура",
-};
-
-const achievementLevelLabels: Record<Achievement["level"], string> = {
-  international: "Международный",
-  national: "Всероссийский",
-  regional: "Региональный",
-  university: "Вузовский",
-};
-
-function uid() {
-  return `new-${Math.random().toString(36).slice(2, 9)}`;
-}
-
-function Section({
+function SectionCard({
   icon: Icon,
   title,
+  description,
   action,
   children,
 }: {
   icon: React.ComponentType<{ className?: string }>;
   title: string;
+  description?: string;
   action?: React.ReactNode;
   children: React.ReactNode;
 }) {
   return (
     <Card>
       <CardContent className="p-6">
-        <div className="mb-5 flex items-center gap-3">
-          <span className="bg-surface-muted text-foreground flex size-9 items-center justify-center rounded-xl">
-            <Icon className="size-4" />
-          </span>
-          <h3 className="flex-1 text-lg font-semibold tracking-tight">{title}</h3>
-          {action}
+        <div className="mb-5 flex items-start justify-between gap-3">
+          <div className="flex min-w-0 items-start gap-3">
+            <span className="bg-surface-muted text-foreground inline-flex size-9 shrink-0 items-center justify-center rounded-xl">
+              <Icon className="size-4" />
+            </span>
+            <div className="min-w-0">
+              <h3 className="text-base leading-6 font-semibold tracking-tight">{title}</h3>
+              {description ? (
+                <p className="text-muted mt-0.5 text-sm leading-5">{description}</p>
+              ) : null}
+            </div>
+          </div>
+          {action ? <div className="shrink-0">{action}</div> : null}
         </div>
         {children}
       </CardContent>
@@ -63,407 +55,347 @@ function Section({
   );
 }
 
-function EmptySectionHint({ text }: { text: string }) {
+function EmptyHint({ text }: { text: string }) {
   return (
-    <div className="rounded-xl border border-dashed border-border p-8 text-center text-sm text-muted">
+    <div className="border-border text-muted rounded-xl border border-dashed p-6 text-center text-sm">
       {text}
     </div>
   );
 }
 
-export function ProfileForm({ profile }: { profile: UserProfile }) {
-  const [saved, setSaved] = useState(false);
-  const [fullName, setFullName] = useState(profile.fullName);
-  const [passport, setPassport] = useState(profile.passport);
-  const [snils, setSnils] = useState(profile.snils);
-  const [diplomas, setDiplomas] = useState(profile.diplomas);
-  const [achievements, setAchievements] = useState(profile.achievements);
-  const [education, setEducation] = useState(profile.education);
+interface ProfileFormProps {
+  profile: UserProfile;
+  diplomaTypes: DiplomaType[];
+  onSave: (data: ApiUserUpdate) => Promise<boolean>;
+  onAddDiploma: (data: ApiDiplomaCreate) => Promise<boolean>;
+  onDeleteDiploma: (id: string) => Promise<boolean>;
+}
 
-  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+export function ProfileForm({
+  profile,
+  diplomaTypes,
+  onSave,
+  onAddDiploma,
+  onDeleteDiploma,
+}: ProfileFormProps) {
+  const [lastName, setLastName] = useState(profile.fullName.last);
+  const [firstName, setFirstName] = useState(profile.fullName.first);
+  const [middleName, setMiddleName] = useState(profile.fullName.middle ?? "");
+  const [email, setEmail] = useState(profile.email);
+  const [education, setEducation] = useState(profile.education ?? "");
+  const [saving, setSaving] = useState(false);
+  const [saved, setSaved] = useState(false);
+
+  const [diplomaModalOpen, setDiplomaModalOpen] = useState(false);
+  const [deletingId, setDeletingId] = useState<string | null>(null);
+
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    setSaved(true);
-    window.setTimeout(() => setSaved(false), 2500);
+    setSaving(true);
+    const ok = await onSave({
+      first_name: firstName.trim(),
+      last_name: lastName.trim(),
+      patronymic: middleName.trim() || null,
+      email: email.trim(),
+      education: education.trim() || null,
+    });
+    setSaving(false);
+    if (ok) {
+      setSaved(true);
+      window.setTimeout(() => setSaved(false), 2500);
+    }
   }
 
-  const addDiploma = (
-    <Button
-      variant="secondary"
-      size="sm"
-      onClick={() =>
-        setDiplomas((items) => [
-          ...items,
-          {
-            id: uid(),
-            type: "school",
-            title: "",
-            institution: "",
-            year: new Date().getFullYear(),
-            averageScore: 5,
-          },
-        ])
-      }
-    >
-      <Plus className="size-4" />
-      Добавить
-    </Button>
-  );
-
-  const addAchievement = (
-    <Button
-      variant="secondary"
-      size="sm"
-      onClick={() =>
-        setAchievements((items) => [
-          ...items,
-          {
-            id: uid(),
-            title: "",
-            level: "regional",
-            year: new Date().getFullYear(),
-            points: 0,
-          },
-        ])
-      }
-    >
-      <Plus className="size-4" />
-      Добавить
-    </Button>
-  );
-
-  const addEducation = (
-    <Button
-      variant="secondary"
-      size="sm"
-      onClick={() =>
-        setEducation((items) => [
-          ...items,
-          { id: uid(), title: "", institution: "", year: new Date().getFullYear() },
-        ])
-      }
-    >
+  const addDiplomaButton = (
+    <Button variant="secondary" size="sm" onClick={() => setDiplomaModalOpen(true)}>
       <Plus className="size-4" />
       Добавить
     </Button>
   );
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col gap-6">
-      <Section icon={User} title="Личные данные">
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          <Field label="Фамилия" htmlFor="last">
-            <Input
-              id="last"
-              value={fullName.last}
-              onChange={(event) => setFullName({ ...fullName, last: event.target.value })}
-            />
-          </Field>
-          <Field label="Имя" htmlFor="first">
-            <Input
-              id="first"
-              value={fullName.first}
-              onChange={(event) => setFullName({ ...fullName, first: event.target.value })}
-            />
-          </Field>
-          <Field label="Отчество" htmlFor="middle">
-            <Input
-              id="middle"
-              value={fullName.middle}
-              onChange={(event) => setFullName({ ...fullName, middle: event.target.value })}
-            />
-          </Field>
-          <Field label="СНИЛС" htmlFor="snils">
-            <Input id="snils" value={snils} onChange={(event) => setSnils(event.target.value)} />
-          </Field>
-        </div>
-      </Section>
-
-      <Section icon={FileText} title="Паспорт">
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          <Field label="Серия" htmlFor="passport-series">
-            <Input
-              id="passport-series"
-              value={passport.series}
-              onChange={(event) => setPassport({ ...passport, series: event.target.value })}
-            />
-          </Field>
-          <Field label="Номер" htmlFor="passport-number">
-            <Input
-              id="passport-number"
-              value={passport.number}
-              onChange={(event) => setPassport({ ...passport, number: event.target.value })}
-            />
-          </Field>
-          <Field label="Код подразделения" htmlFor="passport-code">
-            <Input
-              id="passport-code"
-              value={passport.departmentCode}
-              onChange={(event) => setPassport({ ...passport, departmentCode: event.target.value })}
-            />
-          </Field>
-          <Field label="Кем выдан" htmlFor="passport-issued-by" className="sm:col-span-2">
-            <Input
-              id="passport-issued-by"
-              value={passport.issuedBy}
-              onChange={(event) => setPassport({ ...passport, issuedBy: event.target.value })}
-            />
-          </Field>
-          <Field label="Дата выдачи" htmlFor="passport-issued-at">
-            <Input
-              id="passport-issued-at"
-              type="date"
-              value={passport.issuedAt}
-              onChange={(event) => setPassport({ ...passport, issuedAt: event.target.value })}
-            />
-          </Field>
-        </div>
-      </Section>
-
-      <Section icon={GraduationCap} title="Дипломы и документы об образовании" action={addDiploma}>
-        {diplomas.length === 0 ? (
-          <EmptySectionHint text="Дипломы и аттестаты пока не добавлены. Нажмите «Добавить», чтобы указать документы об образовании." />
-        ) : (
-          <div className="flex flex-col gap-4">
-            {diplomas.map((diploma, index) => (
-              <div
-                key={diploma.id}
-                className="border-border grid gap-4 rounded-xl border p-4 sm:grid-cols-2 lg:grid-cols-5"
-              >
-                <Field label="Тип" htmlFor={`diploma-type-${diploma.id}`}>
-                  <Select
-                    id={`diploma-type-${diploma.id}`}
-                    value={diploma.type}
-                    onChange={(event) =>
-                      setDiplomas((items) =>
-                        items.map((item, i) =>
-                          i === index
-                            ? { ...item, type: event.target.value as Diploma["type"] }
-                            : item,
-                        ),
-                      )
-                    }
-                  >
-                    {Object.entries(diplomaTypeLabels).map(([value, label]) => (
-                      <option key={value} value={value}>
-                        {label}
-                      </option>
-                    ))}
-                  </Select>
-                </Field>
-                <Field
-                  label="Название"
-                  htmlFor={`diploma-title-${diploma.id}`}
-                  className="lg:col-span-2"
-                >
-                  <Input
-                    id={`diploma-title-${diploma.id}`}
-                    value={diploma.title}
-                    onChange={(event) =>
-                      setDiplomas((items) =>
-                        items.map((item, i) =>
-                          i === index ? { ...item, title: event.target.value } : item,
-                        ),
-                      )
-                    }
-                  />
-                </Field>
-                <Field label="Учебное заведение" htmlFor={`diploma-institution-${diploma.id}`}>
-                  <Input
-                    id={`diploma-institution-${diploma.id}`}
-                    value={diploma.institution}
-                    onChange={(event) =>
-                      setDiplomas((items) =>
-                        items.map((item, i) =>
-                          i === index ? { ...item, institution: event.target.value } : item,
-                        ),
-                      )
-                    }
-                  />
-                </Field>
-                <div className="flex items-end gap-2">
-                  <Field label="Год" htmlFor={`diploma-year-${diploma.id}`} className="flex-1">
-                    <Input
-                      id={`diploma-year-${diploma.id}`}
-                      type="number"
-                      value={diploma.year}
-                      onChange={(event) =>
-                        setDiplomas((items) =>
-                          items.map((item, i) =>
-                            i === index ? { ...item, year: Number(event.target.value) } : item,
-                          ),
-                        )
-                      }
-                    />
-                  </Field>
-                  <Button
-                    variant="ghost"
-                    size="md"
-                    aria-label="Удалить диплом"
-                    onClick={() => setDiplomas((items) => items.filter((_, i) => i !== index))}
-                  >
-                    <Trash className="size-4" />
-                  </Button>
-                </div>
-              </div>
-            ))}
+    <div className="flex flex-col gap-6">
+      <form onSubmit={handleSubmit} className="flex flex-col gap-6">
+        <SectionCard
+          icon={User}
+          title="Личные данные"
+          description="ФИО и контакты, которые используются в заявлениях."
+        >
+          <div className="grid gap-4 sm:grid-cols-2">
+            <Field label="Фамилия" htmlFor="last-name">
+              <Input
+                id="last-name"
+                value={lastName}
+                onChange={(event) => setLastName(event.target.value)}
+                autoComplete="family-name"
+              />
+            </Field>
+            <Field label="Имя" htmlFor="first-name">
+              <Input
+                id="first-name"
+                value={firstName}
+                onChange={(event) => setFirstName(event.target.value)}
+                autoComplete="given-name"
+              />
+            </Field>
+            <Field label="Отчество" htmlFor="middle-name">
+              <Input
+                id="middle-name"
+                value={middleName}
+                onChange={(event) => setMiddleName(event.target.value)}
+                autoComplete="additional-name"
+              />
+            </Field>
+            <Field label="Email" htmlFor="profile-email">
+              <Input
+                id="profile-email"
+                type="email"
+                value={email}
+                onChange={(event) => setEmail(event.target.value)}
+                autoComplete="email"
+              />
+            </Field>
           </div>
-        )}
-      </Section>
+        </SectionCard>
 
-      <Section icon={Award} title="Достижения" action={addAchievement}>
-        {achievements.length === 0 ? (
-          <EmptySectionHint text="Олимпиады, хакатоны и другие достижения пока не добавлены. Нажмите «Добавить», чтобы указать свои результаты." />
-        ) : (
-          <div className="flex flex-col gap-4">
-            {achievements.map((achievement, index) => (
-              <div
-                key={achievement.id}
-                className="border-border grid gap-4 rounded-xl border p-4 sm:grid-cols-2 lg:grid-cols-4"
-              >
-                <Field
-                  label="Название"
-                  htmlFor={`ach-title-${achievement.id}`}
-                  className="lg:col-span-2"
-                >
-                  <Input
-                    id={`ach-title-${achievement.id}`}
-                    value={achievement.title}
-                    onChange={(event) =>
-                      setAchievements((items) =>
-                        items.map((item, i) =>
-                          i === index ? { ...item, title: event.target.value } : item,
-                        ),
-                      )
-                    }
-                  />
-                </Field>
-                <Field label="Уровень" htmlFor={`ach-level-${achievement.id}`}>
-                  <Select
-                    id={`ach-level-${achievement.id}`}
-                    value={achievement.level}
-                    onChange={(event) =>
-                      setAchievements((items) =>
-                        items.map((item, i) =>
-                          i === index
-                            ? { ...item, level: event.target.value as Achievement["level"] }
-                            : item,
-                        ),
-                      )
-                    }
-                  >
-                    {Object.entries(achievementLevelLabels).map(([value, label]) => (
-                      <option key={value} value={value}>
-                        {label}
-                      </option>
-                    ))}
-                  </Select>
-                </Field>
-                <div className="flex items-end gap-2">
-                  <Field label="Баллы" htmlFor={`ach-points-${achievement.id}`} className="flex-1">
-                    <Input
-                      id={`ach-points-${achievement.id}`}
-                      type="number"
-                      value={achievement.points}
-                      onChange={(event) =>
-                        setAchievements((items) =>
-                          items.map((item, i) =>
-                            i === index ? { ...item, points: Number(event.target.value) } : item,
-                          ),
-                        )
-                      }
-                    />
-                  </Field>
-                  <Button
-                    variant="ghost"
-                    aria-label="Удалить достижение"
-                    onClick={() => setAchievements((items) => items.filter((_, i) => i !== index))}
-                  >
-                    <Trash className="size-4" />
-                  </Button>
-                </div>
-              </div>
-            ))}
-          </div>
-        )}
-      </Section>
+        <SectionCard
+          icon={BookOpen}
+          title="Дополнительное образование"
+          description="Курсы, школы и другие программы обучения."
+        >
+          <Field label="Сведения" htmlFor="education">
+            <Textarea
+              id="education"
+              value={education}
+              onChange={(event) => setEducation(event.target.value)}
+              placeholder="Например: 11 классов, курсы «Основы машинного обучения»"
+            />
+          </Field>
+        </SectionCard>
 
-      <Section icon={BookOpen} title="Другое образование" action={addEducation}>
-        {education.length === 0 ? (
-          <EmptySectionHint text="Курсы, школы и другие программы обучения пока не добавлены. Нажмите «Добавить», чтобы указать их." />
-        ) : (
-          <div className="flex flex-col gap-4">
-            {education.map((item, index) => (
-              <div
-                key={item.id}
-                className="border-border grid gap-4 rounded-xl border p-4 sm:grid-cols-2 lg:grid-cols-4"
-              >
-                <Field label="Название" htmlFor={`edu-title-${item.id}`}>
-                  <Input
-                    id={`edu-title-${item.id}`}
-                    value={item.title}
-                    onChange={(event) =>
-                      setEducation((items) =>
-                        items.map((entry, i) =>
-                          i === index ? { ...entry, title: event.target.value } : entry,
-                        ),
-                      )
-                    }
-                  />
-                </Field>
-                <Field label="Организация" htmlFor={`edu-institution-${item.id}`}>
-                  <Input
-                    id={`edu-institution-${item.id}`}
-                    value={item.institution}
-                    onChange={(event) =>
-                      setEducation((items) =>
-                        items.map((entry, i) =>
-                          i === index ? { ...entry, institution: event.target.value } : entry,
-                        ),
-                      )
-                    }
-                  />
-                </Field>
-                <Field label="Год" htmlFor={`edu-year-${item.id}`}>
-                  <Input
-                    id={`edu-year-${item.id}`}
-                    type="number"
-                    value={item.year}
-                    onChange={(event) =>
-                      setEducation((items) =>
-                        items.map((entry, i) =>
-                          i === index ? { ...entry, year: Number(event.target.value) } : entry,
-                        ),
-                      )
-                    }
-                  />
-                </Field>
-                <div className="flex items-end">
-                  <Button
-                    variant="ghost"
-                    aria-label="Удалить запись"
-                    onClick={() => setEducation((items) => items.filter((_, i) => i !== index))}
-                  >
-                    <Trash className="size-4" />
-                  </Button>
-                </div>
-              </div>
-            ))}
-          </div>
-        )}
-      </Section>
-
-      <div className="flex items-center justify-end gap-3 pt-2">
-        {saved ? (
-          <span className="flex items-center gap-1.5 text-sm text-emerald-600">
+        <div className="flex items-center justify-end gap-3">
+          {saved ? (
+            <span className="flex items-center gap-1.5 text-sm text-emerald-600">
+              <Check className="size-4" />
+              Изменения сохранены
+            </span>
+          ) : null}
+          <Button type="submit" size="lg" disabled={saving}>
             <Check className="size-4" />
-            Изменения сохранены
-          </span>
-        ) : null}
-        <Button type="submit" size="lg">
-          <Check className="size-4" />
-          Сохранить профиль
-        </Button>
+            {saving ? "Сохранение…" : "Сохранить профиль"}
+          </Button>
+        </div>
+      </form>
+
+      <div className="flex flex-col gap-6">
+        <SectionCard
+          icon={GraduationCap}
+          title="Дипломы и документы об образовании"
+          description="Аттестаты и дипломы, которые учитываются при подборе."
+          action={addDiplomaButton}
+        >
+          {profile.diplomas.length === 0 ? (
+            <EmptyHint text="Документы об образовании пока не добавлены. Нажмите «Добавить», чтобы указать диплом или аттестат." />
+          ) : (
+            <ul className="flex flex-col gap-3">
+              {profile.diplomas.map((diploma) => (
+                <li
+                  key={diploma.id}
+                  className="border-border bg-surface-muted/40 flex items-start justify-between gap-4 rounded-xl border p-4"
+                >
+                  <div className="min-w-0">
+                    <div className="flex flex-wrap items-center gap-2">
+                      <Badge>{diploma.typeName}</Badge>
+                      <span className="text-muted text-xs">{diploma.year}</span>
+                      {diploma.averageScore != null ? (
+                        <Badge variant="neutral">Средний балл {diploma.averageScore}</Badge>
+                      ) : null}
+                    </div>
+                    <p className="mt-2 font-medium">{diploma.name}</p>
+                    <p className="text-muted mt-0.5 text-sm">{diploma.institution}</p>
+                  </div>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    aria-label="Удалить диплом"
+                    disabled={deletingId === diploma.id}
+                    onClick={async () => {
+                      setDeletingId(diploma.id);
+                      await onDeleteDiploma(diploma.id);
+                      setDeletingId(null);
+                    }}
+                  >
+                    <Trash className="size-4" />
+                  </Button>
+                </li>
+              ))}
+            </ul>
+          )}
+        </SectionCard>
+
+        <SectionCard
+          icon={Award}
+          title="Достижения"
+          description="Олимпиады, спорт, волонтёрство и другие результаты."
+        >
+          {profile.achievements.length === 0 ? (
+            <EmptyHint text="Достижения пока не добавлены." />
+          ) : (
+            <ul className="flex flex-col gap-3">
+              {profile.achievements.map((achievement) => (
+                <li
+                  key={achievement.id}
+                  className="border-border bg-surface-muted/40 flex items-start justify-between gap-4 rounded-xl border p-4"
+                >
+                  <p className="font-medium">{achievement.name}</p>
+                  {achievement.category ? (
+                    <Badge variant="success">{achievement.category}</Badge>
+                  ) : null}
+                </li>
+              ))}
+            </ul>
+          )}
+        </SectionCard>
       </div>
-    </form>
+
+      {diplomaModalOpen ? (
+        <DiplomaModal
+          onClose={() => setDiplomaModalOpen(false)}
+          diplomaTypes={diplomaTypes}
+          onSubmit={onAddDiploma}
+        />
+      ) : null}
+    </div>
+  );
+}
+
+function DiplomaModal({
+  onClose,
+  diplomaTypes,
+  onSubmit,
+}: {
+  onClose: () => void;
+  diplomaTypes: DiplomaType[];
+  onSubmit: (data: ApiDiplomaCreate) => Promise<boolean>;
+}) {
+  const [typeId, setTypeId] = useState<number>(diplomaTypes[0]?.id ?? 1);
+  const [name, setName] = useState("");
+  const [institution, setInstitution] = useState("");
+  const [year, setYear] = useState(String(new Date().getFullYear()));
+  const [averageScore, setAverageScore] = useState("");
+  const [error, setError] = useState("");
+  const [submitting, setSubmitting] = useState(false);
+
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+
+    if (!name.trim() || !institution.trim()) {
+      setError("Заполните название документа и учебное заведение.");
+      return;
+    }
+    const yearValue = Number(year);
+    if (!Number.isInteger(yearValue) || yearValue < 1900 || yearValue > 2100) {
+      setError("Укажите корректный год.");
+      return;
+    }
+    let score: number | null = null;
+    if (averageScore.trim()) {
+      score = Number(averageScore.replace(",", "."));
+      if (Number.isNaN(score) || score < 0 || score > 5) {
+        setError("Средний балл должен быть числом от 0 до 5.");
+        return;
+      }
+    }
+
+    setSubmitting(true);
+    const ok = await onSubmit({
+      id_diploma_type: typeId,
+      name: name.trim(),
+      institution: institution.trim(),
+      year: yearValue,
+      average_score: score,
+    });
+    setSubmitting(false);
+    if (ok) onClose();
+  }
+
+  return (
+    <Modal
+      open
+      onClose={onClose}
+      title="Добавить документ об образовании"
+      description="Укажите тип, название, заведение и год получения."
+    >
+      <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+        <Field label="Тип документа" htmlFor="diploma-type">
+          <Select
+            id="diploma-type"
+            value={typeId}
+            onChange={(event) => setTypeId(Number(event.target.value))}
+          >
+            {diplomaTypes.map((type) => (
+              <option key={type.id} value={type.id}>
+                {type.name}
+              </option>
+            ))}
+          </Select>
+        </Field>
+        <Field label="Название" htmlFor="diploma-name">
+          <Input
+            id="diploma-name"
+            value={name}
+            onChange={(event) => setName(event.target.value)}
+            placeholder="Аттестат о среднем общем образовании"
+          />
+        </Field>
+        <Field label="Учебное заведение" htmlFor="diploma-institution">
+          <Input
+            id="diploma-institution"
+            value={institution}
+            onChange={(event) => setInstitution(event.target.value)}
+            placeholder="ГБОУ Школа № 179"
+          />
+        </Field>
+        <div className="grid gap-4 sm:grid-cols-2">
+          <Field label="Год получения" htmlFor="diploma-year">
+            <Input
+              id="diploma-year"
+              type="number"
+              min={1900}
+              max={2100}
+              value={year}
+              onChange={(event) => setYear(event.target.value)}
+            />
+          </Field>
+          <Field label="Средний балл" htmlFor="diploma-score" hint="Необязательно">
+            <Input
+              id="diploma-score"
+              type="number"
+              step="0.1"
+              min={0}
+              max={5}
+              value={averageScore}
+              onChange={(event) => setAverageScore(event.target.value)}
+              placeholder="4.8"
+            />
+          </Field>
+        </div>
+
+        {error ? (
+          <p className="rounded-lg border border-rose-200 bg-rose-50 px-3 py-2 text-sm text-rose-700 dark:border-rose-900 dark:bg-rose-950/40 dark:text-rose-300">
+            {error}
+          </p>
+        ) : null}
+
+        <div className="mt-1 flex justify-end gap-3">
+          <Button variant="secondary" onClick={onClose}>
+            Отмена
+          </Button>
+          <Button type="submit" disabled={submitting}>
+            {submitting ? "Сохранение…" : "Добавить"}
+          </Button>
+        </div>
+      </form>
+    </Modal>
   );
 }

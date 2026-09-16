@@ -6,11 +6,10 @@ import type { UserProfile } from "@/types";
 function getCompleteness(profile: UserProfile) {
   const checks = [
     Boolean(profile.fullName.last && profile.fullName.first),
-    Boolean(profile.passport.number),
-    Boolean(profile.snils),
+    Boolean(profile.email),
     profile.diplomas.length > 0,
     profile.achievements.length > 0,
-    profile.education.length > 0,
+    Boolean(profile.education),
   ];
   const done = checks.filter(Boolean).length;
   return Math.round((done / checks.length) * 100);
@@ -32,24 +31,25 @@ export function ProfileSidebar({ profile }: { profile: UserProfile }) {
         <div className="from-brand-600 to-brand-700 shadow-brand-500/20 flex size-20 items-center justify-center rounded-2xl bg-gradient-to-br text-2xl font-bold text-white shadow-lg">
           {initials}
         </div>
-        <h2 className="mt-4 text-lg font-semibold tracking-tight text-foreground">
-          {profile.fullName.last} {profile.fullName.first} {profile.fullName.middle}
+        <h2 className="text-foreground mt-4 text-lg font-semibold tracking-tight">
+          {profile.fullName.last} {profile.fullName.first}
+          {profile.fullName.middle ? ` ${profile.fullName.middle}` : ""}
         </h2>
-        <p className="mt-1 text-sm text-muted">{profile.email}</p>
-        <p className="text-sm text-muted">{profile.phone}</p>
+        <p className="text-muted mt-1 text-sm break-all">{profile.email}</p>
+        {profile.region ? <p className="text-muted text-sm">{profile.region}</p> : null}
 
-        <div className="mt-6 w-full border-t border-border pt-5">
+        <div className="border-border mt-6 w-full border-t pt-5">
           <div className="flex items-center justify-between text-sm">
             <span className="text-muted">Полнота профиля</span>
             <span className="font-semibold">{completeness}%</span>
           </div>
           <Progress className="mt-2" value={completeness} />
-          <p className="mt-3 text-xs leading-relaxed text-muted">
+          <p className="text-muted mt-3 text-xs leading-relaxed">
             Заполните профиль для точного подбора программ и расчёта шансов на поступление.
           </p>
         </div>
 
-        {(profile.diplomas.length > 0 || profile.achievements.length > 0) ? (
+        {profile.diplomas.length > 0 || profile.achievements.length > 0 ? (
           <div className="mt-5 flex flex-wrap justify-center gap-2">
             {profile.diplomas.length > 0 ? (
               <Badge>

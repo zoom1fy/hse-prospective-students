@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 
-import { ProfileForm } from "@/components/dashboard/profile-form";
-import { ProfileSidebar } from "@/components/dashboard/profile-sidebar";
-import { currentUserProfile } from "@/data/profile";
+import { ProfileContent } from "@/components/dashboard/profile-content";
 
 export const metadata: Metadata = {
   title: "Личные данные",
@@ -16,17 +14,12 @@ export default function DashboardProfilePage() {
           Личные данные
         </h1>
         <p className="mt-2 text-sm text-muted sm:text-base">
-          Заполните ФИО, паспорт, СНИЛС, дипломы и достижения — данные используются для
-          подбора программ.
+          Заполните ФИО, контакты, документы об образовании и достижения — данные используются
+          для подбора программ.
         </p>
       </div>
 
-      <div className="grid gap-6 xl:grid-cols-[1fr_300px] xl:items-start">
-        <ProfileForm profile={currentUserProfile} />
-        <div className="xl:sticky xl:top-24">
-          <ProfileSidebar profile={currentUserProfile} />
-        </div>
-      </div>
+      <ProfileContent />
     </div>
   );
 }
