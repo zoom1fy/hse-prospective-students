@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>HSE Prospective Students — платформа для абитуриентов</title>
+<meta name="description" content="Каталог университетов, факультетов и программ, личный кабинет с рекомендациями, древо заявок и админ-панель." />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23374b9b'/%3E%3Cpath d='M18 44V20h6v9h16v-9h6v24h-6v-9H24v9z' fill='%23fff'/%3E%3C/svg%3E" />
+<style>
+  :root {
+    --brand-50: #f1f3fa;
+    --brand-100: #e2e6f6;
+    --brand-200: #cad2ed;
+    --brand-300: #acb8e1;
+    --brand-400: #8a98cf;
+    --brand-500: #6675b8;
+    --brand-600: #374b9b;
+    --brand-700: #2f4188;
+    --brand-800: #273979;
+    --brand-900: #1b2f6c;
+    --accent: #0fa0d7;
+    --ink: #0d1220;
+    --muted: #5b6273;
+    --surface: #ffffff;
+    --surface-muted: #f3f4f5;
+    --border: #e6e7e8;
+    --radius: 16px;
+    --shadow: 0 10px 30px -18px rgba(15, 45, 105, 0.45);
+    --max: 1080px;
+  }
+
+  * { box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    margin: 0;
+    font-family: "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+    color: var(--ink);
+    background: var(--surface);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a { color: var(--brand-600); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  .wrap { width: 100%; max-width: var(--max); margin: 0 auto; padding: 0 20px; }
+
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.82);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 64px; gap: 16px; }
+  .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; color: var(--ink); }
+  .brand:hover { text-decoration: none; }
+  .brand-mark {
+    display: grid; place-items: center;
+    width: 34px; height: 34px; border-radius: 10px;
+    background: var(--brand-600); color: #fff; font-size: 15px; font-weight: 800;
+  }
+  .nav-links { display: flex; align-items: center; gap: 22px; font-size: 15px; }
+  .nav-links a { color: var(--muted); }
+  .nav-links a:hover { color: var(--brand-700); text-decoration: none; }
+  @media (max-width: 680px) { .nav-links .optional { display: none; } }
+
+  .hero {
+    position: relative;
+    overflow: hidden;
+    color: #fff;
+    background:
+      radial-gradient(900px 380px at 12% -10%, rgba(15, 160, 215, 0.45), transparent 60%),
+      radial-gradient(700px 360px at 92% 0%, rgba(102, 117, 184, 0.55), transparent 62%),
+      linear-gradient(140deg, var(--brand-900), var(--brand-700) 55%, var(--brand-600));
+  }
+  .hero-inner { padding: 84px 20px 88px; }
+  .eyebrow {
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.14);
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    font-size: 13px;
+    letter-spacing: 0.02em;
+  }
+  .hero h1 { margin: 20px 0 12px; font-size: clamp(30px, 5vw, 48px); line-height: 1.1; letter-spacing: -0.02em; }
+  .hero p.lead { margin: 0; max-width: 620px; font-size: clamp(16px, 2.2vw, 19px); color: rgba(255, 255, 255, 0.86); }
+  .cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 12px 20px; border-radius: 12px;
+    font-weight: 600; font-size: 15px;
+    border: 1px solid transparent;
+    transition: transform 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+  }
+  .btn:hover { text-decoration: none; transform: translateY(-1px); }
+  .btn-primary { background: #fff; color: var(--brand-700); }
+  .btn-ghost { background: rgba(255, 255, 255, 0.08); color: #fff; border-color: rgba(255, 255, 255, 0.35); }
+  .chips { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 34px; }
+  .chip {
+    padding: 6px 12px; border-radius: 999px; font-size: 13px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    color: rgba(255, 255, 255, 0.9);
+  }
+
+  section { padding: 72px 0; }
+  section.alt { background: var(--surface-muted); }
+  .section-head { max-width: 640px; margin-bottom: 36px; }
+  .section-head h2 { margin: 0 0 10px; font-size: clamp(24px, 3.4vw, 32px); letter-spacing: -0.01em; }
+  .section-head p { margin: 0; color: var(--muted); }
+
+  .grid { display: grid; gap: 18px; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 22px;
+    box-shadow: var(--shadow);
+  }
+  .card h3 { margin: 0 0 8px; font-size: 17px; }
+  .card p { margin: 0; color: var(--muted); font-size: 15px; }
+  .card .tag {
+    display: inline-block; margin-bottom: 12px;
+    width: 30px; height: 30px; border-radius: 9px;
+    background: var(--brand-100); color: var(--brand-700);
+    font-size: 13px; font-weight: 700; line-height: 30px; text-align: center;
+  }
+
+  .cols { display: grid; gap: 18px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+  .cols h3 { margin: 0 0 12px; font-size: 16px; color: var(--brand-700); }
+  ul.clean { list-style: none; margin: 0; padding: 0; }
+  ul.clean li { padding: 7px 0; border-bottom: 1px dashed var(--border); color: var(--muted); font-size: 15px; }
+  ul.clean li:last-child { border-bottom: 0; }
+
+  pre {
+    margin: 0;
+    padding: 18px 20px;
+    border-radius: var(--radius);
+    background: var(--ink);
+    color: #e6e7e8;
+    overflow-x: auto;
+    font-size: 14px;
+    border: 1px solid #1c2438;
+  }
+  code { font-family: "Cascadia Code", "Fira Code", Consolas, monospace; }
+  .note { margin-top: 16px; color: var(--muted); font-size: 14px; }
+
+  footer {
+    padding: 34px 0;
+    border-top: 1px solid var(--border);
+    color: var(--muted);
+    font-size: 14px;
+  }
+  .footer-inner { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; justify-content: space-between; }
+</style>
+</head>
+<body>
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a class="brand" href="#top">
+      <span class="brand-mark">HSE</span>
+      <span>Prospective Students</span>
+    </a>
+    <nav class="nav-links">
+      <a href="#features">Возможности</a>
+      <a class="optional" href="#stack">Технологии</a>
+      <a class="optional" href="#run">Запуск</a>
+      <a href="https://github.com/zoom1fy/hse-prospective-students">GitHub</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="wrap hero-inner">
+      <span class="eyebrow">Платформа помощи абитуриентам</span>
+      <h1>Выбор вуза и программы —<br />наглядно и без лишних шагов</h1>
+      <p class="lead">
+        Каталог университетов, факультетов и направлений с фильтрами, личный кабинет
+        с рекомендациями, древо поданных заявок, сравнение программ и консультация ИИ-чата.
+      </p>
+      <div class="cta">
+        <a class="btn btn-primary" href="https://github.com/zoom1fy/hse-prospective-students">Исходный код на GitHub</a>
+        <a class="btn btn-ghost" href="#features">Что внутри</a>
+      </div>
+      <div class="chips">
+        <span class="chip">FastAPI</span>
+        <span class="chip">PostgreSQL</span>
+        <span class="chip">Next.js 16</span>
+        <span class="chip">React 19</span>
+        <span class="chip">TypeScript</span>
+        <span class="chip">Tailwind CSS 4</span>
+        <span class="chip">Docker</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="features">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Возможности</h2>
+        <p>Всё, что нужно абитуриенту в одном месте — от подбора программ до отслеживания заявок.</p>
+      </div>
+      <div class="grid">
+        <article class="card">
+          <span class="tag">01</span>
+          <h3>Каталог вузов</h3>
+          <p>Университеты, факультеты и программы с поиском, фильтрами и карточками направлений.</p>
+        </article>
+        <article class="card">
+          <span class="tag">02</span>
+          <h3>Экзамены</h3>
+          <p>Наборы ЕГЭ и вступительных испытаний по каждой программе и форме обучения.</p>
+        </article>
+        <article class="card">
+          <span class="tag">03</span>
+          <h3>Заявления</h3>
+          <p>Подача заявок и отслеживание статусов в личном кабинете с древом заявок.</p>
+        </article>
+        <article class="card">
+          <span class="tag">04</span>
+          <h3>Рекомендации</h3>
+          <p>Подбор программ под профиль, баллы, экзамены и предпочтения пользователя.</p>
+        </article>
+        <article class="card">
+          <span class="tag">05</span>
+          <h3>Сравнение программ</h3>
+          <p>Сопоставление направлений по ключевым параметрам: баллы, экзамены, стоимость.</p>
+        </article>
+        <article class="card">
+          <span class="tag">06</span>
+          <h3>Свайпер вузов</h3>
+          <p>Быстрый выбор вуза в формате свайпов с карточками и направлениями.</p>
+        </article>
+        <article class="card">
+          <span class="tag">07</span>
+          <h3>Личный кабинет</h3>
+          <p>Профиль, дипломы и достижения, образовательные документы и история заявок.</p>
+        </article>
+        <article class="card">
+          <span class="tag">08</span>
+          <h3>ИИ-чат</h3>
+          <p>Консультация по поступлению: стриминговые ответы с поддержкой Markdown.</p>
+        </article>
+        <article class="card">
+          <span class="tag">09</span>
+          <h3>Админ-панель</h3>
+          <p>Управление справочниками, материалами, пользователями и заявками.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="stack" class="alt">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Технологии</h2>
+        <p>Монорепозиторий: асинхронный backend, современный frontend и reverse-proxy.</p>
+      </div>
+      <div class="cols">
+        <div>
+          <h3>Backend</h3>
+          <ul class="clean">
+            <li>FastAPI</li>
+            <li>SQLAlchemy 2.0 (async)</li>
+            <li>PostgreSQL + asyncpg</li>
+            <li>Pydantic v2</li>
+            <li>Alembic</li>
+            <li>JWT + argon2 (pwdlib)</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Frontend</h3>
+          <ul class="clean">
+            <li>Next.js (App Router)</li>
+            <li>React 19</li>
+            <li>TypeScript 5</li>
+            <li>Tailwind CSS 4</li>
+            <li>framer-motion</li>
+            <li>bun</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Инфраструктура</h3>
+          <ul class="clean">
+            <li>Docker Compose</li>
+            <li>nginx (reverse-proxy)</li>
+            <li>AI-прокси (streaming)</li>
+            <li>Redis</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="run">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Запуск</h2>
+        <p>Всё вместе — база данных, backend, фронтенд и nginx.</p>
+      </div>
+      <pre><code>docker compose build
+docker compose up -d</code></pre>
+      <p class="note">
+        Сайт: <a href="http://localhost">http://localhost</a> · API и Swagger: <a href="http://localhost/api">/api</a> ·
+        Health: <a href="http://localhost/health">/health</a>. Сервис миграций применяет схему и демо-данные при первом старте.
+      </p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap footer-inner">
+    <span>HSE Prospective Students · демонстрационная страница проекта</span>
+    <span>
+      <a href="https://github.com/zoom1fy/hse-prospective-students">Репозиторий</a> ·
+      <a href="https://github.com/zoom1fy/hse-prospective-students/blob/main/docs/website-structure.md">Документация</a>
+    </span>
+  </div>
+</footer>
+</body>
+</html>
