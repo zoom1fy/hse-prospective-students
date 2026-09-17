@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Input } from "@/components/ui/field";
+import { Markdown } from "@/components/chat/markdown";
 import { Bot, ChevronDown, Send, Sparkles, Trash } from "@/components/ui/icons";
 import { streamChat } from "@/lib/ai";
 import { cn } from "@/lib/utils";
@@ -160,13 +161,13 @@ export function ChatWindow() {
               ) : null}
               <div
                 className={cn(
-                  "max-w-[85%] rounded-2xl px-4 py-2.5 text-sm leading-relaxed whitespace-pre-wrap sm:max-w-[70%]",
+                  "max-w-[85%] rounded-2xl px-4 py-2.5 text-sm leading-relaxed sm:max-w-[70%]",
                   message.role === "user"
-                    ? "from-brand-600 to-brand-700 shadow-brand-500/20 rounded-br-md bg-linear-to-br text-white shadow-md"
+                    ? "from-brand-600 to-brand-700 shadow-brand-500/20 rounded-br-md bg-linear-to-br whitespace-pre-wrap text-white shadow-md"
                     : "border-border/60 bg-surface text-foreground dark:border-border dark:bg-surface-muted dark:text-foreground rounded-bl-md border shadow-sm",
                 )}
               >
-                {message.text}
+                {message.role === "bot" ? <Markdown content={message.text} /> : message.text}
               </div>
             </div>
           ))}
@@ -178,12 +179,12 @@ export function ChatWindow() {
               </span>
               <div
                 className={cn(
-                  "border-border/60 bg-surface text-foreground dark:border-border dark:bg-surface-muted dark:text-foreground max-w-[85%] rounded-2xl rounded-bl-md border px-4 py-2.5 text-sm leading-relaxed whitespace-pre-wrap shadow-sm sm:max-w-[70%]",
+                  "border-border/60 bg-surface text-foreground dark:border-border dark:bg-surface-muted dark:text-foreground max-w-[85%] rounded-2xl rounded-bl-md border px-4 py-2.5 text-sm leading-relaxed shadow-sm sm:max-w-[70%]",
                 )}
               >
                 {streaming.text ? (
                   <>
-                    {streaming.text}
+                    <Markdown content={streaming.text} />
                     <span className="bg-brand-500 ml-0.5 inline-block h-3.5 w-0.5 animate-pulse align-middle" />
                   </>
                 ) : (

@@ -42,7 +42,7 @@ python -m uvicorn app.main:app --reload
 - Alembic настроен на async (`alembic/env.py`), миграции — в `alembic/versions/`.
 - Команды: `python -m alembic revision --autogenerate -m "..."` и `python -m alembic upgrade head`.
 - При изменении моделей — генерируй миграцию и применяй её, не редактируй БД вручную.
-- Силд-данные для разработки — `backend/db_scripts/seed.sql` (применяется после `alembic upgrade head`, сбрасывает и заполняет данные; пароль демо-пользователей — `password123`).
+- Силд-данные для разработки — `backend/db_scripts/seed.sql` (применяется после `alembic upgrade head`, сбрасывает и заполняет данные; пароль демо-пользователей — `password123`, админ `admin@example.com` — `qwerty123`).
 
 ### Аутентификация и авторизация
 

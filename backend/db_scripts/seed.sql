@@ -131,7 +131,8 @@ INSERT INTO users (id, first_name, last_name, patronymic, email, password_hash, 
     (2, 'Мария', 'Петрова', 'Александровна', 'maria.petrova@example.com', '$argon2id$v=19$m=65536,t=3,p=4$yVXSThbNA6ksrMst7H2uDQ$Mi/kADD/5QyCeEcAFWc3MuCvAd0jENsStAR/CfG1tMw', FALSE, '11 классов', 2, '2026-09-01 10:05:00+00', '2026-09-01 10:05:00+00'),
     (3, 'Алексей', 'Смирнов', 'Сергеевич', 'alexey.smirnov@example.com', '$argon2id$v=19$m=65536,t=3,p=4$yVXSThbNA6ksrMst7H2uDQ$Mi/kADD/5QyCeEcAFWc3MuCvAd0jENsStAR/CfG1tMw', FALSE, '11 классов', 4, '2026-09-01 10:10:00+00', '2026-09-01 10:10:00+00'),
     (4, 'Елена', 'Кузнецова', 'Дмитриевна', 'elena.kuznetsova@example.com', '$argon2id$v=19$m=65536,t=3,p=4$yVXSThbNA6ksrMst7H2uDQ$Mi/kADD/5QyCeEcAFWc3MuCvAd0jENsStAR/CfG1tMw', FALSE, '11 классов', 3, '2026-09-01 10:15:00+00', '2026-09-01 10:15:00+00'),
-    (5, 'Дмитрий', 'Соколов', 'Олегович', 'dmitry.sokolov@example.com', '$argon2id$v=19$m=65536,t=3,p=4$yVXSThbNA6ksrMst7H2uDQ$Mi/kADD/5QyCeEcAFWc3MuCvAd0jENsStAR/CfG1tMw', FALSE, '11 классов', 5, '2026-09-01 10:20:00+00', '2026-09-01 10:20:00+00');
+    (5, 'Дмитрий', 'Соколов', 'Олегович', 'dmitry.sokolov@example.com', '$argon2id$v=19$m=65536,t=3,p=4$yVXSThbNA6ksrMst7H2uDQ$Mi/kADD/5QyCeEcAFWc3MuCvAd0jENsStAR/CfG1tMw', FALSE, '11 классов', 5, '2026-09-01 10:20:00+00', '2026-09-01 10:20:00+00'),
+    (6, 'Админ', 'Админов', 'Админович', 'admin@example.com', '$argon2id$v=19$m=65536,t=3,p=4$CtNfvWo2c5UszkG36UpD3g$HZXEsP/j/0hkmUX/6ApIKrjw6cqqERDWlfNqi/Z8dU0', TRUE, '11 классов', 1, '2026-09-01 10:25:00+00', '2026-09-01 10:25:00+00');
 
 -- ----- Дипломы и документы об образовании -----
 
