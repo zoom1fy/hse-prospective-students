@@ -39,4 +39,5 @@ class ProgramUpdate(BaseModel):
 
 class ProgramResponse(ProgramBase):
     id: int
+    passing_score: int | None = None
     model_config = ConfigDict(from_attributes=True)
