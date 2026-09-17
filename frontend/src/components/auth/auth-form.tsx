@@ -115,7 +115,8 @@ export function AuthForm({ mode }: AuthFormProps) {
           JSON.stringify({ email, firstName, lastName, patronymic, at: Date.now() }),
         );
       }
-      router.push("/dashboard");
+      const next = new URLSearchParams(window.location.search).get("next");
+      router.push(next?.startsWith("/") ? next : "/dashboard");
     } catch (err) {
       setError(err instanceof Error ? err.message : "Произошла ошибка");
     } finally {

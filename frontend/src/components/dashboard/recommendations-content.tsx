@@ -142,14 +142,14 @@ export function RecommendationsContent() {
                       href={`/universities/${program.university.slug}/programs/${program.slug}`}
                       size="sm"
                     >
-                      Сайт программы
+                      Страница программы
                     </ButtonLink>
                     <ButtonLink
                       href={`/universities/${program.university.slug}`}
                       variant="secondary"
                       size="sm"
                     >
-                      Сайт вуза
+                      Страница вуза
                     </ButtonLink>
                   </div>
                 </CardContent>
