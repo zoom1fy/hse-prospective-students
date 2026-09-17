@@ -31,6 +31,10 @@ function getAccessToken(): string | null {
   return window.localStorage.getItem(TOKEN_STORAGE_KEY);
 }
 
+export function isAuthenticated(): boolean {
+  return Boolean(getAccessToken());
+}
+
 export function setAccessToken(token: string): void {
   if (typeof window === "undefined") return;
   window.localStorage.setItem(TOKEN_STORAGE_KEY, token);
@@ -48,7 +52,7 @@ export function buildQuery(
   return query ? `?${query}` : "";
 }
 
-class ApiError extends Error {
+export class ApiError extends Error {
   constructor(
     message: string,
     readonly status: number,

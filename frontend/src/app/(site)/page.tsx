@@ -8,16 +8,17 @@ import { Container } from "@/components/ui/container";
 import { ArrowRight } from "@/components/ui/icons";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { calendarEvents } from "@/data/calendar";
-import { getPopularPrograms } from "@/lib/api";
+import { getCatalog } from "@/lib/api";
 import { getMaterialsCatalog } from "@/lib/api/materials";
 
 export const dynamic = "force-dynamic";
 
 export default async function HomePage() {
-  const [popularPrograms, materials] = await Promise.all([
-    getPopularPrograms(6),
-    getMaterialsCatalog(),
-  ]);
+  const [catalog, materials] = await Promise.all([getCatalog(), getMaterialsCatalog()]);
+
+  const popularPrograms = [...catalog.programs]
+    .sort((a, b) => b.university.rating - a.university.rating)
+    .slice(0, 6);
 
   return (
     <>
@@ -35,7 +36,7 @@ export default async function HomePage() {
 
             {/* Блок поиска на всю ширину блока */}
             <div className="mt-10 w-full">
-              <HeroSearch />
+              <HeroSearch programs={catalog.programs} cities={catalog.cities} />
             </div>
           </div>
         </Container>

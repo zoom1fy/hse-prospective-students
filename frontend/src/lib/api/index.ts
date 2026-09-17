@@ -173,11 +173,6 @@ export async function getUniversityGroups(
   }
 }
 
-export async function getPopularPrograms(limit = 6): Promise<ProgramWithContext[]> {
-  const { programs } = await getCatalog();
-  return programs.sort((a, b) => b.university.rating - a.university.rating).slice(0, limit);
-}
-
 export async function getProgramPage(
   universitySlug: string,
   programSlug: string,
@@ -291,6 +286,10 @@ export async function getStatementTree(): Promise<ApiStatementTreeUniversity[]> 
   } catch {
     return [];
   }
+}
+
+export async function applyToProgram(programId: string): Promise<ApiStatement> {
+  return await apiPost<ApiStatement>("/api/statements/", { id_program: Number(programId) });
 }
 
 async function mapRecommendations(

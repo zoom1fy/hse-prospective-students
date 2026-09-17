@@ -3,11 +3,11 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import { Breadcrumbs } from "@/components/layout/breadcrumbs";
+import { ApplyButton } from "@/components/programs/apply-button";
 import { Badge } from "@/components/ui/badge";
-import { ButtonLink } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Container } from "@/components/ui/container";
-import { ArrowRight, CalendarClock, Check, GraduationCap, Wallet } from "@/components/ui/icons";
+import { Award, CalendarClock, Check, GraduationCap, Wallet } from "@/components/ui/icons";
 import { getProgramPage } from "@/lib/api";
 import { degreeLabels, studyFormLabels } from "@/lib/site";
 import { formatCurrency, formatDate, formatNumber, getDaysLeft } from "@/lib/utils";
@@ -87,17 +87,6 @@ export default async function ProgramPage({
               Языки обучения: {program.languages.join(", ")}
             </p>
           </section>
-
-          <section className="mt-8">
-            <h2 className="text-lg font-semibold tracking-tight">Кем можно стать</h2>
-            <div className="mt-3 flex flex-wrap gap-2">
-              {program.career.map((role) => (
-                <Badge key={role} variant="neutral">
-                  {role}
-                </Badge>
-              ))}
-            </div>
-          </section>
         </div>
 
         <aside className="lg:sticky lg:top-24 lg:self-start">
@@ -108,6 +97,15 @@ export default async function ProgramPage({
                 <div>
                   <p className="text-muted text-sm">Бюджетные места</p>
                   <p className="font-semibold">{formatNumber(program.budgetPlaces)}</p>
+                </div>
+              </div>
+              <div className="flex items-center gap-3">
+                <Award className="text-brand-600 size-5" />
+                <div>
+                  <p className="text-muted text-sm">Проходной балл (сумма ЕГЭ)</p>
+                  <p className="font-semibold">
+                    {program.minScore > 0 ? program.minScore : "—"}
+                  </p>
                 </div>
               </div>
               <div className="flex items-center gap-3">
@@ -132,10 +130,8 @@ export default async function ProgramPage({
                 Срок обучения: {program.durationYears} лет
               </div>
 
-              <ButtonLink href="/dashboard/applications">
-                Подать документы
-                <ArrowRight className="size-4" />
-              </ButtonLink>
+              <ApplyButton programId={program.id} />
+
               <Link
                 href={`/universities/${university.slug}`}
                 className="text-brand-600 dark:text-brand-400 text-center text-sm font-medium hover:underline"

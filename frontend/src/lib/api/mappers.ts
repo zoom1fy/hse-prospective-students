@@ -50,7 +50,7 @@ export function mapApiProgram(api: ApiProgram): Program {
     budgetPlaces: api.budget_places,
     paidPlaces: api.paid_places,
     tuitionPerYear: Number(api.tuition_price ?? 0),
-    minScore: 0,
+    minScore: api.passing_score ?? 0,
     deadline: admissionDeadline(api.is_active),
     languages: ["Русский"],
     exams: [],

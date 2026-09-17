@@ -163,6 +163,7 @@ export interface ApiProgram {
   id_type_study: number;
   id_education_level: number;
   id_faculty: number;
+  passing_score: number | null;
 }
 
 export interface ApiStatement {

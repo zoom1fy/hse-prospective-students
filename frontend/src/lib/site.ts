@@ -26,6 +26,18 @@ export const studyFormLabels: Record<string, string> = {
   online: "Онлайн",
 };
 
+export const scoreFilterOptions = [
+  { value: "", label: "Любой балл" },
+  { value: "300", label: "до 300" },
+  { value: "280", label: "до 280" },
+  { value: "260", label: "до 260" },
+  { value: "240", label: "до 240" },
+  { value: "220", label: "до 220" },
+  { value: "200", label: "до 200" },
+  { value: "180", label: "до 180" },
+  { value: "160", label: "до 160" },
+] as const;
+
 export const applicationStatusLabels: Record<string, string> = {
   draft: "Черновик",
   submitted: "Заявление подано",

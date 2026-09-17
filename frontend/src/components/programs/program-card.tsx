@@ -1,6 +1,7 @@
 import { CalendarClock, GraduationCap, MapPin, Wallet } from "@/components/ui/icons";
 import type { ComponentProps } from "react";
 
+import { ApplyButton } from "@/components/programs/apply-button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { degreeLabels, studyFormLabels } from "@/lib/site";
@@ -10,11 +11,13 @@ import type { ProgramWithContext } from "@/types";
 interface ProgramCardProps extends ComponentProps<"div"> {
   program: ProgramWithContext;
   showUniversity?: boolean;
+  applyable?: boolean;
 }
 
 export function ProgramCard({
   program,
   showUniversity = true,
+  applyable = false,
   className,
   ...props
 }: ProgramCardProps) {
@@ -66,9 +69,12 @@ export function ProgramCard({
             href={href}
             className="text-brand-600 dark:text-brand-400 text-sm font-medium hover:underline"
           >
-            Сайт программы
+            Страница программы
           </a>
         </div>
+        {applyable ? (
+          <ApplyButton programId={program.id} size="sm" label="Записаться" className="mt-4" />
+        ) : null}
       </CardContent>
     </Card>
   );
