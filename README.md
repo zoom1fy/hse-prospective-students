@@ -17,9 +17,10 @@ backend/    FastAPI: app/api (роутеры), app/crud, app/services, app/model
             alembic/versions — миграции, db_scripts/seed.sql — демо-данные
 frontend/   Next.js: src/app (роуты), src/components, src/data (моки), src/lib/api
 nginx/      конфиг reverse-proxy
+ai_proxy.py AI-прокси для чат-бота (streaming /api/chat)
 docs/       ТЗ (website-structure.md), модель БД (db_models.md), анализ аналогов
 scripts/    скрипты запуска frontend (dev/prod/docker, .bat и .sh)
-docker-compose.yml   db + migrate + backend + frontend + nginx
+docker-compose.yml   db + migrate + backend + ai-proxy + frontend + nginx
 ```
 
 ## Запуск
@@ -33,6 +34,7 @@ docker compose up -d
 
 - Сайт: `http://localhost`
 - API и Swagger: `http://localhost/api` (OpenAPI — `/api/openapi.json`)
+- AI-чат: `http://localhost/api/chat` (streaming, через nginx на `ai-proxy`)
 - Health: `http://localhost/health`
 
 Сервис `migrate` применяет миграции и seed-данные при первом старте. Демо-пользователи: `password123`.
