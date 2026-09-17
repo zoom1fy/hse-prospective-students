@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.api.deps import get_current_user, require_admin
-from app.crud import statements
+from app.crud import programs, statements
 from app.db.database import get_db
 from app.models.user import User
 from app.schemas.statement import (
@@ -60,7 +60,14 @@ async def create_statement(
     user: User = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ):
-    return await statements.create_statement(db, user.id, data)
+    if await programs.get_program(db, data.id_program) is None:
+        raise HTTPException(404, "Program not found")
+    if await statements.get_statement_by_program(db, user.id, data.id_program) is not None:
+        raise HTTPException(409, "Вы уже подали заявку на эту программу")
+    try:
+        return await statements.create_statement(db, user.id, data)
+    except ValueError as error:
+        raise HTTPException(500, str(error)) from error
 
 
 @router.patch("/{statement_id}", response_model=StatementResponse)
@@ -74,3 +81,15 @@ async def update_statement(
     if not statement:
         raise HTTPException(404, "Statement not found")
     return await statements.update_statement(db, statement, data)
+
+
+@router.delete("/{statement_id}", status_code=204)
+async def delete_statement(
+    statement_id: int,
+    user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
+    statement = await statements.get_statement(db, user.id, statement_id)
+    if not statement:
+        raise HTTPException(404, "Statement not found")
+    await statements.delete_statement(db, statement)

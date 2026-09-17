@@ -5,7 +5,7 @@ from pydantic import BaseModel, ConfigDict
 
 class StatementCreate(BaseModel):
     id_program: int
-    id_status: int
+    id_status: int | None = None
 
 
 class StatementUpdate(BaseModel):
