@@ -18,6 +18,7 @@ const MAX_UNIVERSITIES = 15;
 
 interface UniversitySwiperProps {
   universities: University[];
+  programsByUniversity?: Record<string, string[]>;
 }
 
 function shuffle<T>(items: T[]): T[] {
@@ -29,7 +30,7 @@ function shuffle<T>(items: T[]): T[] {
   return result;
 }
 
-export function UniversitySwiper({ universities }: UniversitySwiperProps) {
+export function UniversitySwiper({ universities, programsByUniversity }: UniversitySwiperProps) {
   const [deck, setDeck] = useState<University[]>([]);
   const [index, setIndex] = useState(0);
   const [liked, setLiked] = useState<University[]>([]);
@@ -189,7 +190,11 @@ export function UniversitySwiper({ universities }: UniversitySwiperProps) {
               className="relative z-30 cursor-grab active:cursor-grabbing"
               style={{ touchAction: "pan-y" }}
             >
-              <SwipeCard university={current} dragX={dragX} />
+              <SwipeCard
+                university={current}
+                dragX={dragX}
+                directions={programsByUniversity?.[current.id] ?? []}
+              />
             </motion.div>
           ) : null}
         </AnimatePresence>
@@ -225,7 +230,15 @@ export function UniversitySwiper({ universities }: UniversitySwiperProps) {
 
 /* ---------- Single university card ---------- */
 
-function SwipeCard({ university, dragX }: { university: University; dragX: number }) {
+function SwipeCard({
+  university,
+  dragX,
+  directions,
+}: {
+  university: University;
+  dragX: number;
+  directions: string[];
+}) {
   const likeOpacity = Math.min(Math.max(dragX / 80, 0), 1);
   const nopeOpacity = Math.min(Math.max(-dragX / 80, 0), 1);
 
@@ -233,7 +246,7 @@ function SwipeCard({ university, dragX }: { university: University; dragX: numbe
     <Card className="overflow-hidden">
       <div className="relative h-48 sm:h-56">
         <UniversityImage university={university} className="absolute inset-0 h-full w-full" />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+        <div className="absolute inset-0 bg-linear-to-t from-black/70 via-black/20 to-transparent" />
 
         {/* Rating pill */}
         <div className="text-foreground absolute top-3 right-3 flex items-center gap-1 rounded-full border border-white/40 bg-white/85 px-2.5 py-1 text-xs font-semibold shadow-lg backdrop-blur-md">
@@ -274,6 +287,23 @@ function SwipeCard({ university, dragX }: { university: University; dragX: numbe
         <p className="text-muted line-clamp-3 text-sm leading-relaxed">
           {university.about || "Описание отсутствует."}
         </p>
+        {directions.length > 0 ? (
+          <div className="mt-4">
+            <p className="text-muted text-xs font-medium tracking-wide uppercase">
+              Направления в вузе
+            </p>
+            <div className="mt-2 flex flex-wrap gap-1.5">
+              {directions.slice(0, 4).map((name) => (
+                <Badge key={name} variant="outline">
+                  {name}
+                </Badge>
+              ))}
+            </div>
+            {directions.length > 4 ? (
+              <p className="text-muted mt-2 text-xs">и ещё {directions.length - 4} направлений</p>
+            ) : null}
+          </div>
+        ) : null}
         {university.tags.length > 0 ? (
           <div className="mt-4 flex flex-wrap gap-1.5">
             {university.tags.slice(0, 4).map((tag) => (
