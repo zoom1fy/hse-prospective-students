@@ -1,0 +1,8 @@
+:HL["/hse-prospective-students/_next/static/chunks/2hd3-bk2u3ya-.css","style"]
+:HL["/hse-prospective-students/_next/static/media/HSESans_Black-s.p.2n3icnmvr8x3g.otf","font",{"crossOrigin":"","type":"font/otf"}]
+:HL["/hse-prospective-students/_next/static/media/HSESans_Bold-s.p.39vcovel0jlsf.otf","font",{"crossOrigin":"","type":"font/otf"}]
+:HL["/hse-prospective-students/_next/static/media/HSESans_Italic-s.p.3b98l9zs68y96.otf","font",{"crossOrigin":"","type":"font/otf"}]
+:HL["/hse-prospective-students/_next/static/media/HSESans_Regular-s.p.0t5-o0_xq9io_.otf","font",{"crossOrigin":"","type":"font/otf"}]
+:HL["/hse-prospective-students/_next/static/media/HSESans_SemiBold-s.p.3yau0b-x5yn7_.otf","font",{"crossOrigin":"","type":"font/otf"}]
+:HL["/hse-prospective-students/_next/static/media/HSESans_Thin-s.p.16a6jfov4zqqe.otf","font",{"crossOrigin":"","type":"font/otf"}]
+0:{"tree":{"name":"","param":null,"prefetchHints":4184,"slots":{"children":{"name":"(site)","param":null,"prefetchHints":4200,"slots":{"children":{"name":"universities","param":null,"prefetchHints":4196,"slots":{"children":{"name":"slug","param":{"type":"d","key":"itmo","siblings":[]},"prefetchHints":4192,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":4256,"slots":null}}}}}}}}},"staleTime":300,"buildId":"pUpeWK-M0_u0yFS9kyUgb"}
