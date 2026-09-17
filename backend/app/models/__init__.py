@@ -11,6 +11,7 @@ from app.models.statement import Statement, StatementStatus
 from app.models.favorite import UserProgram
 from app.models.recommendation import RecommendationProgramUser
 from app.models.comparison import Comparison
+from app.models.specialty import Specialty
 
 __all__ = [
     "User",
@@ -33,4 +34,5 @@ __all__ = [
     "UserProgram",
     "RecommendationProgramUser",
     "Comparison",
+    "Specialty",
 ]

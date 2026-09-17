@@ -13,6 +13,7 @@ from app.api.routers import (
     statements,
     recommendations,
     comparisons,
+    vocational,
 )
 
 app = FastAPI(
@@ -42,6 +43,7 @@ app.include_router(materials.router, prefix="/api/materials", tags=["Materials"]
 app.include_router(statements.router, prefix="/api/statements", tags=["Statements"])
 app.include_router(recommendations.router, prefix="/api/recommendations", tags=["Recommendations"])
 app.include_router(comparisons.router, prefix="/api/comparisons", tags=["Comparisons"])
+app.include_router(vocational.router, prefix="/api/vocational", tags=["Vocational"])
 
 
 @app.get("/")

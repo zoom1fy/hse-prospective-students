@@ -8,6 +8,7 @@ from app.api.routers import (
     statements,
     recommendations,
     comparisons,
+    vocational,
 )
 
 __all__ = [
@@ -20,4 +21,5 @@ __all__ = [
     "statements",
     "recommendations",
     "comparisons",
+    "vocational",
 ]
