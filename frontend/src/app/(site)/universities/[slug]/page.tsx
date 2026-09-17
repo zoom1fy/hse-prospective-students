@@ -6,6 +6,7 @@ import { ProgramCard } from "@/components/programs/program-card";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { Container } from "@/components/ui/container";
+import { UniversityImage } from "@/components/ui/university-image";
 import { getUniversityBySlug, getUniversityGroups } from "@/lib/api";
 import { formatNumber } from "@/lib/utils";
 
@@ -35,14 +36,26 @@ export default async function UniversityPage({ params }: PageProps<"/universitie
   const programsCount = universityGroups.reduce((sum, group) => sum + group.programs.length, 0);
 
   return (
-    <Container className="py-8 sm:py-12">
-      <Breadcrumbs
-        items={[
-          { label: "Главная", href: "/" },
-          { label: "Вузы и программы", href: "/universities" },
-          { label: university.shortName },
-        ]}
-      />
+    <div className="relative isolate">
+      <div
+        className="pointer-events-none absolute inset-0 overflow-hidden"
+        aria-hidden="true"
+      >
+        <UniversityImage
+          university={university}
+          className="h-full w-full scale-110 object-cover blur-3xl opacity-30"
+        />
+        <div className="absolute inset-0 bg-background/60" />
+      </div>
+
+      <Container className="relative z-10 py-8 sm:py-12">
+        <Breadcrumbs
+          items={[
+            { label: "Главная", href: "/" },
+            { label: "Вузы и программы", href: "/universities" },
+            { label: university.shortName },
+          ]}
+        />
 
       <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
         {university.ranking > 0 ? (
@@ -100,7 +113,12 @@ export default async function UniversityPage({ params }: PageProps<"/universitie
                 <p className="text-muted mt-1 max-w-3xl text-sm">{faculty.about}</p>
                 <div className="mt-5 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
                   {programs.map((program) => (
-                    <ProgramCard key={program.id} program={program} showUniversity={false} />
+                    <ProgramCard
+                      key={program.id}
+                      program={program}
+                      showUniversity={false}
+                      applyable
+                    />
                   ))}
                 </div>
               </section>
@@ -108,6 +126,7 @@ export default async function UniversityPage({ params }: PageProps<"/universitie
           })}
         </div>
       </div>
-    </Container>
+      </Container>
+    </div>
   );
 }

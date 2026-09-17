@@ -5,7 +5,8 @@ import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { ExternalLink, Star } from "@/components/ui/icons";
-import { getUniversity, universities } from "@/data/universities";
+import { universities } from "@/data/universities";
+import { getUniversityBySlug } from "@/lib/api";
 import { formatCompact } from "@/lib/utils";
 
 export function generateStaticParams() {
@@ -20,7 +21,7 @@ export default async function UniversityLayout({
   children: React.ReactNode;
 }) {
   const { slug } = await params;
-  const university = getUniversity(slug);
+  const university = await getUniversityBySlug(slug);
 
   if (!university) {
     notFound();
@@ -38,27 +39,22 @@ export default async function UniversityLayout({
               <div>
                 <h1 className="text-2xl font-semibold tracking-tight">{university.shortName}</h1>
                 <p className="text-muted mt-1 text-sm">
-                  {university.city} · основан в {university.founded} г.
+                  {university.city}
                 </p>
-                <div className="mt-3 flex flex-wrap items-center gap-2">
-                  <Badge>
-                    <Star className="mr-1 size-3.5" />
-                    Рейтинг {university.ranking} в России
-                  </Badge>
-                  <Badge variant="neutral">{formatCompact(university.students)} студентов</Badge>
-                </div>
               </div>
             </div>
 
-            <a
-              href={university.website}
-              target="_blank"
-              rel="noreferrer"
-              className={buttonVariants({ variant: "secondary" })}
-            >
-              Официальный сайт
-              <ExternalLink className="size-4" />
-            </a>
+            {university.website ? (
+              <a
+                href={university.website}
+                target="_blank"
+                rel="noreferrer"
+                className={buttonVariants({ variant: "secondary" })}
+              >
+                Перейти на сайт вуза
+                <ExternalLink className="size-4" />
+              </a>
+            ) : null}
           </div>
 
           <nav className="mt-6 flex flex-wrap gap-1">
